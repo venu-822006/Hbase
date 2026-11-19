@@ -2,6 +2,10 @@ package crm;
 
 import org.apache.spark.sql.*;
 import org.apache.spark.sql.types.StructType;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import static org.apache.spark.sql.functions.*;
 
@@ -22,6 +26,23 @@ public class SparkEtlLoad {
     public static void main(String[] args) throws Exception {
         List<String> a = Arrays.asList(args);
         boolean csv = a.contains("--csv"), dry = a.contains("--dry-run");
+
+        if (!csv) {
+            String[] parts = Common.KAFKA.split(":");
+            String host = parts[0];
+            int port = parts.length > 1 ? Integer.parseInt(parts[1]) : 9092;
+            boolean kafkaOk = false;
+            try (Socket s = new Socket()) {
+                s.connect(new InetSocketAddress(host, port), 1000);
+                kafkaOk = true;
+            } catch (Exception ignored) {}
+
+            if (!kafkaOk) {
+                System.out.println("Notice: Kafka broker not listening on " + Common.KAFKA + ". Switching Spark ETL to read raw CSV directly.");
+                csv = true;
+            }
+        }
+
         SparkSession spark = SparkSession.builder().appName("crm-etl").master("local[*]")
                 .config("spark.ui.enabled", "false").config("spark.sql.shuffle.partitions", "8")
                 .config("spark.sql.legacy.timeParserPolicy", "CORRECTED").getOrCreate();
@@ -30,7 +51,15 @@ public class SparkEtlLoad {
 
         Dataset<Row> raw;
         if (csv) {
-            Dataset<Row> r = spark.read().option("header", "true").option("escape", "\"").option("multiLine", "false").csv(Common.RAW_FILE);
+            String rawFile = Common.RAW_FILE;
+            if (!Files.exists(Paths.get(rawFile))) {
+                if (Files.exists(Paths.get("data/raw/online_retail.csv"))) {
+                    rawFile = "data/raw/online_retail.csv";
+                } else if (Files.exists(Paths.get("../data/raw/online_retail.csv"))) {
+                    rawFile = "../data/raw/online_retail.csv";
+                }
+            }
+            Dataset<Row> r = spark.read().option("header", "true").option("escape", "\"").option("multiLine", "false").csv(rawFile);
             for (String c : r.columns()) r = r.withColumnRenamed(c, Common.canon(c));
             List<Column> sel = new ArrayList<>();
             for (String f : schema.fieldNames()) sel.add(Arrays.asList(r.columns()).contains(f) ? col(f).cast("string").alias(f) : lit(null).cast("string").alias(f));
@@ -61,9 +90,6 @@ public class SparkEtlLoad {
             HBaseLoader.load(orders, "crm_orders", m);
             m = new LinkedHashMap<>(); m.put("activity:type", "type"); m.put("activity:amount", "amount");
             HBaseLoader.load(inter, "crm_interaction", m);
-            Dataset<Row> camp = spark.read().option("header", "true").csv("config/campaigns.csv").withColumn("rowkey", col("campaign_id"));
-            m = new LinkedHashMap<>(); m.put("detail:name", "name"); m.put("detail:channel", "channel"); m.put("detail:rule", "target_rule");
-            HBaseLoader.load(camp, "crm_campaign", m);
         }
         spark.stop();
     }

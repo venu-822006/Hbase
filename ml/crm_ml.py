@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """ML part (Python only) - Spark MLlib on REAL customer data (no synthetic labels).
 
 Time-based set-up (standard for retail CRM):
@@ -9,10 +10,30 @@ Time-based set-up (standard for retail CRM):
   * The trained models then score every customer using features as of "now" (churn risk + expected spend, next 180 days)
   * K-Means groups customers into 4 segments using RFM features as of "now".
 
-Data source:  --source phoenix (default, SQL on HBase) | hbase (direct scans) | csv (data/clean/*.csv written by the Spark ETL)
+Data source:  --source phoenix | hbase | csv (default: csv from data/clean/*.csv written by the Spark ETL)
 Fast Inference: --predict --recency R --frequency F --monetary M --cancellations C
 """
-import argparse, os, json, math, datetime
+import sys
+import os
+
+# 1. Ensure Java 17 is in JAVA_HOME for PySpark
+if "JAVA_HOME" not in os.environ or "17" not in os.environ.get("JAVA_HOME", ""):
+    if os.path.exists("/usr/lib/jvm/java-17-temurin-jdk"):
+        os.environ["JAVA_HOME"] = "/usr/lib/jvm/java-17-temurin-jdk"
+
+# 2. If running under system python without numpy/pyspark, transparently switch to .venv python
+_script_dir = os.path.dirname(os.path.abspath(__file__))
+_venv_python = os.path.abspath(os.path.join(_script_dir, "..", ".venv", "bin", "python3"))
+
+if os.path.exists(_venv_python) and os.path.abspath(sys.executable) != _venv_python:
+    try:
+        import numpy
+        import pandas
+        import pyspark
+    except ImportError:
+        os.execv(_venv_python, [_venv_python] + sys.argv)
+
+import argparse, json, math, datetime
 import numpy as np
 import pandas as pd
 
@@ -103,28 +124,43 @@ def ts(s): return pd.to_datetime(s.astype(str), format="%Y%m%d%H%M%S")
 
 def load():
     if args.source == "csv":
-        c = pd.read_csv(os.path.join(DATA, "clean", "customers.csv"), dtype=str)
-        o = pd.read_csv(os.path.join(DATA, "clean", "orders.csv"), dtype={"cid": str, "ts14": str})
-        x = pd.read_csv(os.path.join(DATA, "clean", "cancellations.csv"), dtype={"cid": str, "ts14": str})
-        c = c.rename(columns={"cid": "customer_id"}); o = o.rename(columns={"cid": "customer_id", "ts14": "ts"})
-        x = x.rename(columns={"cid": "customer_id", "ts14": "ts"})
+        return load_csv()
     elif args.source == "phoenix":
-        import phoenixdb
-        cur = phoenixdb.connect(PHOENIX, autocommit=True).cursor()
-        def q(sql, cols):
-            cur.execute(sql); return pd.DataFrame(cur.fetchall(), columns=cols)
-        c = q('SELECT rk, "country", "first_order_date" FROM "crm_customer"', ["customer_id", "country", "first_order_date"])
-        o = q('SELECT SUBSTR(rk,1,7), SUBSTR(rk,9,14), CAST("amount" AS DOUBLE) FROM "crm_orders"', ["customer_id", "ts", "amount"])
-        x = q('SELECT SUBSTR(rk,1,7), SUBSTR(rk,9,14), CAST("amount" AS DOUBLE) FROM "crm_interaction" WHERE "type" = \'cancellation\'',
-              ["customer_id", "ts", "amount"])
+        try:
+            import phoenixdb
+            cur = phoenixdb.connect(PHOENIX, autocommit=True).cursor()
+            def q(sql, cols):
+                cur.execute(sql); return pd.DataFrame(cur.fetchall(), columns=cols)
+            c = q('SELECT rk, "country", "first_order_date" FROM "crm_customer"', ["customer_id", "country", "first_order_date"])
+            o = q('SELECT SUBSTR(rk,1,7), SUBSTR(rk,9,14), CAST("amount" AS DOUBLE) FROM "crm_orders"', ["customer_id", "ts", "amount"])
+            x = q('SELECT SUBSTR(rk,1,7), SUBSTR(rk,9,14), CAST("amount" AS DOUBLE) FROM "crm_interaction" WHERE "type" = \'cancellation\'',
+                  ["customer_id", "ts", "amount"])
+        except Exception as e:
+            print(f"Warning: Phoenix query server unavailable ({e}). Falling back to cleaned CSV data.")
+            return load_csv()
     else:
-        import happybase
-        t = happybase.Connection(HOST, port=PORT, timeout=60000)
-        def scan(name, fam):
-            return [(k.decode(), {c.decode().split(":")[1]: v.decode() for c, v in d.items()}) for k, d in t.table(name).scan(batch_size=2000, columns=[fam])]
-        c = pd.DataFrame([{"customer_id": k, **d} for k, d in scan("crm_customer", "profile")])
-        o = pd.DataFrame([{"customer_id": k[:7], "ts": k[8:22], "amount": float(d["amount"])} for k, d in scan("crm_orders", "info")])
-        x = pd.DataFrame([{"customer_id": k[:7], "ts": k[8:22], "amount": float(d["amount"])} for k, d in scan("crm_interaction", "activity") if d.get("type") == "cancellation"])
+        try:
+            import happybase
+            t = happybase.Connection(HOST, port=PORT, timeout=60000)
+            def scan(name, fam):
+                return [(k.decode(), {c.decode().split(":")[1]: v.decode() for c, v in d.items()}) for k, d in t.table(name).scan(batch_size=2000, columns=[fam])]
+            c = pd.DataFrame([{"customer_id": k, **d} for k, d in scan("crm_customer", "profile")])
+            o = pd.DataFrame([{"customer_id": k[:7], "ts": k[8:22], "amount": float(d["amount"])} for k, d in scan("crm_orders", "info")])
+            x = pd.DataFrame([{"customer_id": k[:7], "ts": k[8:22], "amount": float(d["amount"])} for k, d in scan("crm_interaction", "activity") if d.get("type") == "cancellation"])
+        except Exception as e:
+            print(f"Warning: HBase Thrift scan unavailable ({e}). Falling back to cleaned CSV data.")
+            return load_csv()
+    o["ts"] = ts(o["ts"])
+    x = x if len(x) else pd.DataFrame({"customer_id": [], "ts": pd.to_datetime([]), "amount": []})
+    if len(x): x["ts"] = ts(x["ts"])
+    return c, o, x
+
+def load_csv():
+    c = pd.read_csv(os.path.join(DATA, "clean", "customers.csv"), dtype=str)
+    o = pd.read_csv(os.path.join(DATA, "clean", "orders.csv"), dtype={"cid": str, "ts14": str})
+    x = pd.read_csv(os.path.join(DATA, "clean", "cancellations.csv"), dtype={"cid": str, "ts14": str})
+    c = c.rename(columns={"cid": "customer_id"}); o = o.rename(columns={"cid": "customer_id", "ts14": "ts"})
+    x = x.rename(columns={"cid": "customer_id", "ts14": "ts"})
     o["ts"] = ts(o["ts"])
     x = x if len(x) else pd.DataFrame({"customer_id": [], "ts": pd.to_datetime([]), "amount": []})
     if len(x): x["ts"] = ts(x["ts"])
@@ -194,7 +230,7 @@ res["segment"] = res["cluster"].map(dict(zip(order, ["Low value", "Regular", "Lo
 res = res[["customer_id", "country", "segment", "churn_prob", "clv_pred", "recency", "frequency", "monetary", "cancellations"]]
 os.makedirs(DATA, exist_ok=True)
 res.to_csv(os.path.join(DATA, "results.csv"), index=False)
-open(os.path.join(DATA, "metrics.txt"), "w").write(f"{auc:.3f},{r2:.3f},{len(res)},{now:%Y-%m-%d}")
+open(os.path.join(DATA, "metrics.txt"), "w").write(f"{auc:.3f},{r2:.3f},{len(res)},{now:%Y-%m-%d}\n")
 
 # Save model parameters for instantaneous API inference
 model_meta = {
@@ -223,12 +259,15 @@ with open(os.path.join(DATA, "ml_model_params.json"), "w") as f:
     json.dump(model_meta, f, indent=2)
 
 if args.source != "csv":   # write predictions back into HBase, family 'ml' (visible through Phoenix)
-    import happybase
-    t = happybase.Connection(HOST, port=PORT, timeout=60000).table("crm_customer")
-    with t.batch(batch_size=2000) as b:
-        for r in res.itertuples():
-            b.put(r.customer_id.encode(), {b"ml:segment": r.segment.encode(), b"ml:churn_prob": str(r.churn_prob).encode(), b"ml:clv_pred": str(r.clv_pred).encode()})
-    print("predictions written back to HBase (crm_customer, family 'ml')")
+    try:
+        import happybase
+        t = happybase.Connection(HOST, port=PORT, timeout=60000).table("crm_customer")
+        with t.batch(batch_size=2000) as b:
+            for r in res.itertuples():
+                b.put(r.customer_id.encode(), {b"ml:segment": r.segment.encode(), b"ml:churn_prob": str(r.churn_prob).encode(), b"ml:clv_pred": str(r.clv_pred).encode()})
+        print("predictions written back to HBase (crm_customer, family 'ml')")
+    except Exception as e:
+        print(f"Notice: HBase Thrift write-back skipped ({e}). Saved to {DATA}/results.csv")
 print(res.segment.value_counts().to_string())
 print(f"Churn model AUC = {auc:.3f} | Spend model R2 = {r2:.3f}   (evaluated on held-out customers)")
 spark.stop()

@@ -9,7 +9,10 @@ import java.util.*;
 public class Common {
     public static String env(String k, String d) { String v = System.getenv(k); return v == null ? d : v; }
     public static final String DATA = env("CRM_DATA", "data");
-    public static final String RAW_FILE = env("RAW_FILE", "hdfs:///crm/data/raw/online_retail.csv");  // your real sales / CRM export
+    public static final String RAW_FILE = env("RAW_FILE",
+            Files.exists(Paths.get("data/raw/online_retail.csv")) ? "data/raw/online_retail.csv" :
+            Files.exists(Paths.get("../data/raw/online_retail.csv")) ? "../data/raw/online_retail.csv" :
+            "hdfs:///crm/data/raw/online_retail.csv");
     public static final String ZK = env("HBASE_ZK", "localhost");
     public static final String ZK_PORT = env("HBASE_ZK_PORT", "2181");
     public static final String KAFKA = env("KAFKA_SERVERS", "localhost:9092");
