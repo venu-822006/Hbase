@@ -1,0 +1,26 @@
+# Build outputs
+target/
+api/target/
+frontend/dist/
+
+# Logs and temporary files
+*.log
+api/startup.log
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Archives and raw large exports
+*.zip
+*.tar.gz
+*.xlsx
+data/raw/*.csv
+data/raw/*.xlsx
+data/raw/*.zip
+
+# IDE
+.idea/
+*.iml
+.vscode/

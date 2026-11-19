@@ -1,0 +1,5 @@
+campaign_id,name,channel,target_rule
+M001,Welcome offer,email,New customers after first order
+M002,Win-back discount,email,Churn probability 60% or higher
+M003,Seasonal sale,web,All active customers
+M004,Loyalty rewards,email,Loyal or Premium segment with churn probability below 30%

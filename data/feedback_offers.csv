@@ -1,0 +1,3895 @@
+customer_id,country,segment,churn_prob,campaign
+C012347,Iceland,Loyal,0.1492,M004
+C012348,Finland,Loyal,0.2687,M004
+C012349,Italy,Low value,0.7805,M002
+C012350,Norway,Regular,0.8311,M002
+C012351,Unspecified,Low value,0.878,M002
+C012352,Norway,Loyal,0.147,M004
+C012353,Bahrain,Regular,0.6509,M002
+C012354,Spain,Regular,0.6815,M002
+C012355,Bahrain,Loyal,0.644,M002
+C012357,Switzerland,Loyal,0.2123,M004
+C012359,Cyprus,Premium,0.1362,M004
+C012360,Austria,Loyal,0.2154,M004
+C012361,Belgium,Low value,0.6933,M002
+C012362,Belgium,Loyal,0.1091,M004
+C012365,Cyprus,Regular,0.8028,M002
+C012366,Cyprus,Low value,0.9664,M002
+C012368,Cyprus,Low value,0.9592,M002
+C012369,Austria,Low value,0.7757,M002
+C012370,Austria,Loyal,0.2037,M004
+C012371,Switzerland,Loyal,0.2855,M004
+C012373,Austria,Loyal,0.7134,M002
+C012374,Austria,Low value,0.8041,M002
+C012375,Finland,Regular,0.6128,M002
+C012376,Switzerland,Low value,0.8262,M002
+C012380,Belgium,Premium,0.168,M004
+C012385,Belgium,Low value,0.811,M002
+C012386,Australia,Low value,0.7751,M002
+C012387,Australia,Low value,0.9183,M002
+C012388,Australia,Loyal,0.2129,M004
+C012389,Australia,Low value,0.7714,M002
+C012391,Cyprus,Low value,0.7302,M002
+C012392,Australia,Low value,0.9653,M002
+C012393,Australia,Loyal,0.2127,M004
+C012395,Belgium,Premium,0.1098,M004
+C012396,RSA,Low value,0.9685,M002
+C012400,Australia,Low value,0.91,M002
+C012401,Belgium,Regular,0.8767,M002
+C012408,Belgium,Premium,0.1341,M004
+C012409,Switzerland,Premium,0.1202,M004
+C012410,Switzerland,Loyal,0.6731,M002
+C012411,Australia,Low value,0.8942,M002
+C012412,Denmark,Loyal,0.2285,M004
+C012415,Australia,Premium,0.0287,M004
+C012416,Australia,Low value,0.9771,M002
+C012417,Belgium,Premium,0.0908,M004
+C012419,Spain,Low value,0.8219,M002
+C012422,Australia,Premium,0.1735,M004
+C012423,Belgium,Loyal,0.202,M004
+C012426,Germany,Loyal,0.6157,M002
+C012428,Finland,Premium,0.1618,M004
+C012429,Austria,Loyal,0.2672,M004
+C012431,Australia,Premium,0.0624,M004
+C012433,Norway,Premium,0.1244,M004
+C012435,Denmark,Loyal,0.1964,M004
+C012437,France,Premium,0.0507,M004
+C012439,Cyprus,Low value,0.9502,M002
+C012440,Austria,Low value,0.8791,M002
+C012441,France,Low value,0.8916,M002
+C012443,Norway,Low value,0.9827,M002
+C012445,Spain,Low value,0.8991,M002
+C012447,Belgium,Regular,0.7478,M002
+C012449,Belgium,Loyal,0.2798,M004
+C012451,Switzerland,Premium,0.1521,M004
+C012454,Spain,Premium,0.1497,M004
+C012455,Cyprus,Loyal,0.1855,M004
+C012457,Cyprus,Premium,0.1752,M004
+C012459,Spain,Low value,0.963,M002
+C012460,Belgium,Low value,0.9212,M002
+C012461,Switzerland,Regular,0.6112,M002
+C012462,Spain,Regular,0.7858,M002
+C012465,Belgium,Regular,0.6597,M002
+C012467,USA,Low value,0.9197,M002
+C012469,Thailand,Low value,0.8506,M002
+C012470,Unspecified,Low value,0.9809,M002
+C012471,Germany,Premium,0.022,M004
+C012472,Germany,Premium,0.0635,M004
+C012474,Germany,Premium,0.0566,M004
+C012476,Germany,Premium,0.0684,M004
+C012477,Germany,Premium,0.1173,M004
+C012480,Germany,Loyal,0.148,M004
+C012481,Germany,Premium,0.1019,M004
+C012483,Sweden,Premium,0.0992,M004
+C012484,Spain,Premium,0.1394,M004
+C012485,Sweden,Low value,0.9336,M002
+C012486,Sweden,Low value,0.8796,M002
+C012487,Sweden,Low value,0.9828,M002
+C012489,France,Low value,0.8512,M002
+C012490,France,Premium,0.0984,M004
+C012494,France,Premium,0.1871,M004
+C012495,Sweden,Low value,0.9712,M002
+C012496,Spain,Low value,0.9712,M002
+C012499,Germany,Low value,0.9536,M002
+C012500,Germany,Premium,0.1006,M004
+C012501,Germany,Regular,0.7588,M002
+C012502,Spain,Loyal,0.2308,M004
+C012503,Spain,Low value,0.9454,M002
+C012505,Italy,Low value,0.8597,M002
+C012506,France,Regular,0.8211,M002
+C012509,France,Regular,0.8341,M002
+C012510,Spain,Premium,0.2831,M004
+C012511,Greece,Low value,0.8281,M002
+C012514,Italy,Loyal,0.6856,M002
+C012515,Italy,Low value,0.8658,M002
+C012521,Germany,Regular,0.6037,M002
+C012523,France,Premium,0.0947,M004
+C012524,Germany,Premium,0.1019,M004
+C012525,France,Low value,0.8433,M002
+C012528,Germany,Loyal,0.2301,M004
+C012529,France,Low value,0.9435,M002
+C012530,Germany,Premium,0.1704,M004
+C012531,Germany,Low value,0.9638,M002
+C012533,Germany,Low value,0.931,M002
+C012537,Sweden,Low value,0.8773,M002
+C012540,Spain,Premium,0.0488,M004
+C012542,Spain,Low value,0.8914,M002
+C012543,Spain,Low value,0.8923,M002
+C012547,Spain,Loyal,0.6223,M002
+C012548,Spain,Regular,0.7608,M002
+C012549,USA,Low value,0.8503,M002
+C012551,Spain,Low value,0.8841,M002
+C012553,France,Premium,0.13,M004
+C012554,Spain,Low value,0.9119,M002
+C012557,Spain,Loyal,0.2377,M004
+C012559,Germany,Regular,0.7166,M002
+C012561,Germany,Regular,0.8328,M002
+C012562,France,Loyal,0.1788,M004
+C012563,Italy,Low value,0.9052,M002
+C012564,France,Regular,0.7709,M002
+C012565,Saudi Arabia,Regular,0.8334,M002
+C012567,France,Premium,0.1247,M004
+C012568,Germany,Low value,0.9832,M002
+C012569,Germany,Loyal,0.0707,M004
+C012574,France,Regular,0.8531,M002
+C012575,France,Low value,0.8689,M002
+C012576,Poland,Loyal,0.1685,M004
+C012577,France,Loyal,0.2211,M004
+C012580,Germany,Loyal,0.6802,M002
+C012583,France,Premium,0.0629,M004
+C012584,Italy,Premium,0.1534,M004
+C012586,Italy,Loyal,0.735,M002
+C012589,France,Premium,0.1975,M004
+C012591,Italy,Low value,0.6498,M002
+C012594,Italy,Premium,0.1115,M004
+C012595,Germany,Low value,0.9404,M002
+C012598,France,Premium,0.1583,M004
+C012599,France,Loyal,0.1421,M004
+C012600,Germany,Premium,0.0912,M004
+C012605,Germany,Low value,0.7118,M002
+C012608,United Kingdom,Low value,0.8863,M002
+C012609,Germany,Loyal,0.2098,M004
+C012613,Germany,Premium,0.1564,M004
+C012614,Germany,Regular,0.7987,M002
+C012615,France,Premium,0.1618,M004
+C012619,Germany,Premium,0.1584,M004
+C012621,Germany,Premium,0.0442,M004
+C012622,Germany,Regular,0.7859,M002
+C012626,Germany,Premium,0.1119,M004
+C012629,Sweden,Low value,0.7719,M002
+C012631,Finland,Loyal,0.2306,M004
+C012632,Germany,Low value,0.8901,M002
+C012633,Germany,Premium,0.1604,M004
+C012634,USA,Low value,0.9502,M002
+C012635,Germany,Loyal,0.2904,M004
+C012637,France,Premium,0.112,M004
+C012639,Sweden,Loyal,0.6141,M002
+C012641,Sweden,Regular,0.6537,M002
+C012643,France,Premium,0.1637,M004
+C012645,Germany,Premium,0.1726,M004
+C012647,Germany,Premium,0.0558,M004
+C012649,Germany,Loyal,0.2588,M004
+C012651,France,Low value,0.6951,M002
+C012652,France,Low value,0.7305,M002
+C012655,France,Low value,0.9104,M002
+C012656,France,Premium,0.1724,M004
+C012661,Sweden,Low value,0.9249,M002
+C012662,Germany,Premium,0.0998,M004
+C012663,Germany,Low value,0.9579,M002
+C012664,Finland,Premium,0.1632,M004
+C012665,Germany,Low value,0.7781,M002
+C012666,Israel,Low value,0.836,M002
+C012670,France,Loyal,0.2195,M004
+C012671,Germany,Low value,0.9386,M002
+C012672,France,Low value,0.7983,M002
+C012673,Germany,Low value,0.7364,M002
+C012675,Italy,Low value,0.9012,M002
+C012676,Sweden,Loyal,0.1803,M004
+C012677,France,Low value,0.9305,M002
+C012678,France,Premium,0.0701,M004
+C012681,France,Premium,0.0341,M004
+C012682,France,Premium,0.0383,M004
+C012683,France,Premium,0.083,M004
+C012686,France,Low value,0.9136,M002
+C012687,Sweden,Low value,0.8887,M002
+C012690,France,Regular,0.7178,M002
+C012691,France,Loyal,0.2241,M004
+C012692,France,Low value,0.9784,M002
+C012693,Germany,Loyal,0.2758,M004
+C012695,France,Loyal,0.2963,M004
+C012696,Finland,Low value,0.8369,M002
+C012698,Germany,Low value,0.9632,M002
+C012699,Germany,Low value,0.8852,M002
+C012701,Germany,Loyal,0.2701,M004
+C012705,Germany,Premium,0.0914,M004
+C012707,France,Regular,0.7819,M002
+C012708,Germany,Premium,0.0909,M004
+C012709,Germany,Premium,0.0406,M004
+C012711,Germany,Low value,0.9299,M002
+C012712,Germany,Premium,0.0805,M004
+C012714,France,Loyal,0.1621,M004
+C012715,Sweden,Regular,0.6021,M002
+C012720,Germany,Premium,0.0592,M004
+C012721,France,Loyal,0.1403,M004
+C012724,France,Loyal,0.2621,M004
+C012725,Italy,Low value,0.7129,M002
+C012726,France,Loyal,0.1404,M004
+C012727,France,Premium,0.1911,M004
+C012728,France,Loyal,0.2871,M004
+C012730,Germany,Low value,0.9308,M002
+C012731,France,Premium,0.0721,M004
+C012732,France,Regular,0.7112,M002
+C012734,France,Low value,0.721,M002
+C012735,France,Regular,0.7202,M002
+C012736,France,Low value,0.8729,M002
+C012738,Germany,Low value,0.8983,M002
+C012741,USA,Low value,0.9517,M002
+C012742,United Arab Emirates,Low value,0.9531,M002
+C012744,Singapore,Premium,0.1238,M004
+C012745,United Kingdom,Low value,0.8823,M002
+C012746,United Kingdom,Low value,0.9487,M002
+C012747,United Kingdom,Premium,0.0811,M004
+C012748,United Kingdom,Premium,0.0075,M004
+C012749,United Kingdom,Premium,0.2011,M004
+C012750,Poland,Regular,0.6299,M002
+C012751,Brazil,Low value,0.918,M002
+C012753,Japan,Premium,0.1731,M004
+C012756,Japan,Regular,0.6313,M002
+C012757,Portugal,Premium,0.1109,M004
+C012758,Portugal,Premium,0.2164,M004
+C012759,Netherlands,Loyal,0.1937,M004
+C012760,Netherlands,Low value,0.9193,M002
+C012761,Netherlands,Low value,0.9052,M002
+C012764,Lebanon,Regular,0.756,M002
+C012765,Netherlands,Low value,0.7509,M002
+C012766,Portugal,Premium,0.1236,M004
+C012767,Korea,Low value,0.8384,M002
+C012768,Korea,Low value,0.9263,M002
+C012769,Brazil,Regular,0.6856,M002
+C012771,Portugal,Low value,0.9343,M002
+C012773,Portugal,Low value,0.9642,M002
+C012774,Netherlands,Low value,0.9639,M002
+C012776,Portugal,Low value,0.9876,M002
+C012777,United Kingdom,Low value,0.9093,M002
+C012778,Netherlands,Loyal,0.2364,M004
+C012779,Poland,Premium,0.1064,M004
+C012780,Netherlands,Low value,0.9636,M002
+C012782,Portugal,Premium,0.2043,M004
+C012784,Portugal,Low value,0.9266,M002
+C012785,Portugal,Low value,0.7661,M002
+C012786,Netherlands,Low value,0.9583,M002
+C012788,Netherlands,Low value,0.8277,M002
+C012790,Netherlands,Loyal,0.6057,M002
+C012791,Netherlands,Low value,0.6978,M002
+C012792,Portugal,Loyal,0.6886,M002
+C012793,Portugal,Low value,0.692,M002
+C012796,Netherlands,Low value,0.9687,M002
+C012797,Portugal,Low value,0.7806,M002
+C012798,Japan,Loyal,0.2439,M004
+C012799,Japan,Low value,0.9515,M002
+C012800,Portugal,Low value,0.8952,M002
+C012801,Sweden,Low value,0.9137,M002
+C012803,Netherlands,Low value,0.8498,M002
+C012804,Netherlands,Low value,0.8873,M002
+C012805,Netherlands,Low value,0.7273,M002
+C012806,Netherlands,Low value,0.89,M002
+C012807,Sweden,Low value,0.8798,M002
+C012808,Portugal,Loyal,0.2809,M004
+C012810,Japan,Low value,0.9199,M002
+C012813,Netherlands,Low value,0.8464,M002
+C012814,Poland,Regular,0.6686,M002
+C012817,Austria,Low value,0.6591,M002
+C012818,Austria,Regular,0.7015,M002
+C012819,United Kingdom,Low value,0.9088,M002
+C012820,United Kingdom,Premium,0.1788,M004
+C012821,United Kingdom,Low value,0.7416,M002
+C012823,United Kingdom,Loyal,0.1159,M004
+C012825,United Kingdom,Low value,0.9129,M002
+C012826,United Kingdom,Premium,0.152,M004
+C012829,United Kingdom,Low value,0.7519,M002
+C012831,United Kingdom,Low value,0.66,M002
+C012833,United Kingdom,Regular,0.6259,M002
+C012834,United Kingdom,Regular,0.8039,M002
+C012835,United Kingdom,Premium,0.2787,M004
+C012836,United Kingdom,Premium,0.1187,M004
+C012837,United Kingdom,Loyal,0.6214,M002
+C012838,United Kingdom,Premium,0.1448,M004
+C012839,United Kingdom,Premium,0.0776,M004
+C012840,United Kingdom,Premium,0.2626,M004
+C012841,United Kingdom,Premium,0.0516,M004
+C012843,United Kingdom,Premium,0.0792,M004
+C012847,United Kingdom,Low value,0.8555,M002
+C012848,United Kingdom,Low value,0.9793,M002
+C012849,United Kingdom,Loyal,0.2047,M004
+C012850,United Kingdom,Low value,0.9139,M002
+C012852,United Kingdom,Regular,0.8069,M002
+C012853,United Kingdom,Premium,0.1988,M004
+C012854,United Kingdom,Premium,0.2299,M004
+C012855,United Kingdom,Low value,0.7026,M002
+C012858,United Kingdom,Low value,0.8976,M002
+C012859,United Kingdom,Low value,0.9073,M002
+C012860,United Kingdom,Low value,0.9872,M002
+C012861,United Kingdom,Low value,0.979,M002
+C012862,United Kingdom,Low value,0.8243,M002
+C012863,United Kingdom,Loyal,0.2165,M004
+C012864,United Kingdom,Loyal,0.6197,M002
+C012866,Belgium,Loyal,0.6348,M002
+C012867,United Kingdom,Premium,0.1521,M004
+C012868,United Kingdom,Loyal,0.2914,M004
+C012869,United Kingdom,Low value,0.9772,M002
+C012870,United Kingdom,Low value,0.722,M002
+C012873,United Kingdom,Loyal,0.635,M002
+C012874,Belgium,Low value,0.8008,M002
+C012876,Belgium,Loyal,0.2557,M004
+C012877,United Kingdom,Loyal,0.1501,M004
+C012878,United Kingdom,Regular,0.6042,M002
+C012880,United Kingdom,Low value,0.8224,M002
+C012881,United Kingdom,Regular,0.7994,M002
+C012887,United Kingdom,Low value,0.8916,M002
+C012888,United Kingdom,Regular,0.616,M002
+C012889,United Kingdom,Low value,0.742,M002
+C012890,United Kingdom,Low value,0.8828,M002
+C012892,United Kingdom,Low value,0.8943,M002
+C012894,United Kingdom,Low value,0.9659,M002
+C012898,United Kingdom,Low value,0.9041,M002
+C012899,United Kingdom,Low value,0.895,M002
+C012900,United Kingdom,Low value,0.9018,M002
+C012901,United Kingdom,Premium,0.0377,M004
+C012902,United Kingdom,Regular,0.8226,M002
+C012903,United Kingdom,Low value,0.8806,M002
+C012904,United Kingdom,Regular,0.6957,M002
+C012905,United Kingdom,Low value,0.9181,M002
+C012907,United Kingdom,Low value,0.8225,M002
+C012909,United Kingdom,Premium,0.1689,M004
+C012910,United Kingdom,Premium,0.1423,M004
+C012911,United Kingdom,Low value,0.9264,M002
+C012914,United Kingdom,Low value,0.9008,M002
+C012916,United Kingdom,Loyal,0.2675,M004
+C012917,United Kingdom,Premium,0.2836,M004
+C012920,United Kingdom,Low value,0.9272,M002
+C012921,United Kingdom,Premium,0.021,M004
+C012922,United Kingdom,Regular,0.6498,M002
+C012924,United Kingdom,Premium,0.1923,M004
+C012926,United Kingdom,Low value,0.7539,M002
+C012927,United Kingdom,Low value,0.9008,M002
+C012928,United Kingdom,Loyal,0.1236,M004
+C012929,United Kingdom,Regular,0.859,M002
+C012931,United Kingdom,Premium,0.0195,M004
+C012932,United Kingdom,Low value,0.7659,M002
+C012934,United Kingdom,Low value,0.9861,M002
+C012935,United Kingdom,Premium,0.1099,M004
+C012937,United Kingdom,Loyal,0.2412,M004
+C012939,United Kingdom,Premium,0.0741,M004
+C012941,United Kingdom,Low value,0.9817,M002
+C012943,United Kingdom,Low value,0.9187,M002
+C012945,United Kingdom,Loyal,0.7431,M002
+C012946,United Kingdom,Low value,0.91,M002
+C012947,United Kingdom,Loyal,0.2722,M004
+C012948,United Kingdom,Loyal,0.2157,M004
+C012949,United Kingdom,Premium,0.0615,M004
+C012951,United Kingdom,Premium,0.2216,M004
+C012953,United Kingdom,Low value,0.9371,M002
+C012954,United Kingdom,Low value,0.9761,M002
+C012955,United Kingdom,Loyal,0.1225,M004
+C012956,United Kingdom,Low value,0.713,M002
+C012957,United Kingdom,Premium,0.1361,M004
+C012958,United Kingdom,Low value,0.8488,M002
+C012959,United Kingdom,Low value,0.9407,M002
+C012960,United Kingdom,Low value,0.7511,M002
+C012961,United Kingdom,Low value,0.8906,M002
+C012962,United Kingdom,Regular,0.6409,M002
+C012963,United Kingdom,Loyal,0.1966,M004
+C012964,United Kingdom,Low value,0.9292,M002
+C012967,United Kingdom,Loyal,0.6141,M002
+C012968,United Kingdom,Regular,0.6542,M002
+C012969,United Kingdom,Low value,0.9728,M002
+C012971,United Kingdom,Premium,0.0224,M004
+C012972,United Kingdom,Low value,0.7425,M002
+C012973,United Kingdom,Low value,0.8936,M002
+C012974,United Kingdom,Loyal,0.6786,M002
+C012975,United Kingdom,Low value,0.6899,M002
+C012978,United Kingdom,Loyal,0.6569,M002
+C012979,United Arab Emirates,Low value,0.9795,M002
+C012980,United Kingdom,Premium,0.1121,M004
+C012983,United Kingdom,Low value,0.9592,M002
+C012988,United Kingdom,Regular,0.7913,M002
+C012989,United Kingdom,Premium,0.0588,M004
+C012990,United Kingdom,Loyal,0.2491,M004
+C012992,United Kingdom,Low value,0.9877,M002
+C012996,United Kingdom,Low value,0.8728,M002
+C012997,United Kingdom,Premium,0.2352,M004
+C012998,United Kingdom,Low value,0.8495,M002
+C013001,United Kingdom,Premium,0.0817,M004
+C013002,United Kingdom,Low value,0.7178,M002
+C013004,United Kingdom,Premium,0.0464,M004
+C013006,United Kingdom,Regular,0.6105,M002
+C013007,United Kingdom,Low value,0.9657,M002
+C013008,United Kingdom,Loyal,0.7348,M002
+C013009,United Kingdom,Low value,0.9783,M002
+C013010,United Kingdom,Low value,0.8536,M002
+C013011,United Kingdom,Low value,0.9213,M002
+C013012,United Kingdom,Premium,0.2021,M004
+C013013,United Kingdom,Premium,0.0643,M004
+C013014,United Kingdom,Premium,0.112,M004
+C013015,United Kingdom,Premium,0.1212,M004
+C013018,United Kingdom,Premium,0.0508,M004
+C013019,United Kingdom,Loyal,0.6621,M002
+C013020,United Kingdom,Low value,0.9179,M002
+C013021,United Kingdom,Premium,0.1133,M004
+C013022,Belgium,Low value,0.9427,M002
+C013024,United Kingdom,Low value,0.8772,M002
+C013025,United Kingdom,Low value,0.9831,M002
+C013026,United Kingdom,Loyal,0.2133,M004
+C013027,United Kingdom,Premium,0.0937,M004
+C013029,United Kingdom,Loyal,0.2353,M004
+C013030,United Kingdom,Low value,0.864,M002
+C013031,United Kingdom,Loyal,0.6348,M002
+C013032,United Kingdom,Loyal,0.1507,M004
+C013033,United Kingdom,Low value,0.8281,M002
+C013036,United Kingdom,Low value,0.9782,M002
+C013037,United Kingdom,Premium,0.205,M004
+C013039,United Kingdom,Low value,0.8894,M002
+C013041,United Kingdom,Low value,0.7954,M002
+C013042,United Kingdom,Low value,0.8998,M002
+C013043,United Kingdom,Regular,0.7617,M002
+C013047,United Kingdom,Premium,0.073,M004
+C013048,United Kingdom,Premium,0.2261,M004
+C013049,United Kingdom,Loyal,0.2796,M004
+C013050,United Kingdom,Premium,0.0514,M004
+C013051,United Kingdom,Low value,0.9504,M002
+C013053,United Kingdom,Low value,0.9753,M002
+C013055,United Kingdom,Loyal,0.2645,M004
+C013056,United Kingdom,Low value,0.9578,M002
+C013057,United Kingdom,Low value,0.8776,M002
+C013060,United Kingdom,Regular,0.7761,M002
+C013062,United Kingdom,Regular,0.6986,M002
+C013063,United Kingdom,Low value,0.9388,M002
+C013065,United Kingdom,Low value,0.6576,M002
+C013068,United Kingdom,Regular,0.8595,M002
+C013069,United Kingdom,Premium,0.0499,M004
+C013071,United Kingdom,Low value,0.9739,M002
+C013072,United Kingdom,Regular,0.8141,M002
+C013073,United Kingdom,Low value,0.8406,M002
+C013074,United Kingdom,Low value,0.83,M002
+C013076,United Kingdom,Low value,0.9362,M002
+C013078,United Kingdom,Premium,0.0266,M004
+C013081,United Kingdom,Premium,0.0361,M004
+C013082,United Kingdom,Premium,0.1191,M004
+C013084,United Kingdom,Low value,0.9461,M002
+C013086,United Kingdom,Low value,0.8707,M002
+C013087,United Kingdom,Low value,0.9828,M002
+C013088,United Kingdom,Low value,0.9082,M002
+C013089,United Kingdom,Premium,0.0073,M004
+C013090,United Kingdom,Premium,0.0539,M004
+C013092,United Kingdom,Premium,0.1723,M004
+C013093,United Kingdom,Premium,0.0669,M004
+C013094,United Kingdom,Premium,0.1407,M004
+C013095,United Kingdom,Regular,0.6361,M002
+C013096,United Kingdom,Low value,0.8799,M002
+C013097,United Kingdom,Premium,0.0546,M004
+C013098,United Kingdom,Premium,0.0335,M004
+C013099,United Kingdom,Regular,0.6084,M002
+C013101,United Kingdom,Loyal,0.6058,M002
+C013102,United Kingdom,Premium,0.0472,M004
+C013104,United Kingdom,Loyal,0.2332,M004
+C013105,United Kingdom,Low value,0.9394,M002
+C013107,United Kingdom,Premium,0.1427,M004
+C013108,United Kingdom,Low value,0.7862,M002
+C013110,United Kingdom,Premium,0.1468,M004
+C013111,United Kingdom,Low value,0.9818,M002
+C013112,United Kingdom,Low value,0.9741,M002
+C013113,United Kingdom,Premium,0.0375,M004
+C013114,United Kingdom,Low value,0.9845,M002
+C013115,United Kingdom,Premium,0.1368,M004
+C013117,United Kingdom,Loyal,0.1755,M004
+C013119,United Kingdom,Low value,0.9809,M002
+C013120,United Kingdom,Regular,0.8586,M002
+C013121,United Kingdom,Regular,0.7872,M002
+C013123,United Kingdom,Low value,0.8809,M002
+C013124,United Kingdom,Loyal,0.2444,M004
+C013125,United Kingdom,Low value,0.9549,M002
+C013126,United Kingdom,Premium,0.1308,M004
+C013128,United Kingdom,Low value,0.9716,M002
+C013129,United Kingdom,Low value,0.8933,M002
+C013130,United Kingdom,Regular,0.6777,M002
+C013131,United Kingdom,Loyal,0.2435,M004
+C013132,United Kingdom,Regular,0.8431,M002
+C013133,United Kingdom,Low value,0.7206,M002
+C013134,United Kingdom,Loyal,0.2111,M004
+C013136,United Kingdom,Premium,0.1171,M004
+C013137,United Kingdom,Premium,0.0838,M004
+C013138,United Kingdom,Loyal,0.2216,M004
+C013139,United Kingdom,Loyal,0.1314,M004
+C013141,United Kingdom,Premium,0.1131,M004
+C013143,United Kingdom,Low value,0.9559,M002
+C013144,United Kingdom,Low value,0.8308,M002
+C013145,United Kingdom,Loyal,0.2341,M004
+C013148,United Kingdom,Premium,0.0623,M004
+C013150,United Kingdom,Low value,0.8668,M002
+C013151,United Kingdom,Loyal,0.6047,M002
+C013152,United Kingdom,Loyal,0.6352,M002
+C013154,United Kingdom,Low value,0.7621,M002
+C013155,United Kingdom,Loyal,0.2274,M004
+C013156,United Kingdom,Low value,0.7549,M002
+C013157,United Kingdom,Premium,0.1506,M004
+C013158,United Kingdom,Loyal,0.2826,M004
+C013161,United Kingdom,Low value,0.7703,M002
+C013162,United Kingdom,Premium,0.1342,M004
+C013163,United Kingdom,Low value,0.9839,M002
+C013164,United Kingdom,Low value,0.9343,M002
+C013166,United Kingdom,Loyal,0.6783,M002
+C013168,United Kingdom,Loyal,0.2371,M004
+C013172,United Kingdom,Low value,0.9266,M002
+C013175,United Kingdom,Low value,0.9261,M002
+C013178,United Kingdom,Premium,0.0699,M004
+C013179,United Kingdom,Low value,0.9621,M002
+C013180,United Kingdom,Low value,0.976,M002
+C013181,United Kingdom,Low value,0.8763,M002
+C013183,United Kingdom,Premium,0.1002,M004
+C013184,United Kingdom,Loyal,0.2088,M004
+C013185,United Kingdom,Regular,0.8506,M002
+C013187,United Kingdom,Low value,0.7392,M002
+C013189,United Kingdom,Regular,0.6626,M002
+C013190,United Kingdom,Low value,0.9006,M002
+C013191,United Kingdom,Low value,0.9788,M002
+C013192,United Kingdom,Loyal,0.2726,M004
+C013195,United Kingdom,Low value,0.919,M002
+C013196,United Kingdom,Loyal,0.2724,M004
+C013197,United Kingdom,Low value,0.9645,M002
+C013198,United Kingdom,Premium,0.1936,M004
+C013199,United Kingdom,Premium,0.0361,M004
+C013201,United Kingdom,Low value,0.8239,M002
+C013202,United Kingdom,Loyal,0.6449,M002
+C013203,United Kingdom,Loyal,0.1887,M004
+C013204,United Kingdom,Low value,0.9771,M002
+C013205,United Kingdom,Low value,0.8508,M002
+C013208,United Kingdom,Loyal,0.2322,M004
+C013209,United Kingdom,Premium,0.0997,M004
+C013211,United Kingdom,Premium,0.2347,M004
+C013213,United Kingdom,Premium,0.136,M004
+C013214,United Kingdom,Loyal,0.615,M002
+C013215,United Kingdom,Low value,0.9244,M002
+C013216,United Kingdom,Regular,0.7863,M002
+C013218,United Kingdom,Regular,0.7202,M002
+C013219,United Kingdom,Low value,0.9782,M002
+C013221,United Kingdom,Regular,0.6321,M002
+C013222,United Kingdom,Low value,0.9712,M002
+C013225,United Kingdom,Premium,0.0979,M004
+C013226,United Kingdom,Low value,0.7354,M002
+C013227,United Kingdom,Regular,0.728,M002
+C013229,United Kingdom,Regular,0.7791,M002
+C013230,United Kingdom,Premium,0.0661,M004
+C013234,United Kingdom,Low value,0.9644,M002
+C013235,United Kingdom,Regular,0.6463,M002
+C013237,United Kingdom,Low value,0.8616,M002
+C013240,United Kingdom,Loyal,0.2659,M004
+C013241,United Kingdom,Low value,0.9217,M002
+C013244,United Kingdom,Regular,0.6342,M002
+C013246,United Kingdom,Loyal,0.2378,M004
+C013249,United Kingdom,Loyal,0.2574,M004
+C013250,United Kingdom,Low value,0.887,M002
+C013251,United Kingdom,Low value,0.8987,M002
+C013252,United Kingdom,Low value,0.8496,M002
+C013254,United Kingdom,Low value,0.9226,M002
+C013255,United Kingdom,Low value,0.8173,M002
+C013257,United Kingdom,Low value,0.9206,M002
+C013259,United Kingdom,Loyal,0.2391,M004
+C013261,United Kingdom,Regular,0.6391,M002
+C013262,United Kingdom,Loyal,0.6768,M002
+C013263,United Kingdom,Loyal,0.0498,M004
+C013264,United Kingdom,Low value,0.893,M002
+C013266,United Kingdom,Premium,0.0863,M004
+C013267,United Kingdom,Premium,0.0512,M004
+C013268,United Kingdom,Loyal,0.1258,M004
+C013269,United Kingdom,Premium,0.0895,M004
+C013270,United Kingdom,Low value,0.8492,M002
+C013273,United Kingdom,Regular,0.6541,M002
+C013274,United Kingdom,Low value,0.8932,M002
+C013275,United Kingdom,Low value,0.8681,M002
+C013276,United Kingdom,Loyal,0.2744,M004
+C013278,United Kingdom,Loyal,0.2984,M004
+C013280,United Kingdom,Loyal,0.2819,M004
+C013281,United Kingdom,Low value,0.9026,M002
+C013284,United Kingdom,Low value,0.8542,M002
+C013286,United Kingdom,Low value,0.955,M002
+C013287,United Kingdom,Low value,0.9094,M002
+C013288,United Kingdom,Low value,0.7604,M002
+C013289,United Kingdom,Low value,0.9826,M002
+C013291,United Kingdom,Loyal,0.2478,M004
+C013292,United Kingdom,Loyal,0.2692,M004
+C013293,United Kingdom,Low value,0.6704,M002
+C013295,United Kingdom,Loyal,0.6614,M002
+C013297,United Kingdom,Loyal,0.2581,M004
+C013302,United Kingdom,Loyal,0.6839,M002
+C013303,United Kingdom,Low value,0.9289,M002
+C013304,United Kingdom,Loyal,0.6741,M002
+C013305,United Kingdom,Loyal,0.1684,M004
+C013306,United Kingdom,Low value,0.942,M002
+C013309,United Kingdom,Loyal,0.2384,M004
+C013310,United Kingdom,Loyal,0.209,M004
+C013311,United Kingdom,Regular,0.6222,M002
+C013312,United Kingdom,Low value,0.9355,M002
+C013313,United Kingdom,Premium,0.1519,M004
+C013315,United Kingdom,Low value,0.9787,M002
+C013316,United Kingdom,Premium,0.1063,M004
+C013317,United Kingdom,Premium,0.095,M004
+C013319,United Kingdom,Premium,0.028,M004
+C013320,United Kingdom,Loyal,0.2215,M004
+C013324,United Kingdom,Premium,0.0685,M004
+C013326,United Kingdom,Low value,0.9114,M002
+C013327,United Kingdom,Premium,0.0846,M004
+C013328,United Kingdom,Regular,0.7693,M002
+C013329,United Kingdom,Premium,0.1561,M004
+C013330,United Kingdom,Loyal,0.2747,M004
+C013331,United Kingdom,Low value,0.8972,M002
+C013333,United Kingdom,Low value,0.7961,M002
+C013334,United Kingdom,Loyal,0.2354,M004
+C013337,United Kingdom,Low value,0.9216,M002
+C013339,United Kingdom,Regular,0.6537,M002
+C013340,United Kingdom,Premium,0.0937,M004
+C013341,United Kingdom,Regular,0.7352,M002
+C013343,United Kingdom,Regular,0.6777,M002
+C013345,United Kingdom,Regular,0.7964,M002
+C013346,United Kingdom,Low value,0.8075,M002
+C013358,United Kingdom,Regular,0.7799,M002
+C013360,United Kingdom,Low value,0.7487,M002
+C013361,United Kingdom,Low value,0.857,M002
+C013362,United Kingdom,Loyal,0.1639,M004
+C013366,United Kingdom,Regular,0.6269,M002
+C013367,United Kingdom,Low value,0.8989,M002
+C013369,United Kingdom,Low value,0.8705,M002
+C013370,United Kingdom,Low value,0.8369,M002
+C013371,United Kingdom,Low value,0.8524,M002
+C013373,United Kingdom,Loyal,0.2086,M004
+C013374,United Kingdom,Low value,0.8484,M002
+C013377,United Kingdom,Low value,0.7961,M002
+C013380,United Kingdom,Low value,0.9403,M002
+C013381,United Kingdom,Premium,0.1137,M004
+C013383,United Kingdom,Low value,0.951,M002
+C013384,United Kingdom,Premium,0.0979,M004
+C013385,United Kingdom,Regular,0.823,M002
+C013386,United Kingdom,Low value,0.8145,M002
+C013387,United Kingdom,Low value,0.9142,M002
+C013391,United Kingdom,Regular,0.8037,M002
+C013392,United Kingdom,Low value,0.9838,M002
+C013393,United Kingdom,Low value,0.8781,M002
+C013394,United Kingdom,Premium,0.0995,M004
+C013397,United Kingdom,Premium,0.1783,M004
+C013398,United Kingdom,Loyal,0.6135,M002
+C013399,United Kingdom,Low value,0.8648,M002
+C013400,United Kingdom,Low value,0.9585,M002
+C013403,United Kingdom,Low value,0.893,M002
+C013404,United Kingdom,Regular,0.7498,M002
+C013406,United Kingdom,Low value,0.858,M002
+C013407,United Kingdom,Low value,0.8647,M002
+C013408,United Kingdom,Premium,0.015,M004
+C013410,United Kingdom,Loyal,0.2397,M004
+C013411,United Kingdom,Regular,0.6177,M002
+C013412,United Kingdom,Low value,0.9641,M002
+C013413,United Kingdom,Low value,0.901,M002
+C013415,United Kingdom,Low value,0.8264,M002
+C013418,United Kingdom,Premium,0.063,M004
+C013421,United Kingdom,Premium,0.1645,M004
+C013423,United Kingdom,Low value,0.9154,M002
+C013424,United Kingdom,Low value,0.8982,M002
+C013425,United Kingdom,Premium,0.2681,M004
+C013426,United Kingdom,Premium,0.082,M004
+C013428,United Kingdom,Low value,0.9141,M002
+C013431,United Kingdom,Loyal,0.1998,M004
+C013432,United Kingdom,Low value,0.9318,M002
+C013433,United Kingdom,Low value,0.8482,M002
+C013435,United Kingdom,Loyal,0.1739,M004
+C013438,United Kingdom,Low value,0.9713,M002
+C013439,United Kingdom,Loyal,0.6151,M002
+C013440,United Kingdom,Low value,0.6129,M002
+C013442,United Kingdom,Low value,0.9505,M002
+C013443,United Kingdom,Low value,0.7264,M002
+C013444,United Kingdom,Low value,0.8082,M002
+C013445,United Kingdom,Low value,0.9714,M002
+C013448,United Kingdom,Premium,0.1432,M004
+C013450,United Kingdom,Loyal,0.1148,M004
+C013451,United Kingdom,Premium,0.1811,M004
+C013452,United Kingdom,Loyal,0.6271,M002
+C013454,United Kingdom,Low value,0.9745,M002
+C013455,United Kingdom,Premium,0.6367,M002
+C013457,United Kingdom,Low value,0.9719,M002
+C013458,United Kingdom,Premium,0.0682,M004
+C013459,United Kingdom,Low value,0.9351,M002
+C013461,United Kingdom,Premium,0.1837,M004
+C013464,United Kingdom,Loyal,0.2215,M004
+C013465,United Kingdom,Low value,0.8529,M002
+C013468,United Kingdom,Premium,0.0289,M004
+C013469,United Kingdom,Low value,0.9818,M002
+C013472,United Kingdom,Low value,0.8742,M002
+C013473,United Kingdom,Premium,0.2104,M004
+C013474,United Kingdom,Loyal,0.6141,M002
+C013477,United Kingdom,Premium,0.1527,M004
+C013478,United Kingdom,Low value,0.7337,M002
+C013480,United Kingdom,Low value,0.8603,M002
+C013481,United Kingdom,Premium,0.1505,M004
+C013482,United Kingdom,Loyal,0.7386,M002
+C013484,United Kingdom,Loyal,0.6286,M002
+C013488,United Kingdom,Premium,0.0644,M004
+C013490,United Kingdom,Low value,0.9785,M002
+C013491,United Kingdom,Loyal,0.0942,M004
+C013493,Switzerland,Regular,0.6879,M002
+C013494,United Kingdom,Regular,0.8291,M002
+C013495,United Kingdom,Premium,0.1552,M004
+C013496,United Kingdom,Low value,0.843,M002
+C013498,United Kingdom,Low value,0.983,M002
+C013502,United Kingdom,Loyal,0.6096,M002
+C013503,United Kingdom,Premium,0.2769,M004
+C013508,United Kingdom,Low value,0.7601,M002
+C013509,United Kingdom,Loyal,0.2644,M004
+C013510,United Kingdom,Premium,0.1478,M004
+C013511,United Kingdom,Low value,0.9765,M002
+C013512,United Kingdom,Loyal,0.6107,M002
+C013515,United Kingdom,Loyal,0.2989,M004
+C013520,Switzerland,Premium,0.1421,M004
+C013523,United Kingdom,Loyal,0.1533,M004
+C013525,United Kingdom,Regular,0.775,M002
+C013526,United Kingdom,Low value,0.9607,M002
+C013527,United Kingdom,Premium,0.1272,M004
+C013530,United Kingdom,Low value,0.9686,M002
+C013534,United Kingdom,Premium,0.0422,M004
+C013535,United Kingdom,Low value,0.9225,M002
+C013537,United Kingdom,Low value,0.8307,M002
+C013538,United Kingdom,Loyal,0.1549,M004
+C013539,United Kingdom,Loyal,0.2509,M004
+C013540,United Kingdom,Low value,0.8545,M002
+C013541,United Kingdom,Low value,0.8381,M002
+C013543,United Kingdom,Low value,0.9346,M002
+C013544,United Kingdom,Loyal,0.2827,M004
+C013545,United Kingdom,Low value,0.8396,M002
+C013547,United Kingdom,Low value,0.9122,M002
+C013549,United Kingdom,Loyal,0.228,M004
+C013550,United Kingdom,Low value,0.8791,M002
+C013551,United Kingdom,Low value,0.8317,M002
+C013552,United Kingdom,Premium,0.0808,M004
+C013553,United Kingdom,Low value,0.9735,M002
+C013555,United Kingdom,Premium,0.1196,M004
+C013556,United Kingdom,Low value,0.8764,M002
+C013557,United Kingdom,Premium,0.134,M004
+C013559,United Kingdom,Low value,0.8829,M002
+C013562,United Kingdom,Loyal,0.2077,M004
+C013564,United Kingdom,Premium,0.1749,M004
+C013565,United Kingdom,Low value,0.7969,M002
+C013566,United Kingdom,Loyal,0.2744,M004
+C013567,United Kingdom,Low value,0.743,M002
+C013568,United Kingdom,Regular,0.7128,M002
+C013569,United Kingdom,Low value,0.7531,M002
+C013570,United Kingdom,Regular,0.7781,M002
+C013571,United Kingdom,Loyal,0.0891,M004
+C013572,United Kingdom,Regular,0.6294,M002
+C013573,United Kingdom,Loyal,0.2952,M004
+C013574,United Kingdom,Low value,0.8912,M002
+C013576,United Kingdom,Premium,0.0619,M004
+C013577,United Kingdom,Premium,0.2021,M004
+C013578,United Kingdom,Low value,0.9151,M002
+C013579,United Kingdom,Low value,0.7097,M002
+C013580,United Kingdom,Low value,0.9205,M002
+C013581,United Kingdom,Low value,0.7776,M002
+C013582,United Kingdom,Low value,0.8693,M002
+C013584,United Kingdom,Low value,0.7423,M002
+C013585,United Kingdom,Low value,0.8899,M002
+C013586,United Kingdom,Low value,0.9609,M002
+C013588,United Kingdom,Loyal,0.1245,M004
+C013590,United Kingdom,Premium,0.1064,M004
+C013591,United Kingdom,Loyal,0.2476,M004
+C013593,United Kingdom,Premium,0.147,M004
+C013595,United Kingdom,Low value,0.8743,M002
+C013597,United Kingdom,Low value,0.8228,M002
+C013599,United Kingdom,Premium,0.0643,M004
+C013600,United Kingdom,Low value,0.7884,M002
+C013604,United Kingdom,Low value,0.9662,M002
+C013605,United Kingdom,Low value,0.8344,M002
+C013608,United Kingdom,Low value,0.9538,M002
+C013609,United Kingdom,Low value,0.9688,M002
+C013610,United Kingdom,Premium,0.1617,M004
+C013611,United Kingdom,Premium,0.1944,M004
+C013612,United Kingdom,Low value,0.9594,M002
+C013613,United Kingdom,Low value,0.7708,M002
+C013616,United Kingdom,Low value,0.9429,M002
+C013617,United Kingdom,Loyal,0.1957,M004
+C013618,United Kingdom,Regular,0.7159,M002
+C013619,United Kingdom,Low value,0.9392,M002
+C013620,United Kingdom,Low value,0.9593,M002
+C013621,United Kingdom,Regular,0.6301,M002
+C013622,United Kingdom,Low value,0.9735,M002
+C013623,United Kingdom,Premium,0.1613,M004
+C013624,United Kingdom,Low value,0.8672,M002
+C013625,United Kingdom,Low value,0.9639,M002
+C013626,United Kingdom,Regular,0.65,M002
+C013627,United Kingdom,Premium,0.215,M004
+C013628,United Kingdom,Low value,0.9771,M002
+C013629,United Kingdom,Premium,0.0793,M004
+C013630,United Kingdom,Loyal,0.1936,M004
+C013631,United Kingdom,Loyal,0.1386,M004
+C013632,United Kingdom,Premium,0.1843,M004
+C013634,United Kingdom,Premium,0.1126,M004
+C013640,United Kingdom,Low value,0.9641,M002
+C013641,United Kingdom,Low value,0.9096,M002
+C013643,United Kingdom,Premium,0.1675,M004
+C013645,United Kingdom,Regular,0.6248,M002
+C013646,United Kingdom,Low value,0.8297,M002
+C013647,United Kingdom,Loyal,0.2191,M004
+C013648,United Kingdom,Loyal,0.613,M002
+C013650,United Kingdom,Premium,0.1803,M004
+C013652,United Kingdom,Loyal,0.2652,M004
+C013653,United Kingdom,Low value,0.9444,M002
+C013654,United Kingdom,Loyal,0.1447,M004
+C013655,United Kingdom,Loyal,0.2785,M004
+C013657,United Kingdom,Regular,0.7565,M002
+C013658,United Kingdom,Premium,0.1967,M004
+C013659,United Kingdom,Premium,0.2349,M004
+C013660,United Kingdom,Low value,0.8874,M002
+C013661,United Kingdom,Low value,0.9646,M002
+C013662,United Kingdom,Premium,0.1824,M004
+C013665,United Kingdom,Low value,0.7176,M002
+C013667,United Kingdom,Regular,0.6533,M002
+C013668,United Kingdom,Premium,0.0499,M004
+C013671,United Kingdom,Low value,0.9041,M002
+C013672,United Kingdom,Loyal,0.7362,M002
+C013674,United Kingdom,Low value,0.9107,M002
+C013676,United Kingdom,Low value,0.9295,M002
+C013677,United Kingdom,Low value,0.8367,M002
+C013678,United Kingdom,Regular,0.6719,M002
+C013679,United Kingdom,Low value,0.9014,M002
+C013680,United Kingdom,Premium,0.1188,M004
+C013682,United Kingdom,Regular,0.7885,M002
+C013683,United Kingdom,Low value,0.9244,M002
+C013684,United Kingdom,Loyal,0.6413,M002
+C013687,United Kingdom,Loyal,0.7857,M002
+C013688,United Kingdom,Low value,0.9693,M002
+C013691,United Kingdom,Low value,0.9002,M002
+C013694,United Kingdom,Premium,0.0087,M004
+C013695,United Kingdom,Loyal,0.117,M004
+C013696,United Kingdom,Low value,0.7632,M002
+C013698,United Kingdom,Low value,0.9426,M002
+C013700,United Kingdom,Loyal,0.1369,M004
+C013701,United Kingdom,Low value,0.9255,M002
+C013702,United Kingdom,Low value,0.9319,M002
+C013703,United Kingdom,Low value,0.755,M002
+C013706,United Kingdom,Low value,0.7688,M002
+C013708,United Kingdom,Regular,0.7979,M002
+C013709,United Kingdom,Premium,0.0942,M004
+C013712,United Kingdom,Loyal,0.7015,M002
+C013713,United Kingdom,Low value,0.7959,M002
+C013714,United Kingdom,Low value,0.9361,M002
+C013715,United Kingdom,Premium,0.2309,M004
+C013716,United Kingdom,Regular,0.827,M002
+C013717,United Kingdom,Loyal,0.1669,M004
+C013718,United Kingdom,Regular,0.6889,M002
+C013719,United Kingdom,Loyal,0.1568,M004
+C013722,United Kingdom,Premium,0.1992,M004
+C013724,United Kingdom,Low value,0.9741,M002
+C013725,United Kingdom,Loyal,0.1495,M004
+C013727,United Kingdom,Loyal,0.2346,M004
+C013728,United Kingdom,Loyal,0.136,M004
+C013729,United Kingdom,Low value,0.8206,M002
+C013731,United Kingdom,Regular,0.6024,M002
+C013733,United Kingdom,Low value,0.866,M002
+C013734,United Kingdom,Low value,0.7241,M002
+C013735,United Kingdom,Premium,0.1068,M004
+C013737,United Kingdom,Regular,0.711,M002
+C013738,United Kingdom,Low value,0.8801,M002
+C013739,United Kingdom,Low value,0.9633,M002
+C013742,United Kingdom,Loyal,0.139,M004
+C013746,United Kingdom,Low value,0.9129,M002
+C013747,United Kingdom,Low value,0.8482,M002
+C013748,United Kingdom,Loyal,0.257,M004
+C013750,United Kingdom,Premium,0.1452,M004
+C013751,United Kingdom,Regular,0.8117,M002
+C013752,United Kingdom,Loyal,0.2921,M004
+C013753,United Kingdom,Loyal,0.6059,M002
+C013756,United Kingdom,Premium,0.0909,M004
+C013757,United Kingdom,Low value,0.9796,M002
+C013758,United Kingdom,Premium,0.1083,M004
+C013760,United Kingdom,Loyal,0.2804,M004
+C013761,United Kingdom,Loyal,0.2549,M004
+C013763,United Kingdom,Premium,0.2408,M004
+C013764,United Kingdom,Loyal,0.2492,M004
+C013765,United Kingdom,Low value,0.9728,M002
+C013766,United Kingdom,Low value,0.9435,M002
+C013767,United Kingdom,Premium,0.021,M004
+C013768,United Kingdom,Low value,0.959,M002
+C013769,United Kingdom,Premium,0.09,M004
+C013770,United Kingdom,Low value,0.7972,M002
+C013771,United Kingdom,Premium,0.1616,M004
+C013772,United Kingdom,Loyal,0.1765,M004
+C013773,United Kingdom,Low value,0.8709,M002
+C013775,United Kingdom,Low value,0.9475,M002
+C013777,United Kingdom,Premium,0.0279,M004
+C013779,United Kingdom,Low value,0.9517,M002
+C013781,United Kingdom,Loyal,0.6589,M002
+C013782,United Kingdom,Loyal,0.1851,M004
+C013783,United Kingdom,Low value,0.8079,M002
+C013784,United Kingdom,Loyal,0.1254,M004
+C013785,United Kingdom,Low value,0.7737,M002
+C013787,United Kingdom,Loyal,0.2929,M004
+C013788,United Kingdom,Low value,0.9807,M002
+C013789,United Kingdom,Low value,0.8924,M002
+C013793,United Kingdom,Low value,0.9803,M002
+C013794,United Kingdom,Low value,0.9621,M002
+C013795,United Kingdom,Low value,0.7481,M002
+C013796,United Kingdom,Low value,0.9382,M002
+C013797,United Kingdom,Low value,0.7988,M002
+C013798,United Kingdom,Premium,0.0129,M004
+C013799,United Kingdom,Premium,0.2203,M004
+C013800,United Kingdom,Loyal,0.6892,M002
+C013802,United Kingdom,Premium,0.0904,M004
+C013803,United Kingdom,Loyal,0.6042,M002
+C013804,United Kingdom,Loyal,0.1404,M004
+C013807,United Kingdom,Low value,0.8059,M002
+C013809,Cyprus,Low value,0.68,M002
+C013813,Germany,Premium,0.194,M004
+C013815,Germany,Premium,0.2981,M004
+C013818,United Kingdom,Low value,0.9396,M002
+C013820,United Kingdom,Low value,0.8119,M002
+C013823,United Kingdom,Loyal,0.2717,M004
+C013824,United Kingdom,Premium,0.1311,M004
+C013825,United Kingdom,Low value,0.9583,M002
+C013826,United Kingdom,Regular,0.705,M002
+C013829,United Kingdom,Low value,0.9242,M002
+C013830,United Kingdom,Low value,0.9654,M002
+C013831,United Kingdom,Premium,0.125,M004
+C013832,United Kingdom,Low value,0.8886,M002
+C013834,United Kingdom,Low value,0.9388,M002
+C013835,United Kingdom,Loyal,0.2819,M004
+C013836,United Kingdom,Low value,0.8045,M002
+C013837,United Kingdom,Regular,0.665,M002
+C013838,United Kingdom,Loyal,0.2649,M004
+C013839,United Kingdom,Low value,0.9453,M002
+C013840,United Kingdom,Low value,0.8805,M002
+C013841,United Kingdom,Regular,0.8322,M002
+C013842,United Kingdom,Premium,0.1068,M004
+C013843,United Kingdom,Low value,0.8799,M002
+C013847,United Kingdom,Low value,0.9821,M002
+C013848,United Kingdom,Loyal,0.2474,M004
+C013849,United Kingdom,Loyal,0.2328,M004
+C013851,United Kingdom,Loyal,0.2103,M004
+C013852,United Kingdom,Low value,0.9692,M002
+C013854,United Kingdom,Premium,0.0475,M004
+C013855,United Kingdom,Low value,0.8255,M002
+C013856,United Kingdom,Loyal,0.2865,M004
+C013857,United Kingdom,Low value,0.6607,M002
+C013859,United Kingdom,Low value,0.7822,M002
+C013861,United Kingdom,Low value,0.8716,M002
+C013862,United Kingdom,Loyal,0.1707,M004
+C013864,United Kingdom,Low value,0.8598,M002
+C013869,United Kingdom,Loyal,0.1927,M004
+C013870,United Kingdom,Premium,0.1095,M004
+C013871,United Kingdom,Premium,0.0989,M004
+C013872,United Kingdom,Low value,0.8726,M002
+C013875,United Kingdom,Loyal,0.138,M004
+C013878,United Kingdom,Loyal,0.291,M004
+C013879,United Kingdom,Low value,0.9706,M002
+C013880,United Kingdom,Loyal,0.1159,M004
+C013881,United Kingdom,Premium,0.0305,M004
+C013883,United Kingdom,Premium,0.2195,M004
+C013884,United Kingdom,Loyal,0.1964,M004
+C013887,United Kingdom,Regular,0.7141,M002
+C013888,United Kingdom,Loyal,0.2832,M004
+C013889,United Kingdom,Loyal,0.2841,M004
+C013890,United Kingdom,Premium,0.1779,M004
+C013891,United Kingdom,Low value,0.7632,M002
+C013892,United Kingdom,Loyal,0.2406,M004
+C013893,United Kingdom,Regular,0.7728,M002
+C013894,United Kingdom,Regular,0.8472,M002
+C013895,United Kingdom,Loyal,0.2047,M004
+C013896,United Kingdom,Low value,0.9672,M002
+C013898,United Kingdom,Low value,0.7448,M002
+C013899,United Kingdom,Regular,0.7984,M002
+C013901,United Kingdom,Premium,0.1205,M004
+C013902,Denmark,Premium,0.7429,M002
+C013903,United Kingdom,Low value,0.9082,M002
+C013905,United Kingdom,Low value,0.982,M002
+C013906,United Kingdom,Low value,0.9388,M002
+C013907,United Kingdom,Low value,0.9833,M002
+C013909,United Kingdom,Low value,0.872,M002
+C013911,United Kingdom,Premium,0.1016,M004
+C013912,United Kingdom,Low value,0.9247,M002
+C013913,United Kingdom,Low value,0.9646,M002
+C013915,United Kingdom,Low value,0.9201,M002
+C013916,United Kingdom,Low value,0.7896,M002
+C013920,United Kingdom,Low value,0.7222,M002
+C013921,United Kingdom,Low value,0.7738,M002
+C013922,United Kingdom,Low value,0.6974,M002
+C013929,United Kingdom,Premium,0.243,M004
+C013931,United Kingdom,Premium,0.1791,M004
+C013932,United Kingdom,Regular,0.8155,M002
+C013934,United Kingdom,Regular,0.729,M002
+C013935,United Kingdom,Low value,0.8522,M002
+C013941,United Kingdom,Premium,0.1291,M004
+C013942,United Kingdom,Low value,0.9478,M002
+C013943,United Kingdom,Low value,0.9619,M002
+C013944,United Kingdom,Low value,0.9768,M002
+C013945,United Kingdom,Low value,0.8049,M002
+C013946,United Kingdom,Loyal,0.291,M004
+C013947,United Kingdom,Regular,0.6162,M002
+C013948,United Kingdom,Low value,0.754,M002
+C013952,United Kingdom,Premium,0.1963,M004
+C013953,United Kingdom,Loyal,0.1496,M004
+C013957,United Kingdom,Low value,0.8348,M002
+C013959,United Kingdom,Loyal,0.2882,M004
+C013960,United Kingdom,Regular,0.6013,M002
+C013961,United Kingdom,Low value,0.8649,M002
+C013962,United Kingdom,Low value,0.7169,M002
+C013964,United Kingdom,Low value,0.8132,M002
+C013965,United Kingdom,Low value,0.8389,M002
+C013966,United Kingdom,Low value,0.9055,M002
+C013967,United Kingdom,Regular,0.6404,M002
+C013968,United Kingdom,Low value,0.9249,M002
+C013969,United Kingdom,Premium,0.0532,M004
+C013970,United Kingdom,Low value,0.7921,M002
+C013971,United Kingdom,Premium,0.1345,M004
+C013973,United Kingdom,Regular,0.8157,M002
+C013975,United Kingdom,Premium,0.1203,M004
+C013977,United Kingdom,Low value,0.8841,M002
+C013979,United Kingdom,Premium,0.2207,M004
+C013981,United Kingdom,Low value,0.8939,M002
+C013982,United Kingdom,Premium,0.155,M004
+C013983,United Kingdom,Premium,0.0764,M004
+C013984,United Kingdom,Loyal,0.1636,M004
+C013985,United Kingdom,Premium,0.0828,M004
+C013987,United Kingdom,Low value,0.7904,M002
+C013988,United Kingdom,Premium,0.1715,M004
+C013989,United Kingdom,Loyal,0.2729,M004
+C013990,United Kingdom,Regular,0.7314,M002
+C013993,United Kingdom,Premium,0.0898,M004
+C013995,United Kingdom,Premium,0.1404,M004
+C013996,United Kingdom,Low value,0.7857,M002
+C013997,United Kingdom,Low value,0.8877,M002
+C013998,United Kingdom,Low value,0.8345,M002
+C013999,United Kingdom,Premium,0.0594,M004
+C014001,United Kingdom,Loyal,0.14,M004
+C014003,United Kingdom,Low value,0.9852,M002
+C014004,United Kingdom,Loyal,0.1108,M004
+C014006,United Kingdom,Loyal,0.2898,M004
+C014007,United Kingdom,Low value,0.9594,M002
+C014008,United Kingdom,Low value,0.8918,M002
+C014010,United Kingdom,Low value,0.9227,M002
+C014011,United Kingdom,Low value,0.8906,M002
+C014012,United Kingdom,Regular,0.7968,M002
+C014016,EIRE,Premium,0.1848,M004
+C014017,United Kingdom,Low value,0.9613,M002
+C014018,United Kingdom,Low value,0.9712,M002
+C014022,United Kingdom,Loyal,0.6492,M002
+C014023,United Kingdom,Regular,0.7788,M002
+C014026,United Kingdom,Low value,0.8799,M002
+C014028,United Kingdom,Low value,0.7663,M002
+C014030,United Kingdom,Premium,0.1142,M004
+C014031,United Kingdom,Premium,0.0334,M004
+C014032,United Kingdom,Premium,0.1239,M004
+C014033,United Kingdom,Low value,0.9654,M002
+C014035,United Kingdom,Premium,0.1558,M004
+C014036,United Kingdom,Regular,0.7728,M002
+C014038,United Kingdom,Premium,0.2636,M004
+C014040,United Kingdom,Premium,0.05,M004
+C014041,United Kingdom,Regular,0.8236,M002
+C014042,United Kingdom,Low value,0.9811,M002
+C014043,United Kingdom,Low value,0.9164,M002
+C014044,United Kingdom,Loyal,0.1551,M004
+C014045,United Kingdom,Premium,0.1179,M004
+C014046,United Kingdom,Regular,0.8359,M002
+C014047,United Kingdom,Premium,0.144,M004
+C014048,United Kingdom,Loyal,0.6443,M002
+C014049,United Kingdom,Premium,0.1589,M004
+C014051,United Kingdom,Premium,0.0443,M004
+C014052,United Kingdom,Low value,0.8933,M002
+C014054,United Kingdom,Regular,0.6148,M002
+C014056,United Kingdom,Premium,0.0517,M004
+C014057,United Kingdom,Premium,0.0979,M004
+C014058,United Kingdom,Low value,0.8781,M002
+C014059,United Kingdom,Regular,0.8125,M002
+C014060,United Kingdom,Premium,0.068,M004
+C014061,United Kingdom,Low value,0.8749,M002
+C014062,United Kingdom,Premium,0.0661,M004
+C014063,United Kingdom,Low value,0.8102,M002
+C014064,United Kingdom,Premium,0.1123,M004
+C014065,United Kingdom,Low value,0.7325,M002
+C014066,United Kingdom,Regular,0.8204,M002
+C014068,United Kingdom,Loyal,0.6393,M002
+C014069,United Kingdom,Low value,0.9221,M002
+C014070,United Kingdom,Low value,0.9779,M002
+C014072,United Kingdom,Low value,0.9741,M002
+C014074,United Kingdom,Low value,0.9717,M002
+C014075,United Kingdom,Loyal,0.6017,M002
+C014076,United Kingdom,Regular,0.685,M002
+C014077,United Kingdom,Loyal,0.2581,M004
+C014078,United Kingdom,Loyal,0.2555,M004
+C014079,United Kingdom,Regular,0.6036,M002
+C014082,United Kingdom,Low value,0.8004,M002
+C014084,United Kingdom,Low value,0.9518,M002
+C014085,United Kingdom,Premium,0.0713,M004
+C014086,United Kingdom,Low value,0.9552,M002
+C014087,United Kingdom,Low value,0.8531,M002
+C014088,United Kingdom,Premium,0.0517,M004
+C014090,United Kingdom,Low value,0.8869,M002
+C014091,United Kingdom,Low value,0.903,M002
+C014092,United Kingdom,Premium,0.0978,M004
+C014094,United Kingdom,Low value,0.9081,M002
+C014095,United Kingdom,Low value,0.9949,M002
+C014096,United Kingdom,Premium,0.0383,M004
+C014097,United Kingdom,Low value,0.9016,M002
+C014099,United Kingdom,Premium,0.0991,M004
+C014100,United Kingdom,Regular,0.6656,M002
+C014101,United Kingdom,Premium,0.1145,M004
+C014106,United Kingdom,Low value,0.9855,M002
+C014107,United Kingdom,Premium,0.1476,M004
+C014110,United Kingdom,Premium,0.0572,M004
+C014112,United Kingdom,Premium,0.1083,M004
+C014113,United Kingdom,Premium,0.1213,M004
+C014115,United Kingdom,Low value,0.9024,M002
+C014117,United Kingdom,Regular,0.7187,M002
+C014118,United Kingdom,Low value,0.8974,M002
+C014119,United Kingdom,Low value,0.8761,M002
+C014122,United Kingdom,Low value,0.8363,M002
+C014123,United Kingdom,Low value,0.9819,M002
+C014126,United Kingdom,Low value,0.9054,M002
+C014127,United Kingdom,Loyal,0.2795,M004
+C014129,United Kingdom,Loyal,0.2556,M004
+C014130,United Kingdom,Loyal,0.6487,M002
+C014131,United Kingdom,Low value,0.9772,M002
+C014135,United Kingdom,Premium,0.0799,M004
+C014136,United Kingdom,Loyal,0.696,M002
+C014137,United Kingdom,Low value,0.9779,M002
+C014142,United Kingdom,Low value,0.8131,M002
+C014143,United Kingdom,Regular,0.6916,M002
+C014144,United Kingdom,Low value,0.9636,M002
+C014145,United Kingdom,Premium,0.1563,M004
+C014146,United Kingdom,Premium,0.1467,M004
+C014147,United Kingdom,Premium,0.1954,M004
+C014148,United Kingdom,Regular,0.6754,M002
+C014149,United Kingdom,Regular,0.7022,M002
+C014151,United Kingdom,Low value,0.9545,M002
+C014152,United Kingdom,Loyal,0.242,M004
+C014153,United Kingdom,Low value,0.9362,M002
+C014155,United Kingdom,Regular,0.8306,M002
+C014156,EIRE,Premium,0.0066,M004
+C014157,United Kingdom,Loyal,0.6327,M002
+C014159,United Kingdom,Premium,0.0882,M004
+C014160,United Kingdom,Low value,0.7684,M002
+C014162,United Kingdom,Regular,0.6106,M002
+C014163,United Kingdom,Loyal,0.26,M004
+C014165,United Kingdom,Regular,0.8375,M002
+C014166,United Kingdom,Low value,0.9215,M002
+C014167,United Kingdom,Loyal,0.2359,M004
+C014168,United Kingdom,Low value,0.8604,M002
+C014169,United Kingdom,Low value,0.8394,M002
+C014170,United Kingdom,Low value,0.7469,M002
+C014172,United Kingdom,Low value,0.9267,M002
+C014175,United Kingdom,Premium,0.1393,M004
+C014177,United Kingdom,Loyal,0.1796,M004
+C014180,United Kingdom,Premium,0.0505,M004
+C014181,United Kingdom,Low value,0.8667,M002
+C014182,United Kingdom,Low value,0.79,M002
+C014183,United Kingdom,Low value,0.861,M002
+C014185,United Kingdom,Low value,0.8619,M002
+C014186,United Kingdom,Low value,0.7229,M002
+C014187,United Kingdom,Low value,0.9431,M002
+C014188,United Kingdom,Loyal,0.162,M004
+C014189,United Kingdom,Premium,0.08,M004
+C014190,United Kingdom,Low value,0.9833,M002
+C014191,United Kingdom,Premium,0.146,M004
+C014192,United Kingdom,Low value,0.8867,M002
+C014194,United Kingdom,Premium,0.0447,M004
+C014197,United Kingdom,Low value,0.8916,M002
+C014198,United Kingdom,Loyal,0.2586,M004
+C014200,United Kingdom,Low value,0.9659,M002
+C014201,United Kingdom,Loyal,0.2004,M004
+C014202,United Kingdom,Low value,0.7741,M002
+C014203,United Kingdom,Low value,0.8879,M002
+C014204,United Kingdom,Low value,0.8234,M002
+C014207,United Kingdom,Low value,0.9822,M002
+C014209,United Kingdom,Premium,0.1605,M004
+C014210,United Kingdom,Premium,0.1341,M004
+C014211,United Kingdom,Premium,0.1055,M004
+C014213,United Kingdom,Low value,0.8457,M002
+C014215,United Kingdom,Loyal,0.2285,M004
+C014217,United Kingdom,Premium,0.0858,M004
+C014219,United Kingdom,Low value,0.8368,M002
+C014221,United Kingdom,Premium,0.091,M004
+C014222,United Kingdom,Regular,0.6375,M002
+C014224,United Kingdom,Loyal,0.2399,M004
+C014225,United Kingdom,Low value,0.7443,M002
+C014226,United Kingdom,Premium,0.1643,M004
+C014227,United Kingdom,Premium,0.1245,M004
+C014228,United Kingdom,Low value,0.8122,M002
+C014229,United Kingdom,Premium,0.1729,M004
+C014230,United Kingdom,Low value,0.7987,M002
+C014233,United Kingdom,Premium,0.1956,M004
+C014235,United Kingdom,Loyal,0.1797,M004
+C014236,United Kingdom,Loyal,0.2743,M004
+C014237,United Kingdom,Low value,0.8242,M002
+C014238,United Kingdom,Low value,0.78,M002
+C014239,United Kingdom,Premium,0.0981,M004
+C014241,United Kingdom,Loyal,0.7049,M002
+C014242,United Kingdom,Regular,0.6883,M002
+C014243,United Kingdom,Premium,0.0753,M004
+C014244,United Kingdom,Low value,0.9723,M002
+C014248,United Kingdom,Low value,0.6801,M002
+C014252,United Kingdom,Low value,0.8771,M002
+C014253,United Kingdom,Low value,0.9085,M002
+C014254,United Kingdom,Low value,0.8923,M002
+C014257,United Kingdom,Premium,0.1595,M004
+C014258,United Kingdom,Premium,0.0629,M004
+C014259,United Kingdom,Regular,0.6995,M002
+C014260,United Kingdom,Low value,0.8326,M002
+C014263,United Kingdom,Low value,0.9036,M002
+C014266,United Kingdom,Low value,0.9455,M002
+C014268,United Kingdom,Low value,0.9235,M002
+C014269,United Kingdom,Low value,0.9094,M002
+C014270,United Kingdom,Regular,0.828,M002
+C014271,United Kingdom,Regular,0.7132,M002
+C014274,United Kingdom,Low value,0.9795,M002
+C014275,United Kingdom,Low value,0.6716,M002
+C014276,United Kingdom,Premium,0.2486,M004
+C014277,France,Premium,0.2901,M004
+C014278,United Kingdom,Low value,0.9075,M002
+C014279,United Kingdom,Low value,0.9353,M002
+C014280,United Kingdom,Regular,0.7577,M002
+C014281,United Kingdom,Low value,0.9027,M002
+C014282,United Kingdom,Premium,0.0815,M004
+C014283,United Kingdom,Low value,0.8131,M002
+C014285,United Kingdom,Loyal,0.2085,M004
+C014286,United Kingdom,Premium,0.1827,M004
+C014287,United Kingdom,Regular,0.6862,M002
+C014288,United Kingdom,Regular,0.7027,M002
+C014290,United Kingdom,Premium,0.1912,M004
+C014291,United Kingdom,Premium,0.0921,M004
+C014292,United Kingdom,Premium,0.0866,M004
+C014293,United Kingdom,Loyal,0.2989,M004
+C014294,United Kingdom,Low value,0.8909,M002
+C014295,United Kingdom,Premium,0.2833,M004
+C014296,United Kingdom,Low value,0.8549,M002
+C014298,United Kingdom,Premium,0.0171,M004
+C014299,United Kingdom,Premium,0.064,M004
+C014302,United Kingdom,Low value,0.8356,M002
+C014303,United Kingdom,Low value,0.8528,M002
+C014306,United Kingdom,Loyal,0.2252,M004
+C014307,United Kingdom,Premium,0.1921,M004
+C014309,United Kingdom,Loyal,0.1359,M004
+C014310,United Kingdom,Low value,0.8977,M002
+C014311,United Kingdom,Loyal,0.7009,M002
+C014312,United Kingdom,Loyal,0.1424,M004
+C014315,United Kingdom,Loyal,0.1801,M004
+C014316,United Kingdom,Low value,0.7116,M002
+C014318,United Kingdom,Low value,0.9347,M002
+C014319,United Kingdom,Low value,0.888,M002
+C014321,United Kingdom,Loyal,0.2326,M004
+C014322,United Kingdom,Low value,0.8011,M002
+C014324,United Kingdom,Low value,0.8539,M002
+C014325,United Kingdom,Low value,0.9602,M002
+C014329,United Kingdom,Premium,0.1008,M004
+C014330,United Kingdom,Low value,0.9724,M002
+C014332,United Kingdom,Loyal,0.2866,M004
+C014334,United Kingdom,Premium,0.1594,M004
+C014339,United Kingdom,Loyal,0.6468,M002
+C014340,United Kingdom,Regular,0.7807,M002
+C014341,United Kingdom,Premium,0.1102,M004
+C014342,United Kingdom,Loyal,0.2567,M004
+C014343,United Kingdom,Low value,0.7741,M002
+C014344,United Kingdom,Loyal,0.1577,M004
+C014347,United Kingdom,Low value,0.9888,M002
+C014348,United Kingdom,Regular,0.769,M002
+C014350,United Kingdom,Loyal,0.6025,M002
+C014351,United Kingdom,Regular,0.7725,M002
+C014353,United Kingdom,Loyal,0.611,M002
+C014355,United Kingdom,Low value,0.7611,M002
+C014358,United Kingdom,Low value,0.8184,M002
+C014361,United Kingdom,Low value,0.9635,M002
+C014363,United Kingdom,Low value,0.859,M002
+C014365,United Kingdom,Low value,0.8466,M002
+C014366,United Kingdom,Low value,0.9564,M002
+C014367,United Kingdom,Premium,0.0657,M004
+C014368,United Kingdom,Regular,0.8617,M002
+C014369,United Kingdom,Low value,0.9523,M002
+C014370,United Kingdom,Low value,0.7221,M002
+C014371,United Kingdom,Regular,0.8593,M002
+C014372,United Kingdom,Low value,0.849,M002
+C014373,United Kingdom,Low value,0.9055,M002
+C014374,United Kingdom,Low value,0.9627,M002
+C014376,United Kingdom,Low value,0.9801,M002
+C014378,United Kingdom,Low value,0.9751,M002
+C014379,United Kingdom,Loyal,0.2929,M004
+C014382,United Kingdom,Low value,0.8611,M002
+C014384,United Kingdom,Low value,0.96,M002
+C014386,United Kingdom,Regular,0.8477,M002
+C014388,United Kingdom,Premium,0.1028,M004
+C014389,United Kingdom,Premium,0.2556,M004
+C014390,United Kingdom,Premium,0.1091,M004
+C014391,United Kingdom,Low value,0.9675,M002
+C014392,United Kingdom,Low value,0.9126,M002
+C014393,United Kingdom,Regular,0.8119,M002
+C014394,United Kingdom,Low value,0.9685,M002
+C014395,United Kingdom,Premium,0.0854,M004
+C014396,United Kingdom,Loyal,0.2642,M004
+C014397,United Kingdom,Loyal,0.0886,M004
+C014398,United Kingdom,Low value,0.8256,M002
+C014401,United Kingdom,Premium,0.0854,M004
+C014402,United Kingdom,Low value,0.9742,M002
+C014404,United Kingdom,Premium,0.1417,M004
+C014405,United Kingdom,Low value,0.8968,M002
+C014406,United Kingdom,Regular,0.6545,M002
+C014407,United Kingdom,Loyal,0.2337,M004
+C014408,United Kingdom,Loyal,0.2109,M004
+C014409,United Kingdom,Loyal,0.1748,M004
+C014410,United Kingdom,Premium,0.151,M004
+C014411,United Kingdom,Regular,0.7735,M002
+C014413,United Kingdom,Low value,0.803,M002
+C014414,United Kingdom,Loyal,0.1873,M004
+C014415,United Kingdom,Premium,0.0711,M004
+C014417,United Kingdom,Low value,0.8683,M002
+C014418,United Kingdom,Regular,0.6423,M002
+C014419,United Kingdom,Loyal,0.2259,M004
+C014421,United Kingdom,Loyal,0.2456,M004
+C014422,United Kingdom,Premium,0.0957,M004
+C014423,United Kingdom,Loyal,0.6052,M002
+C014425,United Kingdom,Low value,0.8314,M002
+C014426,United Kingdom,Premium,0.0778,M004
+C014428,United Kingdom,Loyal,0.2496,M004
+C014429,United Kingdom,Low value,0.8793,M002
+C014430,United Kingdom,Low value,0.841,M002
+C014433,United Kingdom,Low value,0.926,M002
+C014435,United Kingdom,Low value,0.9553,M002
+C014437,United Kingdom,Low value,0.6623,M002
+C014438,United Kingdom,Regular,0.8579,M002
+C014440,United Kingdom,Premium,0.1326,M004
+C014441,United Kingdom,Premium,0.1437,M004
+C014443,United Kingdom,Loyal,0.2076,M004
+C014444,United Kingdom,Low value,0.9378,M002
+C014445,United Kingdom,Low value,0.9266,M002
+C014446,United Kingdom,Loyal,0.2707,M004
+C014447,United Kingdom,Loyal,0.2463,M004
+C014448,United Kingdom,Low value,0.9015,M002
+C014449,United Kingdom,Loyal,0.2064,M004
+C014451,United Kingdom,Premium,0.1471,M004
+C014453,United Kingdom,Regular,0.757,M002
+C014454,United Kingdom,Low value,0.7066,M002
+C014455,United Kingdom,Low value,0.7676,M002
+C014457,United Kingdom,Regular,0.8657,M002
+C014458,United Kingdom,Low value,0.8902,M002
+C014460,United Kingdom,Loyal,0.2842,M004
+C014461,United Kingdom,Premium,0.1836,M004
+C014462,United Kingdom,Premium,0.1348,M004
+C014464,United Kingdom,Low value,0.953,M002
+C014466,United Kingdom,Loyal,0.1347,M004
+C014467,United Kingdom,Loyal,0.2051,M004
+C014468,United Kingdom,Low value,0.9854,M002
+C014469,United Kingdom,Low value,0.7323,M002
+C014470,United Kingdom,Low value,0.7247,M002
+C014471,United Kingdom,Low value,0.9458,M002
+C014472,United Kingdom,Loyal,0.2536,M004
+C014475,United Kingdom,Loyal,0.2891,M004
+C014476,United Kingdom,Regular,0.802,M002
+C014477,United Kingdom,Loyal,0.2543,M004
+C014478,United Kingdom,Low value,0.739,M002
+C014479,United Kingdom,Loyal,0.6078,M002
+C014480,United Kingdom,Low value,0.7901,M002
+C014482,United Kingdom,Premium,0.1131,M004
+C014483,United Kingdom,Low value,0.8046,M002
+C014486,United Kingdom,Low value,0.9256,M002
+C014487,United Kingdom,Loyal,0.1814,M004
+C014490,United Kingdom,Low value,0.7876,M002
+C014491,United Kingdom,Regular,0.6211,M002
+C014492,United Kingdom,Loyal,0.6346,M002
+C014493,United Kingdom,Premium,0.1536,M004
+C014494,United Kingdom,Low value,0.8857,M002
+C014497,United Kingdom,Low value,0.7691,M002
+C014498,United Kingdom,Loyal,0.1457,M004
+C014499,United Kingdom,Loyal,0.1662,M004
+C014501,United Kingdom,Regular,0.6259,M002
+C014502,United Kingdom,Loyal,0.1212,M004
+C014505,United Kingdom,Premium,0.0774,M004
+C014506,United Kingdom,Loyal,0.2458,M004
+C014507,United Kingdom,Premium,0.1647,M004
+C014509,United Kingdom,Low value,0.9608,M002
+C014510,United Kingdom,Low value,0.7143,M002
+C014514,United Kingdom,Premium,0.1811,M004
+C014515,United Kingdom,Premium,0.1672,M004
+C014516,United Kingdom,Low value,0.9528,M002
+C014519,United Kingdom,Low value,0.9708,M002
+C014520,United Kingdom,Regular,0.8375,M002
+C014521,United Kingdom,Low value,0.9386,M002
+C014522,United Kingdom,Loyal,0.2709,M004
+C014523,United Kingdom,Regular,0.611,M002
+C014524,United Kingdom,Loyal,0.1134,M004
+C014525,United Kingdom,Premium,0.1013,M004
+C014526,United Kingdom,Low value,0.8908,M002
+C014527,United Kingdom,Premium,0.0147,M004
+C014530,United Kingdom,Premium,0.1333,M004
+C014531,United Kingdom,Low value,0.926,M002
+C014533,United Kingdom,Premium,0.1552,M004
+C014534,United Kingdom,Premium,0.0812,M004
+C014535,United Kingdom,Premium,0.1535,M004
+C014536,United Kingdom,Regular,0.8093,M002
+C014539,United Kingdom,Regular,0.6018,M002
+C014540,United Kingdom,Loyal,0.1925,M004
+C014541,United Kingdom,Loyal,0.1626,M004
+C014542,United Kingdom,Regular,0.7593,M002
+C014543,United Kingdom,Premium,0.0413,M004
+C014544,United Kingdom,Low value,0.7307,M002
+C014545,United Kingdom,Low value,0.976,M002
+C014546,United Kingdom,Premium,0.1405,M004
+C014548,United Kingdom,Loyal,0.2982,M004
+C014549,United Kingdom,Loyal,0.6872,M002
+C014553,United Kingdom,Loyal,0.1807,M004
+C014555,United Kingdom,Loyal,0.2551,M004
+C014556,United Kingdom,Low value,0.9141,M002
+C014558,United Kingdom,Low value,0.9354,M002
+C014559,United Kingdom,Low value,0.9208,M002
+C014560,United Kingdom,Premium,0.0552,M004
+C014562,United Kingdom,Premium,0.0794,M004
+C014563,United Kingdom,Low value,0.8991,M002
+C014564,Channel Islands,Low value,0.8103,M002
+C014565,United Kingdom,Loyal,0.235,M004
+C014568,Channel Islands,Low value,0.8764,M002
+C014569,United Kingdom,Low value,0.8578,M002
+C014570,United Kingdom,Low value,0.667,M002
+C014571,United Kingdom,Low value,0.9205,M002
+C014572,United Kingdom,Premium,0.1278,M004
+C014573,United Kingdom,Premium,0.2544,M004
+C014574,United Kingdom,Low value,0.9866,M002
+C014575,United Kingdom,Low value,0.9275,M002
+C014576,United Kingdom,Low value,0.9282,M002
+C014579,United Kingdom,Low value,0.9314,M002
+C014580,United Kingdom,Low value,0.975,M002
+C014581,United Kingdom,Low value,0.9529,M002
+C014585,United Kingdom,Loyal,0.2612,M004
+C014586,United Kingdom,Regular,0.7974,M002
+C014587,United Kingdom,Loyal,0.287,M004
+C014588,United Kingdom,Low value,0.9679,M002
+C014589,United Kingdom,Low value,0.9256,M002
+C014591,United Kingdom,Regular,0.7544,M002
+C014593,United Kingdom,Premium,0.2709,M004
+C014594,United Kingdom,Low value,0.8817,M002
+C014595,United Kingdom,Loyal,0.2668,M004
+C014596,United Kingdom,Low value,0.9721,M002
+C014599,United Kingdom,Low value,0.8329,M002
+C014600,United Kingdom,Low value,0.7086,M002
+C014602,United Kingdom,Low value,0.977,M002
+C014603,United Kingdom,Regular,0.7595,M002
+C014604,United Kingdom,Low value,0.9766,M002
+C014605,United Kingdom,Low value,0.748,M002
+C014606,United Kingdom,Premium,0.0108,M004
+C014607,United Kingdom,Premium,0.0712,M004
+C014608,United Kingdom,Loyal,0.1773,M004
+C014609,United Kingdom,Loyal,0.2182,M004
+C014610,United Kingdom,Low value,0.9231,M002
+C014611,United Kingdom,Low value,0.8613,M002
+C014612,United Kingdom,Low value,0.8706,M002
+C014613,United Kingdom,Low value,0.9848,M002
+C014614,United Kingdom,Low value,0.8854,M002
+C014615,United Kingdom,Low value,0.687,M002
+C014617,United Kingdom,Low value,0.8607,M002
+C014618,United Kingdom,Loyal,0.6128,M002
+C014619,United Kingdom,Loyal,0.6406,M002
+C014620,United Kingdom,Regular,0.6092,M002
+C014621,United Kingdom,Premium,0.1693,M004
+C014622,United Kingdom,Regular,0.6945,M002
+C014623,United Kingdom,Loyal,0.16,M004
+C014625,United Kingdom,Premium,0.2499,M004
+C014626,United Kingdom,Premium,0.1621,M004
+C014627,United Kingdom,Low value,0.8571,M002
+C014630,United Kingdom,Low value,0.93,M002
+C014631,United Kingdom,Loyal,0.2128,M004
+C014632,United Kingdom,Regular,0.8287,M002
+C014633,United Kingdom,Regular,0.7837,M002
+C014634,United Kingdom,Low value,0.7026,M002
+C014635,United Kingdom,Low value,0.9263,M002
+C014637,United Kingdom,Low value,0.983,M002
+C014639,United Kingdom,Premium,0.1562,M004
+C014640,United Kingdom,Premium,0.173,M004
+C014642,United Kingdom,Regular,0.6023,M002
+C014644,United Kingdom,Premium,0.236,M004
+C014646,Netherlands,Premium,0.0064,M004
+C014647,United Kingdom,Loyal,0.66,M002
+C014649,United Kingdom,Premium,0.2061,M004
+C014650,United Kingdom,Low value,0.9756,M002
+C014651,United Kingdom,Loyal,0.2137,M004
+C014652,United Kingdom,Regular,0.6176,M002
+C014653,United Kingdom,Loyal,0.2027,M004
+C014654,United Kingdom,Low value,0.985,M002
+C014655,United Kingdom,Premium,0.2368,M004
+C014658,United Kingdom,Regular,0.6671,M002
+C014659,United Kingdom,Loyal,0.1355,M004
+C014662,United Kingdom,Loyal,0.249,M004
+C014663,United Kingdom,Low value,0.8459,M002
+C014665,United Kingdom,Loyal,0.2017,M004
+C014667,United Kingdom,Premium,0.0331,M004
+C014668,United Kingdom,Low value,0.9352,M002
+C014670,United Kingdom,Loyal,0.7216,M002
+C014671,United Kingdom,Low value,0.8994,M002
+C014673,United Kingdom,Loyal,0.2467,M004
+C014674,United Kingdom,Low value,0.9491,M002
+C014675,United Kingdom,Low value,0.8761,M002
+C014676,United Kingdom,Premium,0.1,M004
+C014677,United Kingdom,Low value,0.9677,M002
+C014678,United Kingdom,Low value,0.9547,M002
+C014679,United Kingdom,Low value,0.7573,M002
+C014680,United Kingdom,Premium,0.0252,M004
+C014683,United Kingdom,Low value,0.969,M002
+C014684,United Kingdom,Loyal,0.2481,M004
+C014685,United Kingdom,Premium,0.7331,M002
+C014686,United Kingdom,Low value,0.7368,M002
+C014688,United Kingdom,Premium,0.056,M004
+C014689,United Kingdom,Regular,0.7791,M002
+C014690,United Kingdom,Loyal,0.2962,M004
+C014692,United Kingdom,Loyal,0.2359,M004
+C014694,United Kingdom,Low value,0.9698,M002
+C014695,United Kingdom,Low value,0.8579,M002
+C014696,United Kingdom,Loyal,0.1933,M004
+C014697,United Kingdom,Regular,0.6722,M002
+C014700,United Kingdom,Loyal,0.2073,M004
+C014701,United Kingdom,Premium,0.2177,M004
+C014702,United Kingdom,Premium,0.0745,M004
+C014704,United Kingdom,Loyal,0.2461,M004
+C014705,United Kingdom,Regular,0.7446,M002
+C014706,United Kingdom,Low value,0.9664,M002
+C014707,United Kingdom,Low value,0.9036,M002
+C014709,United Kingdom,Premium,0.0722,M004
+C014710,United Kingdom,Loyal,0.1975,M004
+C014711,United Kingdom,Loyal,0.1601,M004
+C014712,United Kingdom,Loyal,0.2627,M004
+C014713,United Kingdom,Premium,0.0907,M004
+C014714,United Kingdom,Low value,0.795,M002
+C014715,United Kingdom,Loyal,0.2975,M004
+C014717,United Kingdom,Low value,0.9881,M002
+C014718,United Kingdom,Low value,0.9057,M002
+C014721,United Kingdom,Low value,0.9076,M002
+C014723,United Kingdom,Loyal,0.2086,M004
+C014724,United Kingdom,Low value,0.9613,M002
+C014725,United Kingdom,Low value,0.7781,M002
+C014726,United Kingdom,Low value,0.9801,M002
+C014727,United Kingdom,Loyal,0.6788,M002
+C014728,United Kingdom,Low value,0.9112,M002
+C014729,United Kingdom,Low value,0.7857,M002
+C014732,United Kingdom,Premium,0.0957,M004
+C014733,United Kingdom,Premium,0.0943,M004
+C014734,United Kingdom,Low value,0.7433,M002
+C014735,United Kingdom,Premium,0.0533,M004
+C014736,United Kingdom,Low value,0.8916,M002
+C014738,United Kingdom,Premium,0.1983,M004
+C014739,United Kingdom,Premium,0.0826,M004
+C014740,United Kingdom,Premium,0.2554,M004
+C014741,United Kingdom,Loyal,0.2283,M004
+C014742,United Kingdom,Low value,0.895,M002
+C014743,United Kingdom,Low value,0.9774,M002
+C014744,United Kingdom,Premium,0.1273,M004
+C014745,United Kingdom,Premium,0.1862,M004
+C014746,United Kingdom,Low value,0.7422,M002
+C014747,United Kingdom,Regular,0.7592,M002
+C014748,United Kingdom,Premium,0.1449,M004
+C014749,United Kingdom,Low value,0.9297,M002
+C014750,United Kingdom,Low value,0.9878,M002
+C014751,United Kingdom,Low value,0.9745,M002
+C014754,United Kingdom,Loyal,0.2586,M004
+C014755,United Kingdom,Premium,0.0741,M004
+C014756,United Kingdom,Low value,0.7363,M002
+C014758,United Kingdom,Loyal,0.2946,M004
+C014760,United Kingdom,Regular,0.8585,M002
+C014762,United Kingdom,Low value,0.7555,M002
+C014766,United Kingdom,Premium,0.141,M004
+C014767,United Kingdom,Low value,0.9236,M002
+C014768,United Kingdom,Regular,0.6638,M002
+C014769,United Kingdom,Premium,0.097,M004
+C014771,United Kingdom,Low value,0.9452,M002
+C014772,United Kingdom,Regular,0.6527,M002
+C014773,United Kingdom,Low value,0.9685,M002
+C014774,United Kingdom,Low value,0.95,M002
+C014776,United Kingdom,Premium,0.0982,M004
+C014777,United Kingdom,Low value,0.886,M002
+C014779,United Kingdom,Regular,0.6578,M002
+C014782,United Kingdom,Regular,0.8528,M002
+C014783,United Kingdom,Low value,0.9734,M002
+C014786,United Kingdom,Low value,0.9661,M002
+C014787,United Kingdom,Low value,0.9441,M002
+C014788,United Kingdom,Low value,0.9591,M002
+C014790,United Kingdom,Loyal,0.1916,M004
+C014791,United Kingdom,Low value,0.9658,M002
+C014792,United Kingdom,Regular,0.7567,M002
+C014793,United Kingdom,Low value,0.945,M002
+C014794,United Kingdom,Loyal,0.1765,M004
+C014795,United Kingdom,Regular,0.7247,M002
+C014796,United Kingdom,Premium,0.0692,M004
+C014797,United Kingdom,Low value,0.9403,M002
+C014798,United Kingdom,Loyal,0.2623,M004
+C014800,United Kingdom,Premium,0.0724,M004
+C014807,United Kingdom,Low value,0.8484,M002
+C014808,United Kingdom,Premium,0.1121,M004
+C014809,United Kingdom,Low value,0.9394,M002
+C014810,United Kingdom,Loyal,0.1259,M004
+C014811,United Kingdom,Low value,0.9008,M002
+C014812,United Kingdom,Low value,0.9691,M002
+C014813,United Kingdom,Low value,0.7212,M002
+C014814,United Kingdom,Low value,0.9673,M002
+C014816,United Kingdom,Regular,0.7202,M002
+C014820,United Kingdom,Loyal,0.2352,M004
+C014821,United Kingdom,Loyal,0.6291,M002
+C014822,United Kingdom,Low value,0.9432,M002
+C014824,United Kingdom,Premium,0.1518,M004
+C014825,United Kingdom,Premium,0.0964,M004
+C014826,United Kingdom,Low value,0.9418,M002
+C014828,United Kingdom,Premium,0.2101,M004
+C014829,United Kingdom,Loyal,0.1817,M004
+C014831,United Kingdom,Low value,0.9241,M002
+C014833,United Kingdom,Low value,0.954,M002
+C014834,United Kingdom,Loyal,0.2309,M004
+C014835,United Kingdom,Low value,0.9218,M002
+C014837,United Kingdom,Premium,0.198,M004
+C014838,United Kingdom,Low value,0.8644,M002
+C014839,United Kingdom,Low value,0.8135,M002
+C014840,United Kingdom,Low value,0.7402,M002
+C014841,United Kingdom,Loyal,0.1267,M004
+C014842,United Kingdom,Loyal,0.1957,M004
+C014843,United Kingdom,Low value,0.9195,M002
+C014844,United Kingdom,Premium,0.1363,M004
+C014845,United Kingdom,Low value,0.9707,M002
+C014846,United Kingdom,Low value,0.8931,M002
+C014848,United Kingdom,Low value,0.8944,M002
+C014849,United Kingdom,Premium,0.0407,M004
+C014851,United Kingdom,Loyal,0.7375,M002
+C014852,United Kingdom,Premium,0.0967,M004
+C014854,United Kingdom,Premium,0.1609,M004
+C014855,United Kingdom,Loyal,0.226,M004
+C014857,United Kingdom,Premium,0.1915,M004
+C014858,United Kingdom,Low value,0.9473,M002
+C014861,United Kingdom,Premium,0.2046,M004
+C014862,United Kingdom,Regular,0.6508,M002
+C014865,United Kingdom,Low value,0.8805,M002
+C014866,United Kingdom,Premium,0.063,M004
+C014867,United Kingdom,Premium,0.2267,M004
+C014868,United Kingdom,Loyal,0.1291,M004
+C014872,United Kingdom,Low value,0.8456,M002
+C014873,United Kingdom,Loyal,0.6615,M002
+C014874,United Kingdom,Low value,0.9606,M002
+C014876,United Kingdom,Low value,0.922,M002
+C014877,United Kingdom,Low value,0.87,M002
+C014878,United Kingdom,Premium,0.0831,M004
+C014879,United Kingdom,Low value,0.981,M002
+C014882,United Kingdom,Loyal,0.1157,M004
+C014884,United Kingdom,Low value,0.9816,M002
+C014886,United Kingdom,Regular,0.7665,M002
+C014888,United Kingdom,Regular,0.7146,M002
+C014889,United Kingdom,Low value,0.8773,M002
+C014890,United Kingdom,Loyal,0.6567,M002
+C014892,United Kingdom,Low value,0.9812,M002
+C014893,United Kingdom,Low value,0.9578,M002
+C014895,United Kingdom,Premium,0.0384,M004
+C014897,United Kingdom,Loyal,0.2271,M004
+C014898,United Kingdom,Premium,0.2039,M004
+C014899,United Kingdom,Low value,0.8414,M002
+C014900,United Kingdom,Low value,0.976,M002
+C014901,United Kingdom,Loyal,0.1469,M004
+C014902,United Kingdom,Low value,0.8178,M002
+C014903,United Kingdom,Loyal,0.2665,M004
+C014904,United Kingdom,Low value,0.8223,M002
+C014907,United Kingdom,Premium,0.0922,M004
+C014909,United Kingdom,Low value,0.789,M002
+C014911,EIRE,Premium,0.0035,M004
+C014913,United Kingdom,Loyal,0.1507,M004
+C014915,United Kingdom,Loyal,0.2199,M004
+C014916,United Kingdom,Premium,0.1911,M004
+C014917,United Kingdom,Low value,0.9207,M002
+C014918,United Kingdom,Loyal,0.1982,M004
+C014919,United Kingdom,Low value,0.9477,M002
+C014922,United Kingdom,Low value,0.8092,M002
+C014924,United Kingdom,Loyal,0.6345,M002
+C014926,United Kingdom,Low value,0.8416,M002
+C014927,United Kingdom,Low value,0.89,M002
+C014928,United Kingdom,Low value,0.9707,M002
+C014930,Channel Islands,Premium,0.2269,M004
+C014932,Channel Islands,Low value,0.7852,M002
+C014933,Channel Islands,Low value,0.7099,M002
+C014934,Channel Islands,Premium,0.2149,M004
+C014935,Channel Islands,Loyal,0.6769,M002
+C014936,Channel Islands,Premium,0.092,M004
+C014938,Channel Islands,Low value,0.8765,M002
+C014940,United Kingdom,Low value,0.8727,M002
+C014941,United Kingdom,Low value,0.9651,M002
+C014942,United Kingdom,Low value,0.7733,M002
+C014943,United Kingdom,Low value,0.9816,M002
+C014944,United Kingdom,Premium,0.0718,M004
+C014945,United Kingdom,Low value,0.9126,M002
+C014949,United Kingdom,Low value,0.836,M002
+C014952,United Kingdom,Premium,0.0512,M004
+C014953,United Kingdom,Low value,0.7738,M002
+C014954,United Kingdom,Low value,0.9835,M002
+C014955,United Kingdom,Low value,0.9861,M002
+C014956,United Kingdom,Low value,0.8611,M002
+C014957,United Kingdom,Low value,0.774,M002
+C014960,United Kingdom,Regular,0.7521,M002
+C014961,United Kingdom,Premium,0.0803,M004
+C014962,United Kingdom,Low value,0.6664,M002
+C014963,United Kingdom,Loyal,0.1456,M004
+C014964,United Kingdom,Regular,0.7893,M002
+C014966,United Kingdom,Low value,0.7322,M002
+C014967,United Kingdom,Loyal,0.2587,M004
+C014969,United Kingdom,Low value,0.9736,M002
+C014970,United Kingdom,Premium,0.1371,M004
+C014972,United Kingdom,Regular,0.6266,M002
+C014977,United Kingdom,Low value,0.9908,M002
+C014978,United Kingdom,Premium,0.1681,M004
+C014979,United Kingdom,Low value,0.9822,M002
+C014980,United Kingdom,Low value,0.9869,M002
+C014981,United Kingdom,Loyal,0.6937,M002
+C014982,United Kingdom,Low value,0.9613,M002
+C014983,United Kingdom,Low value,0.9816,M002
+C014985,United Kingdom,Regular,0.6542,M002
+C014986,United Kingdom,Low value,0.8399,M002
+C014987,United Kingdom,Loyal,0.6222,M002
+C014989,United Kingdom,Low value,0.9743,M002
+C014990,United Kingdom,Low value,0.9544,M002
+C014991,United Kingdom,Low value,0.9078,M002
+C014992,United Kingdom,Low value,0.9222,M002
+C014993,United Kingdom,Low value,0.9756,M002
+C014994,United Kingdom,Low value,0.6801,M002
+C014996,United Kingdom,Low value,0.8844,M002
+C014999,United Kingdom,Low value,0.9707,M002
+C015001,United Kingdom,Low value,0.852,M002
+C015002,United Kingdom,Loyal,0.2305,M004
+C015003,United Kingdom,Low value,0.7623,M002
+C015005,United Kingdom,Premium,0.033,M004
+C015007,United Kingdom,Regular,0.706,M002
+C015008,United Kingdom,Low value,0.9045,M002
+C015011,United Kingdom,Low value,0.8268,M002
+C015013,United Kingdom,Low value,0.6904,M002
+C015015,United Kingdom,Premium,0.6164,M002
+C015019,United Kingdom,Regular,0.7983,M002
+C015020,United Kingdom,Low value,0.8924,M002
+C015021,United Kingdom,Premium,0.1266,M004
+C015023,United Kingdom,Premium,0.076,M004
+C015024,United Kingdom,Loyal,0.1046,M004
+C015027,United Kingdom,Premium,0.1418,M004
+C015028,United Kingdom,Loyal,0.2659,M004
+C015029,United Kingdom,Low value,0.9649,M002
+C015030,United Kingdom,Loyal,0.2255,M004
+C015031,United Kingdom,Premium,0.1387,M004
+C015033,United Kingdom,Loyal,0.1503,M004
+C015034,United Kingdom,Premium,0.0909,M004
+C015037,United Kingdom,Low value,0.8088,M002
+C015038,United Kingdom,Loyal,0.1907,M004
+C015039,United Kingdom,Premium,0.0175,M004
+C015040,United Kingdom,Low value,0.9816,M002
+C015041,United Kingdom,Regular,0.6435,M002
+C015042,United Kingdom,Loyal,0.7031,M002
+C015043,United Kingdom,Loyal,0.1977,M004
+C015044,United Kingdom,Premium,0.0489,M004
+C015046,United Kingdom,Premium,0.0711,M004
+C015047,United Kingdom,Regular,0.7869,M002
+C015049,United Kingdom,Regular,0.8356,M002
+C015050,United Kingdom,Loyal,0.2493,M004
+C015051,United Kingdom,Loyal,0.1939,M004
+C015052,United Kingdom,Regular,0.8515,M002
+C015055,United Kingdom,Low value,0.8715,M002
+C015056,United Kingdom,Low value,0.9573,M002
+C015058,United Kingdom,Loyal,0.1388,M004
+C015059,United Kingdom,Premium,0.1026,M004
+C015061,United Kingdom,Premium,0.0107,M004
+C015062,United Kingdom,Loyal,0.2152,M004
+C015063,United Kingdom,Regular,0.7216,M002
+C015064,United Kingdom,Low value,0.766,M002
+C015065,United Kingdom,Loyal,0.1826,M004
+C015067,United Kingdom,Loyal,0.2482,M004
+C015069,United Kingdom,Regular,0.6078,M002
+C015070,United Kingdom,Low value,0.7908,M002
+C015072,United Kingdom,Low value,0.9385,M002
+C015077,United Kingdom,Low value,0.8562,M002
+C015078,United Kingdom,Premium,0.0354,M004
+C015079,United Kingdom,Premium,0.2808,M004
+C015080,United Kingdom,Low value,0.8494,M002
+C015081,United Kingdom,Loyal,0.1734,M004
+C015082,United Kingdom,Low value,0.9828,M002
+C015083,United Kingdom,Regular,0.8341,M002
+C015084,United Kingdom,Low value,0.8143,M002
+C015085,United Kingdom,Low value,0.9826,M002
+C015086,United Kingdom,Low value,0.9422,M002
+C015087,United Kingdom,Regular,0.8037,M002
+C015090,United Kingdom,Regular,0.8188,M002
+C015093,United Kingdom,Premium,0.0911,M004
+C015094,United Kingdom,Low value,0.9305,M002
+C015095,United Kingdom,Loyal,0.2109,M004
+C015097,United Kingdom,Low value,0.9201,M002
+C015098,United Kingdom,Premium,0.2009,M004
+C015101,United Kingdom,Loyal,0.6208,M002
+C015102,United Kingdom,Low value,0.907,M002
+C015105,United Kingdom,Loyal,0.2512,M004
+C015109,United Kingdom,Loyal,0.6414,M002
+C015110,United Kingdom,Loyal,0.2469,M004
+C015111,United Kingdom,Loyal,0.2349,M004
+C015112,United Kingdom,Low value,0.97,M002
+C015114,United Kingdom,Loyal,0.1145,M004
+C015115,United Kingdom,Low value,0.9848,M002
+C015117,United Kingdom,Loyal,0.2458,M004
+C015118,United Kingdom,Regular,0.646,M002
+C015119,United Kingdom,Regular,0.7749,M002
+C015120,United Kingdom,Regular,0.6069,M002
+C015122,United Kingdom,Premium,0.17,M004
+C015124,United Kingdom,Loyal,0.6395,M002
+C015125,United Kingdom,Premium,0.0575,M004
+C015126,United Kingdom,Low value,0.9249,M002
+C015128,United Kingdom,Loyal,0.227,M004
+C015129,United Kingdom,Loyal,0.0828,M004
+C015130,United Kingdom,Regular,0.6735,M002
+C015131,United Kingdom,Low value,0.9213,M002
+C015134,United Kingdom,Loyal,0.1679,M004
+C015135,United Kingdom,Loyal,0.7262,M002
+C015137,United Kingdom,Low value,0.8955,M002
+C015138,United Kingdom,Low value,0.8678,M002
+C015139,United Kingdom,Regular,0.7225,M002
+C015140,United Kingdom,Loyal,0.1576,M004
+C015141,United Kingdom,Low value,0.6903,M002
+C015142,United Kingdom,Loyal,0.1997,M004
+C015143,United Kingdom,Loyal,0.6587,M002
+C015144,United Kingdom,Premium,0.0637,M004
+C015147,United Kingdom,Regular,0.7134,M002
+C015150,United Kingdom,Premium,0.0969,M004
+C015151,United Kingdom,Low value,0.7918,M002
+C015152,United Kingdom,Premium,0.1325,M004
+C015155,United Kingdom,Low value,0.8756,M002
+C015159,United Kingdom,Premium,0.036,M004
+C015160,United Kingdom,Low value,0.6935,M002
+C015161,United Kingdom,Low value,0.9098,M002
+C015162,United Kingdom,Low value,0.9824,M002
+C015163,United Kingdom,Regular,0.7456,M002
+C015164,United Kingdom,Loyal,0.2158,M004
+C015165,United Kingdom,Low value,0.861,M002
+C015166,United Kingdom,Low value,0.9362,M002
+C015167,United Kingdom,Loyal,0.6103,M002
+C015169,United Kingdom,Low value,0.849,M002
+C015170,United Kingdom,Low value,0.9261,M002
+C015171,United Kingdom,Regular,0.7765,M002
+C015173,United Kingdom,Loyal,0.6055,M002
+C015174,United Kingdom,Low value,0.7608,M002
+C015176,United Kingdom,Low value,0.965,M002
+C015177,United Kingdom,Low value,0.8747,M002
+C015178,United Kingdom,Regular,0.8649,M002
+C015179,United Kingdom,Premium,0.126,M004
+C015180,United Kingdom,Low value,0.7572,M002
+C015182,United Kingdom,Premium,0.2305,M004
+C015183,United Kingdom,Low value,0.8844,M002
+C015188,United Kingdom,Low value,0.9827,M002
+C015189,United Kingdom,Premium,0.032,M004
+C015190,United Kingdom,Low value,0.8842,M002
+C015191,United Kingdom,Low value,0.8587,M002
+C015194,United Kingdom,Premium,0.0566,M004
+C015196,United Kingdom,Low value,0.895,M002
+C015199,United Kingdom,Loyal,0.1685,M004
+C015200,United Kingdom,Low value,0.9247,M002
+C015201,United Kingdom,Premium,0.2346,M004
+C015203,United Kingdom,Loyal,0.1614,M004
+C015204,United Kingdom,Low value,0.8644,M002
+C015207,United Kingdom,Low value,0.7864,M002
+C015208,United Kingdom,Loyal,0.2569,M004
+C015209,United Kingdom,Low value,0.9856,M002
+C015212,United Kingdom,Regular,0.7133,M002
+C015213,United Kingdom,Regular,0.7525,M002
+C015215,United Kingdom,Premium,0.1937,M004
+C015217,United Kingdom,Low value,0.9521,M002
+C015218,United Kingdom,Premium,0.0769,M004
+C015219,United Kingdom,Loyal,0.6414,M002
+C015221,United Kingdom,Loyal,0.6496,M002
+C015224,United Kingdom,Loyal,0.6749,M002
+C015225,United Kingdom,Regular,0.7405,M002
+C015226,United Kingdom,Regular,0.8553,M002
+C015227,United Kingdom,Loyal,0.1806,M004
+C015228,United Kingdom,Loyal,0.1814,M004
+C015229,United Kingdom,Low value,0.9678,M002
+C015230,United Kingdom,Regular,0.6475,M002
+C015231,United Kingdom,Low value,0.9687,M002
+C015233,United Kingdom,Low value,0.93,M002
+C015234,United Kingdom,Regular,0.8185,M002
+C015235,United Kingdom,Loyal,0.2142,M004
+C015236,United Kingdom,Regular,0.8172,M002
+C015240,United Kingdom,Premium,0.13,M004
+C015241,United Kingdom,Loyal,0.1691,M004
+C015242,United Kingdom,Low value,0.9048,M002
+C015245,United Kingdom,Loyal,0.2377,M004
+C015246,United Kingdom,Loyal,0.6182,M002
+C015248,United Kingdom,Low value,0.732,M002
+C015249,United Kingdom,Premium,0.0754,M004
+C015250,United Kingdom,Low value,0.9821,M002
+C015251,United Kingdom,Premium,0.0587,M004
+C015252,United Kingdom,Loyal,0.2374,M004
+C015253,United Kingdom,Premium,0.2588,M004
+C015255,United Kingdom,Premium,0.1889,M004
+C015256,United Kingdom,Loyal,0.6799,M002
+C015257,United Kingdom,Loyal,0.6933,M002
+C015259,United Kingdom,Low value,0.8382,M002
+C015260,United Kingdom,Premium,0.0913,M004
+C015262,United Kingdom,Low value,0.733,M002
+C015263,United Kingdom,Regular,0.6369,M002
+C015266,United Kingdom,Loyal,0.668,M002
+C015268,United Kingdom,Low value,0.8321,M002
+C015269,United Kingdom,Low value,0.7808,M002
+C015270,United Kingdom,Premium,0.1136,M004
+C015271,United Kingdom,Premium,0.0694,M004
+C015272,United Kingdom,Loyal,0.2607,M004
+C015273,United Kingdom,Low value,0.9671,M002
+C015278,United Kingdom,Low value,0.8926,M002
+C015279,United Kingdom,Loyal,0.6325,M002
+C015281,United Kingdom,Premium,0.075,M004
+C015282,United Kingdom,Low value,0.9564,M002
+C015283,United Kingdom,Low value,0.8345,M002
+C015284,United Kingdom,Low value,0.9683,M002
+C015285,United Kingdom,Low value,0.9235,M002
+C015288,United Kingdom,Loyal,0.1635,M004
+C015289,United Kingdom,Loyal,0.2475,M004
+C015290,United Kingdom,Premium,0.0658,M004
+C015291,United Kingdom,Premium,0.0431,M004
+C015292,United Kingdom,Regular,0.7482,M002
+C015293,United Kingdom,Low value,0.977,M002
+C015294,United Kingdom,Low value,0.9003,M002
+C015295,United Kingdom,Low value,0.9767,M002
+C015296,United Kingdom,Premium,0.1034,M004
+C015298,United Kingdom,Premium,0.0819,M004
+C015299,United Kingdom,Premium,0.1596,M004
+C015301,United Kingdom,Premium,0.0798,M004
+C015302,United Kingdom,Low value,0.9824,M002
+C015303,United Kingdom,Loyal,0.6653,M002
+C015304,United Kingdom,Loyal,0.2034,M004
+C015305,United Kingdom,Low value,0.9668,M002
+C015306,United Kingdom,Loyal,0.1828,M004
+C015307,United Kingdom,Regular,0.6034,M002
+C015308,United Kingdom,Regular,0.7879,M002
+C015309,United Kingdom,Low value,0.8953,M002
+C015310,United Kingdom,Low value,0.8912,M002
+C015311,United Kingdom,Premium,0.0068,M004
+C015312,United Kingdom,Premium,0.1741,M004
+C015313,United Kingdom,Regular,0.7102,M002
+C015316,United Kingdom,Low value,0.8645,M002
+C015317,United Kingdom,Low value,0.9812,M002
+C015319,United Kingdom,Regular,0.823,M002
+C015321,United Kingdom,Premium,0.1264,M004
+C015323,United Kingdom,Low value,0.9087,M002
+C015324,United Kingdom,Low value,0.9841,M002
+C015325,United Kingdom,Loyal,0.2691,M004
+C015326,United Kingdom,Premium,0.6061,M002
+C015328,United Kingdom,Low value,0.921,M002
+C015329,United Kingdom,Premium,0.1461,M004
+C015331,United Kingdom,Low value,0.8547,M002
+C015333,United Kingdom,Regular,0.6529,M002
+C015336,United Kingdom,Low value,0.8995,M002
+C015337,United Kingdom,Low value,0.8883,M002
+C015338,United Kingdom,Low value,0.9779,M002
+C015339,United Kingdom,Premium,0.2337,M004
+C015340,United Kingdom,Low value,0.9669,M002
+C015346,United Kingdom,Low value,0.6989,M002
+C015347,United Kingdom,Low value,0.6454,M002
+C015350,United Kingdom,Low value,0.793,M002
+C015351,United Kingdom,Premium,0.128,M004
+C015352,United Kingdom,Low value,0.9638,M002
+C015356,United Kingdom,Loyal,0.1109,M004
+C015358,United Kingdom,Premium,0.0402,M004
+C015359,United Kingdom,Low value,0.9185,M002
+C015361,United Kingdom,Low value,0.7142,M002
+C015362,United Kingdom,Low value,0.8851,M002
+C015363,United Kingdom,Low value,0.7919,M002
+C015365,United Kingdom,Premium,0.1743,M004
+C015366,United Kingdom,Loyal,0.2463,M004
+C015367,United Kingdom,Premium,0.1497,M004
+C015368,United Kingdom,Low value,0.892,M002
+C015370,United Kingdom,Loyal,0.1408,M004
+C015371,United Kingdom,Low value,0.9843,M002
+C015372,United Kingdom,Premium,0.2244,M004
+C015373,United Kingdom,Loyal,0.1806,M004
+C015374,United Kingdom,Loyal,0.6342,M002
+C015375,United Kingdom,Low value,0.9865,M002
+C015377,United Kingdom,Low value,0.6624,M002
+C015378,United Kingdom,Low value,0.8938,M002
+C015379,United Kingdom,Loyal,0.2208,M004
+C015380,United Kingdom,Premium,0.1748,M004
+C015382,United Kingdom,Premium,0.1258,M004
+C015386,United Kingdom,Regular,0.6845,M002
+C015387,United Kingdom,Low value,0.927,M002
+C015388,Canada,Regular,0.8272,M002
+C015390,Canada,Low value,0.7781,M002
+C015391,United Kingdom,Low value,0.9598,M002
+C015392,United Kingdom,Loyal,0.1771,M004
+C015393,United Kingdom,Loyal,0.6616,M002
+C015394,United Kingdom,Premium,0.1728,M004
+C015395,United Kingdom,Low value,0.8775,M002
+C015397,United Kingdom,Regular,0.8573,M002
+C015400,United Kingdom,Loyal,0.2503,M004
+C015401,United Kingdom,Low value,0.8989,M002
+C015403,United Kingdom,Low value,0.9316,M002
+C015404,United Kingdom,Low value,0.8827,M002
+C015405,United Kingdom,Loyal,0.6417,M002
+C015406,United Kingdom,Loyal,0.2894,M004
+C015408,United Kingdom,Regular,0.7938,M002
+C015409,United Kingdom,Low value,0.9854,M002
+C015410,United Kingdom,Loyal,0.1729,M004
+C015412,United Kingdom,Regular,0.7093,M002
+C015413,United Kingdom,Low value,0.8637,M002
+C015415,United Kingdom,Regular,0.8067,M002
+C015416,United Kingdom,Premium,0.1953,M004
+C015418,United Kingdom,Low value,0.8656,M002
+C015420,United Kingdom,Low value,0.7636,M002
+C015421,United Kingdom,Loyal,0.1828,M004
+C015424,United Kingdom,Loyal,0.6325,M002
+C015425,United Kingdom,Low value,0.7177,M002
+C015426,United Kingdom,Loyal,0.1868,M004
+C015428,United Kingdom,Low value,0.8067,M002
+C015430,United Kingdom,Low value,0.851,M002
+C015431,United Kingdom,Low value,0.9488,M002
+C015432,United Kingdom,Low value,0.9558,M002
+C015434,United Kingdom,Premium,0.1636,M004
+C015437,United Kingdom,Low value,0.7603,M002
+C015438,United Kingdom,Regular,0.6705,M002
+C015439,United Kingdom,Low value,0.7435,M002
+C015441,United Kingdom,Low value,0.7861,M002
+C015442,United Kingdom,Regular,0.7361,M002
+C015443,United Kingdom,Premium,0.1439,M004
+C015445,United Kingdom,Low value,0.7696,M002
+C015446,United Kingdom,Low value,0.8094,M002
+C015447,United Kingdom,Low value,0.677,M002
+C015448,United Kingdom,Low value,0.7749,M002
+C015451,United Kingdom,Low value,0.8924,M002
+C015452,United Kingdom,Loyal,0.2145,M004
+C015454,United Kingdom,Low value,0.8452,M002
+C015455,United Kingdom,Low value,0.9796,M002
+C015457,United Kingdom,Regular,0.7974,M002
+C015458,United Kingdom,Low value,0.9036,M002
+C015459,United Kingdom,Low value,0.8766,M002
+C015460,United Kingdom,Low value,0.8749,M002
+C015461,United Kingdom,Low value,0.885,M002
+C015464,United Kingdom,Regular,0.8021,M002
+C015465,United Kingdom,Premium,0.0608,M004
+C015468,United Kingdom,Loyal,0.2893,M004
+C015470,United Kingdom,Low value,0.9734,M002
+C015471,United Kingdom,Low value,0.8064,M002
+C015473,United Kingdom,Loyal,0.1741,M004
+C015474,United Kingdom,Low value,0.97,M002
+C015476,United Kingdom,Loyal,0.627,M002
+C015477,United Kingdom,Low value,0.9719,M002
+C015479,United Kingdom,Low value,0.9866,M002
+C015481,Norway,Low value,0.8305,M002
+C015482,United Kingdom,Premium,0.1024,M004
+C015485,United Kingdom,Premium,0.1819,M004
+C015486,United Kingdom,Low value,0.9602,M002
+C015487,United Kingdom,Low value,0.9792,M002
+C015489,United Kingdom,Premium,0.2235,M004
+C015490,United Kingdom,Low value,0.9128,M002
+C015493,United Kingdom,Premium,0.1496,M004
+C015495,United Kingdom,Low value,0.8863,M002
+C015496,United Kingdom,Low value,0.9758,M002
+C015498,United Kingdom,Premium,0.0364,M004
+C015499,United Kingdom,Low value,0.9855,M002
+C015501,United Kingdom,Low value,0.8345,M002
+C015502,United Kingdom,Premium,0.1237,M004
+C015503,United Kingdom,Low value,0.8648,M002
+C015506,United Kingdom,Loyal,0.2512,M004
+C015507,United Kingdom,Regular,0.6529,M002
+C015509,United Kingdom,Low value,0.8999,M002
+C015510,United Kingdom,Low value,0.8531,M002
+C015513,United Kingdom,Premium,0.0382,M004
+C015514,United Kingdom,Premium,0.1108,M004
+C015515,United Kingdom,Low value,0.9006,M002
+C015517,United Kingdom,Regular,0.7621,M002
+C015518,United Kingdom,Premium,0.1241,M004
+C015519,United Kingdom,Low value,0.8305,M002
+C015521,United Kingdom,Premium,0.0925,M004
+C015523,United Kingdom,Premium,0.0993,M004
+C015524,United Kingdom,Low value,0.9718,M002
+C015525,United Kingdom,Low value,0.8039,M002
+C015527,United Kingdom,Premium,0.0822,M004
+C015528,United Kingdom,Regular,0.7912,M002
+C015529,United Kingdom,Loyal,0.1287,M004
+C015532,United Kingdom,Loyal,0.214,M004
+C015534,United Kingdom,Low value,0.9856,M002
+C015536,United Kingdom,Low value,0.9018,M002
+C015537,United Kingdom,Regular,0.7307,M002
+C015538,United Kingdom,Low value,0.7384,M002
+C015540,United Kingdom,Low value,0.8838,M002
+C015541,United Kingdom,Regular,0.6861,M002
+C015542,United Kingdom,Low value,0.8739,M002
+C015543,United Kingdom,Low value,0.7749,M002
+C015544,United Kingdom,Premium,0.078,M004
+C015546,United Kingdom,Low value,0.922,M002
+C015547,United Kingdom,Premium,0.0716,M004
+C015548,United Kingdom,Low value,0.9696,M002
+C015549,United Kingdom,Loyal,0.2318,M004
+C015550,United Kingdom,Premium,0.226,M004
+C015551,United Kingdom,Loyal,0.1986,M004
+C015552,United Kingdom,Low value,0.7394,M002
+C015554,United Kingdom,Regular,0.8152,M002
+C015555,United Kingdom,Premium,0.0487,M004
+C015558,United Kingdom,Low value,0.9734,M002
+C015559,United Kingdom,Low value,0.9398,M002
+C015560,United Kingdom,Low value,0.8629,M002
+C015562,United Kingdom,Low value,0.7782,M002
+C015564,United Kingdom,Low value,0.9354,M002
+C015566,United Kingdom,Low value,0.8845,M002
+C015569,United Kingdom,Loyal,0.2069,M004
+C015570,United Kingdom,Premium,0.069,M004
+C015571,United Kingdom,Loyal,0.1503,M004
+C015572,United Kingdom,Loyal,0.2568,M004
+C015575,United Kingdom,Low value,0.9832,M002
+C015578,United Kingdom,Regular,0.7218,M002
+C015579,United Kingdom,Loyal,0.2604,M004
+C015581,United Kingdom,Premium,0.1151,M004
+C015583,United Kingdom,Low value,0.9092,M002
+C015585,United Kingdom,Regular,0.6624,M002
+C015586,United Kingdom,Low value,0.9011,M002
+C015587,United Kingdom,Loyal,0.2184,M004
+C015588,United Kingdom,Low value,0.9729,M002
+C015590,United Kingdom,Loyal,0.6585,M002
+C015591,United Kingdom,Low value,0.9346,M002
+C015595,United Kingdom,Low value,0.9302,M002
+C015596,United Kingdom,Premium,0.1797,M004
+C015600,United Kingdom,Low value,0.7474,M002
+C015601,United Kingdom,Premium,0.0603,M004
+C015602,United Kingdom,Premium,0.1225,M004
+C015603,United Kingdom,Loyal,0.6535,M002
+C015605,United Kingdom,Loyal,0.1978,M004
+C015606,United Kingdom,Premium,0.1081,M004
+C015608,United Kingdom,Loyal,0.2181,M004
+C015609,United Kingdom,Regular,0.6877,M002
+C015611,United Kingdom,Premium,0.0979,M004
+C015613,United Kingdom,Low value,0.9632,M002
+C015614,United Kingdom,Loyal,0.6972,M002
+C015615,United Kingdom,Premium,0.0349,M004
+C015616,United Kingdom,Low value,0.9115,M002
+C015617,United Kingdom,Low value,0.7672,M002
+C015620,United Kingdom,Loyal,0.2425,M004
+C015622,United Kingdom,Premium,0.0811,M004
+C015625,United Kingdom,Premium,0.1844,M004
+C015627,United Kingdom,Low value,0.8685,M002
+C015628,United Kingdom,Premium,0.1159,M004
+C015629,United Kingdom,Low value,0.7318,M002
+C015631,United Kingdom,Low value,0.9665,M002
+C015632,United Kingdom,Loyal,0.1534,M004
+C015634,United Kingdom,Low value,0.882,M002
+C015635,United Kingdom,Low value,0.9171,M002
+C015640,United Kingdom,Premium,0.0507,M004
+C015641,United Kingdom,Loyal,0.1841,M004
+C015642,United Kingdom,Low value,0.9875,M002
+C015645,United Kingdom,Low value,0.8314,M002
+C015647,United Kingdom,Low value,0.9149,M002
+C015650,United Kingdom,Low value,0.906,M002
+C015651,United Kingdom,Loyal,0.2784,M004
+C015652,United Kingdom,Loyal,0.2933,M004
+C015655,United Kingdom,Regular,0.7232,M002
+C015660,United Kingdom,Premium,0.1734,M004
+C015662,United Kingdom,Low value,0.9648,M002
+C015663,United Kingdom,Regular,0.6451,M002
+C015666,United Kingdom,Low value,0.8702,M002
+C015668,United Kingdom,Regular,0.806,M002
+C015670,United Kingdom,Low value,0.7752,M002
+C015671,United Kingdom,Loyal,0.2255,M004
+C015672,United Kingdom,Low value,0.9899,M002
+C015673,United Kingdom,Premium,0.1753,M004
+C015674,United Kingdom,Premium,0.1366,M004
+C015680,United Kingdom,Premium,0.1701,M004
+C015681,United Kingdom,Loyal,0.1239,M004
+C015682,United Kingdom,Low value,0.9462,M002
+C015684,United Kingdom,Low value,0.925,M002
+C015685,United Kingdom,Low value,0.9476,M002
+C015686,United Kingdom,Low value,0.9297,M002
+C015687,United Kingdom,Loyal,0.1893,M004
+C015688,United Kingdom,Low value,0.9136,M002
+C015690,United Kingdom,Regular,0.6511,M002
+C015691,United Kingdom,Loyal,0.64,M002
+C015693,United Kingdom,Low value,0.9859,M002
+C015694,United Kingdom,Premium,0.0763,M004
+C015695,United Kingdom,Loyal,0.61,M002
+C015696,United Kingdom,Premium,0.1169,M004
+C015697,United Kingdom,Low value,0.98,M002
+C015698,United Kingdom,Low value,0.9817,M002
+C015702,Nigeria,Low value,0.9454,M002
+C015703,United Kingdom,Regular,0.8045,M002
+C015704,United Kingdom,Loyal,0.2742,M004
+C015705,United Kingdom,Regular,0.7598,M002
+C015708,United Kingdom,Premium,0.1226,M004
+C015709,United Kingdom,Low value,0.7787,M002
+C015710,United Kingdom,Low value,0.8711,M002
+C015711,United Kingdom,Low value,0.9325,M002
+C015712,United Kingdom,Loyal,0.1822,M004
+C015715,United Kingdom,Low value,0.8592,M002
+C015716,United Kingdom,Loyal,0.2664,M004
+C015718,United Kingdom,Low value,0.9507,M002
+C015719,United Kingdom,Premium,0.0547,M004
+C015720,United Kingdom,Low value,0.9619,M002
+C015722,United Kingdom,Premium,0.121,M004
+C015723,United Kingdom,Low value,0.7059,M002
+C015726,United Kingdom,Low value,0.8853,M002
+C015727,United Kingdom,Loyal,0.1446,M004
+C015728,United Kingdom,Low value,0.7997,M002
+C015729,United Kingdom,Regular,0.6269,M002
+C015730,United Kingdom,Loyal,0.2401,M004
+C015731,United Kingdom,Low value,0.9637,M002
+C015733,United Kingdom,Regular,0.8315,M002
+C015735,United Kingdom,Low value,0.9022,M002
+C015736,United Kingdom,Low value,0.7882,M002
+C015738,United Kingdom,Premium,0.0474,M004
+C015741,United Kingdom,Low value,0.907,M002
+C015742,United Kingdom,Low value,0.9736,M002
+C015744,United Kingdom,Regular,0.6927,M002
+C015746,United Kingdom,Regular,0.6481,M002
+C015747,United Kingdom,Loyal,0.2766,M004
+C015749,United Kingdom,Premium,0.2753,M004
+C015750,United Kingdom,Premium,0.1004,M004
+C015751,United Kingdom,Low value,0.6459,M002
+C015752,United Kingdom,Loyal,0.1347,M004
+C015753,United Kingdom,Regular,0.8733,M002
+C015754,United Kingdom,Premium,0.1711,M004
+C015755,United Kingdom,Premium,0.1257,M004
+C015757,United Kingdom,Loyal,0.2266,M004
+C015761,United Kingdom,Low value,0.9297,M002
+C015764,United Kingdom,Premium,0.161,M004
+C015765,United Kingdom,Low value,0.9745,M002
+C015768,United Kingdom,Premium,0.073,M004
+C015769,United Kingdom,Premium,0.024,M004
+C015770,United Kingdom,Low value,0.9665,M002
+C015771,United Kingdom,Low value,0.9129,M002
+C015772,United Kingdom,Low value,0.9045,M002
+C015773,United Kingdom,Low value,0.9164,M002
+C015774,United Kingdom,Loyal,0.2856,M004
+C015775,United Kingdom,Low value,0.792,M002
+C015776,United Kingdom,Regular,0.6454,M002
+C015778,United Kingdom,Low value,0.9088,M002
+C015779,United Kingdom,Low value,0.914,M002
+C015782,United Kingdom,Loyal,0.2513,M004
+C015784,United Kingdom,Low value,0.8782,M002
+C015785,United Kingdom,Premium,0.0938,M004
+C015786,United Kingdom,Premium,0.1635,M004
+C015788,United Kingdom,Low value,0.9425,M002
+C015791,United Kingdom,Premium,0.215,M004
+C015792,United Kingdom,Low value,0.8261,M002
+C015793,United Kingdom,Loyal,0.2383,M004
+C015794,United Kingdom,Low value,0.9674,M002
+C015796,United Kingdom,Premium,0.1194,M004
+C015798,United Kingdom,Low value,0.841,M002
+C015804,United Kingdom,Premium,0.0945,M004
+C015805,United Kingdom,Premium,0.0562,M004
+C015807,United Kingdom,Loyal,0.2749,M004
+C015808,United Kingdom,Premium,0.2106,M004
+C015809,United Kingdom,Loyal,0.209,M004
+C015810,United Kingdom,Premium,0.2021,M004
+C015811,United Kingdom,Loyal,0.2181,M004
+C015812,United Kingdom,Premium,0.1776,M004
+C015814,United Kingdom,Loyal,0.2376,M004
+C015816,United Kingdom,Low value,0.935,M002
+C015817,United Kingdom,Low value,0.7315,M002
+C015818,United Kingdom,Low value,0.9609,M002
+C015819,United Kingdom,Loyal,0.1536,M004
+C015820,United Kingdom,Regular,0.8516,M002
+C015822,United Kingdom,Loyal,0.6599,M002
+C015823,United Kingdom,Low value,0.9419,M002
+C015824,United Kingdom,Low value,0.8519,M002
+C015825,United Kingdom,Regular,0.6469,M002
+C015826,United Kingdom,Loyal,0.2648,M004
+C015827,United Kingdom,Premium,0.0866,M004
+C015828,United Kingdom,Low value,0.8323,M002
+C015832,United Kingdom,Regular,0.7239,M002
+C015833,United Kingdom,Low value,0.989,M002
+C015834,United Kingdom,Loyal,0.1697,M004
+C015838,United Kingdom,Premium,0.0408,M004
+C015841,United Kingdom,Premium,0.2026,M004
+C015842,United Kingdom,Low value,0.8228,M002
+C015843,United Kingdom,Regular,0.8593,M002
+C015845,United Kingdom,Premium,0.1431,M004
+C015846,United Kingdom,Low value,0.911,M002
+C015848,United Kingdom,Low value,0.9748,M002
+C015851,United Kingdom,Low value,0.9591,M002
+C015852,United Kingdom,Loyal,0.6262,M002
+C015854,United Kingdom,Loyal,0.1291,M004
+C015856,United Kingdom,Premium,0.0341,M004
+C015857,United Kingdom,Low value,0.9111,M002
+C015858,United Kingdom,Premium,0.1586,M004
+C015859,United Kingdom,Low value,0.9007,M002
+C015860,United Kingdom,Loyal,0.1403,M004
+C015861,United Kingdom,Premium,0.1875,M004
+C015862,United Kingdom,Loyal,0.2266,M004
+C015863,United Kingdom,Loyal,0.6253,M002
+C015864,United Kingdom,Loyal,0.1773,M004
+C015865,United Kingdom,Loyal,0.2711,M004
+C015866,United Kingdom,Regular,0.6098,M002
+C015867,United Kingdom,Premium,0.075,M004
+C015868,United Kingdom,Low value,0.9717,M002
+C015869,United Kingdom,Low value,0.7313,M002
+C015870,United Kingdom,Loyal,0.2966,M004
+C015871,United Kingdom,Low value,0.9509,M002
+C015872,United Kingdom,Low value,0.8347,M002
+C015873,United Kingdom,Low value,0.8487,M002
+C015874,United Kingdom,Premium,0.0794,M004
+C015875,United Kingdom,Low value,0.9796,M002
+C015876,United Kingdom,Low value,0.7873,M002
+C015878,United Kingdom,Low value,0.941,M002
+C015879,United Kingdom,Low value,0.7624,M002
+C015880,United Kingdom,Low value,0.8653,M002
+C015884,United Kingdom,Low value,0.8977,M002
+C015885,United Kingdom,Premium,0.1838,M004
+C015887,United Kingdom,Low value,0.7737,M002
+C015890,United Kingdom,Low value,0.743,M002
+C015891,United Kingdom,Regular,0.7189,M002
+C015892,United Kingdom,Low value,0.9813,M002
+C015893,United Kingdom,Low value,0.9308,M002
+C015894,United Kingdom,Regular,0.7221,M002
+C015895,United Kingdom,Regular,0.6855,M002
+C015897,United Kingdom,Regular,0.6334,M002
+C015898,United Kingdom,Premium,0.189,M004
+C015899,United Kingdom,Low value,0.9173,M002
+C015900,United Kingdom,Low value,0.8018,M002
+C015902,United Kingdom,Low value,0.9012,M002
+C015903,United Kingdom,Premium,0.1106,M004
+C015905,United Kingdom,Low value,0.9625,M002
+C015906,United Kingdom,Loyal,0.1783,M004
+C015908,United Kingdom,Low value,0.8762,M002
+C015909,United Kingdom,Regular,0.7113,M002
+C015910,United Kingdom,Loyal,0.1754,M004
+C015911,United Kingdom,Low value,0.8295,M002
+C015913,United Kingdom,Low value,0.9816,M002
+C015914,United Kingdom,Low value,0.8379,M002
+C015915,United Kingdom,Low value,0.8883,M002
+C015916,United Kingdom,Premium,0.1402,M004
+C015917,United Kingdom,Loyal,0.6172,M002
+C015918,United Kingdom,Loyal,0.6004,M002
+C015919,United Kingdom,Low value,0.8838,M002
+C015922,United Kingdom,Low value,0.8642,M002
+C015923,United Kingdom,Low value,0.9003,M002
+C015924,United Kingdom,Low value,0.9878,M002
+C015925,United Kingdom,Regular,0.732,M002
+C015926,United Kingdom,Low value,0.9606,M002
+C015927,United Kingdom,Low value,0.9798,M002
+C015928,United Kingdom,Low value,0.9746,M002
+C015929,United Kingdom,Low value,0.967,M002
+C015931,United Kingdom,Low value,0.9131,M002
+C015932,United Kingdom,Loyal,0.1818,M004
+C015934,United Kingdom,Low value,0.7704,M002
+C015935,United Kingdom,Regular,0.8028,M002
+C015936,United Kingdom,Low value,0.8386,M002
+C015938,United Kingdom,Loyal,0.2963,M004
+C015939,United Kingdom,Premium,0.092,M004
+C015940,United Kingdom,Low value,0.892,M002
+C015941,United Kingdom,Low value,0.9674,M002
+C015942,United Kingdom,Regular,0.6234,M002
+C015943,United Kingdom,Low value,0.9609,M002
+C015945,United Kingdom,Low value,0.76,M002
+C015946,United Kingdom,Low value,0.8249,M002
+C015950,United Kingdom,Premium,0.1252,M004
+C015951,United Kingdom,Regular,0.6999,M002
+C015953,United Kingdom,Premium,0.1315,M004
+C015954,United Kingdom,Low value,0.967,M002
+C015955,United Kingdom,Premium,0.0785,M004
+C015956,United Kingdom,Low value,0.9265,M002
+C015959,United Kingdom,Low value,0.9478,M002
+C015960,United Kingdom,Low value,0.7243,M002
+C015961,United Kingdom,Low value,0.8678,M002
+C015962,United Kingdom,Low value,0.9186,M002
+C015964,United Kingdom,Low value,0.9762,M002
+C015965,United Kingdom,Loyal,0.1529,M004
+C015966,United Kingdom,Low value,0.9061,M002
+C015968,United Kingdom,Low value,0.8774,M002
+C015970,United Kingdom,Loyal,0.7392,M002
+C015971,United Kingdom,Premium,0.1098,M004
+C015972,United Kingdom,Low value,0.7347,M002
+C015973,United Kingdom,Low value,0.7714,M002
+C015974,United Kingdom,Loyal,0.1391,M004
+C015979,United Kingdom,Low value,0.9643,M002
+C015980,United Kingdom,Premium,0.1791,M004
+C015981,United Kingdom,Premium,0.0844,M004
+C015982,United Kingdom,Low value,0.965,M002
+C015984,United Kingdom,Premium,0.0838,M004
+C015985,United Kingdom,Loyal,0.2567,M004
+C015987,United Kingdom,Loyal,0.2691,M004
+C015988,United Kingdom,Low value,0.9228,M002
+C015989,United Kingdom,Low value,0.8615,M002
+C015990,United Kingdom,Loyal,0.2277,M004
+C015991,United Kingdom,Low value,0.9575,M002
+C015992,United Kingdom,Low value,0.8023,M002
+C015995,United Kingdom,Low value,0.8773,M002
+C015996,United Kingdom,Loyal,0.2298,M004
+C015998,United Kingdom,Premium,0.0926,M004
+C015999,United Kingdom,Low value,0.9924,M002
+C016001,United Kingdom,Low value,0.8542,M002
+C016002,United Kingdom,Low value,0.9739,M002
+C016003,United Kingdom,Loyal,0.1484,M004
+C016004,United Kingdom,Low value,0.757,M002
+C016005,United Kingdom,Loyal,0.2892,M004
+C016006,United Kingdom,Regular,0.6667,M002
+C016007,United Kingdom,Loyal,0.1921,M004
+C016008,United Kingdom,Loyal,0.1372,M004
+C016011,United Kingdom,Premium,0.0768,M004
+C016012,United Kingdom,Loyal,0.2188,M004
+C016013,United Kingdom,Premium,0.0195,M004
+C016014,United Kingdom,Loyal,0.2935,M004
+C016016,United Kingdom,Loyal,0.1496,M004
+C016017,United Kingdom,Loyal,0.2999,M004
+C016019,United Kingdom,Premium,0.0551,M004
+C016021,United Kingdom,Low value,0.8388,M002
+C016022,United Kingdom,Regular,0.7489,M002
+C016024,United Kingdom,Low value,0.8585,M002
+C016027,United Kingdom,Premium,0.1717,M004
+C016028,United Kingdom,Low value,0.9746,M002
+C016029,United Kingdom,Premium,0.0119,M004
+C016030,United Kingdom,Regular,0.8255,M002
+C016032,United Kingdom,Low value,0.6868,M002
+C016033,United Kingdom,Premium,0.0479,M004
+C016035,United Kingdom,Low value,0.9594,M002
+C016039,United Kingdom,Low value,0.8628,M002
+C016040,United Kingdom,Loyal,0.22,M004
+C016042,United Kingdom,Loyal,0.1894,M004
+C016043,United Kingdom,Loyal,0.1828,M004
+C016044,United Kingdom,Low value,0.9084,M002
+C016045,United Kingdom,Loyal,0.2131,M004
+C016046,United Kingdom,Low value,0.959,M002
+C016048,United Kingdom,Low value,0.7002,M002
+C016049,United Kingdom,Loyal,0.2228,M004
+C016051,United Kingdom,Low value,0.9806,M002
+C016053,United Kingdom,Premium,0.1871,M004
+C016055,United Kingdom,Regular,0.7826,M002
+C016057,United Kingdom,Premium,0.204,M004
+C016058,United Kingdom,Low value,0.9309,M002
+C016059,United Kingdom,Loyal,0.1555,M004
+C016060,United Kingdom,Low value,0.7893,M002
+C016061,United Kingdom,Low value,0.9286,M002
+C016062,United Kingdom,Loyal,0.2764,M004
+C016063,United Kingdom,Regular,0.779,M002
+C016064,United Kingdom,Low value,0.9871,M002
+C016067,United Kingdom,Low value,0.8433,M002
+C016068,United Kingdom,Low value,0.9718,M002
+C016069,United Kingdom,Low value,0.8912,M002
+C016073,United Kingdom,Regular,0.8472,M002
+C016074,United Kingdom,Low value,0.8921,M002
+C016075,United Kingdom,Low value,0.8834,M002
+C016077,United Kingdom,Low value,0.944,M002
+C016078,United Kingdom,Low value,0.7876,M002
+C016081,United Kingdom,Loyal,0.1905,M004
+C016082,United Kingdom,Low value,0.9823,M002
+C016083,United Kingdom,Loyal,0.2937,M004
+C016084,United Kingdom,Regular,0.8048,M002
+C016085,United Kingdom,Loyal,0.1843,M004
+C016086,United Kingdom,Loyal,0.1915,M004
+C016087,United Kingdom,Low value,0.6867,M002
+C016088,United Kingdom,Low value,0.9066,M002
+C016089,United Kingdom,Low value,0.8513,M002
+C016090,United Kingdom,Low value,0.9733,M002
+C016092,United Kingdom,Loyal,0.2893,M004
+C016093,United Kingdom,Regular,0.7651,M002
+C016094,United Kingdom,Premium,0.1296,M004
+C016095,United Kingdom,Low value,0.9123,M002
+C016097,United Kingdom,Regular,0.7875,M002
+C016098,United Kingdom,Loyal,0.1666,M004
+C016099,United Kingdom,Loyal,0.2353,M004
+C016100,United Kingdom,Low value,0.909,M002
+C016101,United Kingdom,Loyal,0.2647,M004
+C016103,United Kingdom,Premium,0.0986,M004
+C016104,United Kingdom,Premium,0.1975,M004
+C016106,United Kingdom,Regular,0.6041,M002
+C016109,United Kingdom,Loyal,0.6045,M002
+C016110,United Kingdom,Loyal,0.2826,M004
+C016111,United Kingdom,Low value,0.8925,M002
+C016113,United Kingdom,Regular,0.7331,M002
+C016114,United Kingdom,Regular,0.7276,M002
+C016115,United Kingdom,Loyal,0.1569,M004
+C016116,United Kingdom,Regular,0.6781,M002
+C016118,United Kingdom,Low value,0.939,M002
+C016119,United Kingdom,Loyal,0.2798,M004
+C016120,United Kingdom,Loyal,0.1916,M004
+C016121,United Kingdom,Loyal,0.2741,M004
+C016122,United Kingdom,Loyal,0.2746,M004
+C016124,United Kingdom,Loyal,0.6314,M002
+C016126,United Kingdom,Premium,0.0911,M004
+C016128,United Kingdom,Premium,0.1277,M004
+C016129,United Kingdom,Low value,0.7497,M002
+C016130,United Kingdom,Low value,0.7663,M002
+C016131,United Kingdom,Premium,0.1158,M004
+C016132,United Kingdom,Low value,0.9151,M002
+C016133,United Kingdom,Premium,0.0256,M004
+C016134,United Kingdom,Loyal,0.6324,M002
+C016135,United Kingdom,Loyal,0.7082,M002
+C016137,United Kingdom,Low value,0.9756,M002
+C016138,United Kingdom,Low value,0.752,M002
+C016142,United Kingdom,Regular,0.743,M002
+C016143,United Kingdom,Premium,0.1882,M004
+C016144,United Kingdom,Regular,0.7959,M002
+C016145,United Kingdom,Premium,0.0777,M004
+C016148,United Kingdom,Low value,0.738,M002
+C016149,United Kingdom,Regular,0.6039,M002
+C016150,United Kingdom,Premium,0.1441,M004
+C016152,United Kingdom,Regular,0.6951,M002
+C016153,United Kingdom,Premium,0.1246,M004
+C016155,United Kingdom,Low value,0.6823,M002
+C016156,United Kingdom,Premium,0.1003,M004
+C016158,United Kingdom,Low value,0.7901,M002
+C016159,United Kingdom,Loyal,0.6225,M002
+C016161,United Kingdom,Premium,0.047,M004
+C016162,United Kingdom,Regular,0.8619,M002
+C016165,United Kingdom,Low value,0.9577,M002
+C016166,United Kingdom,Low value,0.8711,M002
+C016167,United Kingdom,Low value,0.7252,M002
+C016168,United Kingdom,Premium,0.0349,M004
+C016170,United Kingdom,Premium,0.0836,M004
+C016171,United Kingdom,Regular,0.6219,M002
+C016172,United Kingdom,Loyal,0.2343,M004
+C016174,United Kingdom,Loyal,0.2893,M004
+C016175,United Kingdom,Loyal,0.2613,M004
+C016176,United Kingdom,Low value,0.7051,M002
+C016177,United Kingdom,Premium,0.1914,M004
+C016180,United Kingdom,Premium,0.1003,M004
+C016182,United Kingdom,Loyal,0.1511,M004
+C016185,United Kingdom,Loyal,0.7091,M002
+C016186,United Kingdom,Premium,0.073,M004
+C016187,United Kingdom,Premium,0.0678,M004
+C016188,United Kingdom,Loyal,0.2469,M004
+C016189,United Kingdom,Regular,0.613,M002
+C016190,United Kingdom,Loyal,0.2069,M004
+C016191,United Kingdom,Premium,0.0671,M004
+C016192,United Kingdom,Low value,0.9831,M002
+C016193,United Kingdom,Regular,0.6586,M002
+C016194,United Kingdom,Low value,0.8772,M002
+C016195,United Kingdom,Low value,0.9823,M002
+C016196,United Kingdom,Low value,0.9515,M002
+C016197,United Kingdom,Low value,0.6831,M002
+C016199,United Kingdom,Low value,0.6653,M002
+C016200,United Kingdom,Premium,0.2364,M004
+C016203,United Kingdom,Loyal,0.2627,M004
+C016204,United Kingdom,Low value,0.8439,M002
+C016205,United Kingdom,Loyal,0.2024,M004
+C016206,United Kingdom,Loyal,0.1561,M004
+C016208,United Kingdom,Loyal,0.1655,M004
+C016209,United Kingdom,Loyal,0.1836,M004
+C016210,United Kingdom,Premium,0.0457,M004
+C016212,United Kingdom,Loyal,0.6614,M002
+C016216,United Kingdom,Regular,0.7341,M002
+C016217,United Kingdom,Regular,0.6563,M002
+C016218,United Kingdom,Premium,0.1039,M004
+C016219,United Kingdom,Low value,0.9637,M002
+C016221,United Kingdom,Loyal,0.1605,M004
+C016222,United Kingdom,Loyal,0.7644,M002
+C016223,United Kingdom,Low value,0.7621,M002
+C016224,United Kingdom,Loyal,0.2434,M004
+C016225,United Kingdom,Premium,0.1266,M004
+C016228,United Kingdom,Low value,0.7227,M002
+C016229,United Kingdom,Loyal,0.241,M004
+C016231,United Kingdom,Low value,0.7174,M002
+C016232,United Kingdom,Premium,0.1795,M004
+C016233,United Kingdom,Premium,0.2229,M004
+C016234,United Kingdom,Low value,0.8641,M002
+C016235,United Kingdom,Loyal,0.1673,M004
+C016237,United Kingdom,Low value,0.9286,M002
+C016238,United Kingdom,Low value,0.9366,M002
+C016239,United Kingdom,Loyal,0.2287,M004
+C016241,United Kingdom,Loyal,0.0997,M004
+C016242,United Kingdom,Premium,0.1074,M004
+C016246,United Kingdom,Low value,0.8746,M002
+C016247,United Kingdom,Regular,0.737,M002
+C016250,United Kingdom,Regular,0.626,M002
+C016251,United Kingdom,Low value,0.9538,M002
+C016252,United Kingdom,Low value,0.8774,M002
+C016253,United Kingdom,Premium,0.1854,M004
+C016254,United Kingdom,Low value,0.7662,M002
+C016255,United Kingdom,Premium,0.1494,M004
+C016256,United Kingdom,Loyal,0.6007,M002
+C016257,United Kingdom,Regular,0.8216,M002
+C016258,United Kingdom,Premium,0.0898,M004
+C016259,United Kingdom,Low value,0.8343,M002
+C016262,United Kingdom,Low value,0.8384,M002
+C016263,United Kingdom,Low value,0.9017,M002
+C016264,United Kingdom,Low value,0.8335,M002
+C016265,United Kingdom,Premium,0.0999,M004
+C016266,United Kingdom,Loyal,0.1834,M004
+C016267,United Kingdom,Low value,0.9674,M002
+C016269,United Kingdom,Low value,0.8851,M002
+C016270,United Kingdom,Low value,0.812,M002
+C016271,United Kingdom,Loyal,0.273,M004
+C016273,United Kingdom,Low value,0.9581,M002
+C016274,United Kingdom,Low value,0.8737,M002
+C016277,United Kingdom,Low value,0.9857,M002
+C016279,United Kingdom,Loyal,0.1875,M004
+C016280,United Kingdom,Low value,0.984,M002
+C016282,United Kingdom,Loyal,0.7305,M002
+C016283,United Kingdom,Premium,0.1955,M004
+C016285,United Kingdom,Low value,0.9766,M002
+C016286,United Kingdom,Low value,0.8968,M002
+C016288,United Kingdom,Low value,0.9414,M002
+C016289,United Kingdom,Low value,0.9348,M002
+C016290,United Kingdom,Low value,0.7586,M002
+C016293,United Kingdom,Premium,0.131,M004
+C016294,United Kingdom,Low value,0.9437,M002
+C016296,United Kingdom,Low value,0.894,M002
+C016297,United Kingdom,Regular,0.7743,M002
+C016298,United Kingdom,Loyal,0.2447,M004
+C016299,United Kingdom,Low value,0.9341,M002
+C016300,United Kingdom,Low value,0.8002,M002
+C016301,United Kingdom,Low value,0.988,M002
+C016302,United Kingdom,Regular,0.626,M002
+C016303,United Kingdom,Premium,0.2296,M004
+C016304,United Kingdom,Low value,0.9781,M002
+C016305,United Kingdom,Regular,0.6258,M002
+C016307,United Kingdom,Low value,0.7894,M002
+C016308,United Kingdom,Loyal,0.1902,M004
+C016310,United Kingdom,Low value,0.8652,M002
+C016312,United Kingdom,Low value,0.9222,M002
+C016314,United Kingdom,Low value,0.7219,M002
+C016315,United Kingdom,Low value,0.7983,M002
+C016316,United Kingdom,Premium,0.1036,M004
+C016319,United Kingdom,Regular,0.7214,M002
+C016323,United Kingdom,Loyal,0.6892,M002
+C016325,United Kingdom,Premium,0.1421,M004
+C016326,United Kingdom,Premium,0.0894,M004
+C016327,United Kingdom,Premium,0.1131,M004
+C016328,United Kingdom,Low value,0.9561,M002
+C016329,United Kingdom,Low value,0.766,M002
+C016331,United Kingdom,Low value,0.6854,M002
+C016332,United Kingdom,Loyal,0.1475,M004
+C016333,United Kingdom,Premium,0.045,M004
+C016334,United Kingdom,Low value,0.9373,M002
+C016335,United Kingdom,Low value,0.771,M002
+C016336,United Kingdom,Low value,0.6961,M002
+C016338,United Kingdom,Regular,0.6846,M002
+C016339,United Kingdom,Regular,0.8536,M002
+C016341,United Kingdom,Premium,0.2519,M004
+C016343,United Kingdom,Low value,0.8983,M002
+C016346,United Kingdom,Low value,0.8924,M002
+C016347,United Kingdom,Premium,0.1518,M004
+C016348,United Kingdom,Loyal,0.1742,M004
+C016349,United Kingdom,Regular,0.8762,M002
+C016350,United Kingdom,Loyal,0.173,M004
+C016353,United Kingdom,Premium,0.0576,M004
+C016355,United Kingdom,Low value,0.8616,M002
+C016357,United Kingdom,Loyal,0.2832,M004
+C016358,United Kingdom,Loyal,0.2458,M004
+C016359,United Kingdom,Premium,0.1388,M004
+C016362,United Kingdom,Loyal,0.2134,M004
+C016364,United Kingdom,Regular,0.6273,M002
+C016365,United Kingdom,Loyal,0.1421,M004
+C016366,United Kingdom,Low value,0.9017,M002
+C016369,United Kingdom,Loyal,0.2747,M004
+C016371,United Kingdom,Low value,0.9303,M002
+C016372,United Kingdom,Loyal,0.2659,M004
+C016373,United Kingdom,Low value,0.8291,M002
+C016374,United Kingdom,Loyal,0.2889,M004
+C016375,United Kingdom,Low value,0.9157,M002
+C016377,United Kingdom,Loyal,0.6926,M002
+C016378,United Kingdom,Regular,0.6215,M002
+C016381,United Kingdom,Low value,0.8474,M002
+C016382,United Kingdom,Low value,0.8595,M002
+C016383,United Kingdom,Premium,0.2248,M004
+C016387,United Kingdom,Loyal,0.6453,M002
+C016388,United Kingdom,Low value,0.9773,M002
+C016390,United Kingdom,Low value,0.9021,M002
+C016391,United Kingdom,Low value,0.7321,M002
+C016392,United Kingdom,Loyal,0.657,M002
+C016393,United Kingdom,Premium,0.1034,M004
+C016394,United Kingdom,Loyal,0.2059,M004
+C016395,United Kingdom,Premium,0.1418,M004
+C016396,United Kingdom,Low value,0.9377,M002
+C016397,United Kingdom,Low value,0.9765,M002
+C016399,United Kingdom,Regular,0.6817,M002
+C016400,United Kingdom,Loyal,0.2339,M004
+C016401,United Kingdom,Premium,0.072,M004
+C016402,United Kingdom,Regular,0.7255,M002
+C016403,United Kingdom,Regular,0.8451,M002
+C016405,United Kingdom,Regular,0.7789,M002
+C016406,United Kingdom,Low value,0.8864,M002
+C016407,United Kingdom,Loyal,0.1447,M004
+C016408,United Kingdom,Low value,0.9654,M002
+C016409,United Kingdom,Loyal,0.1358,M004
+C016410,United Kingdom,Low value,0.9872,M002
+C016411,United Kingdom,Low value,0.7386,M002
+C016414,United Kingdom,Loyal,0.6853,M002
+C016416,United Kingdom,Loyal,0.1622,M004
+C016417,United Kingdom,Low value,0.9634,M002
+C016418,United Kingdom,Loyal,0.2625,M004
+C016419,United Kingdom,Loyal,0.2845,M004
+C016420,United Kingdom,Low value,0.9235,M002
+C016421,United Kingdom,Low value,0.7659,M002
+C016422,United Kingdom,Premium,0.0127,M004
+C016424,United Kingdom,Regular,0.612,M002
+C016425,United Kingdom,Regular,0.8232,M002
+C016427,United Kingdom,Regular,0.7184,M002
+C016428,United Kingdom,Low value,0.7838,M002
+C016430,United Kingdom,Loyal,0.2997,M004
+C016434,United Kingdom,Loyal,0.147,M004
+C016435,United Kingdom,Low value,0.8475,M002
+C016436,United Kingdom,Low value,0.9517,M002
+C016437,United Kingdom,Low value,0.8321,M002
+C016439,United Kingdom,Low value,0.9824,M002
+C016440,United Kingdom,Loyal,0.2093,M004
+C016442,United Kingdom,Loyal,0.6066,M002
+C016443,United Kingdom,Low value,0.953,M002
+C016444,United Kingdom,Premium,0.1069,M004
+C016446,United Kingdom,Regular,0.8959,M002
+C016448,United Kingdom,Loyal,0.6664,M002
+C016452,United Kingdom,Low value,0.9555,M002
+C016453,United Kingdom,Low value,0.9246,M002
+C016454,United Kingdom,Low value,0.7674,M002
+C016455,United Kingdom,Premium,0.1479,M004
+C016456,United Kingdom,Premium,0.145,M004
+C016457,United Kingdom,Regular,0.7587,M002
+C016458,United Kingdom,Loyal,0.0677,M004
+C016459,United Kingdom,Low value,0.9888,M002
+C016465,United Kingdom,Low value,0.8169,M002
+C016466,United Kingdom,Loyal,0.1149,M004
+C016467,United Kingdom,Low value,0.7297,M002
+C016470,United Kingdom,Loyal,0.1789,M004
+C016472,United Kingdom,Low value,0.8528,M002
+C016476,United Kingdom,Low value,0.8984,M002
+C016477,United Kingdom,Loyal,0.1403,M004
+C016481,United Kingdom,Low value,0.9733,M002
+C016483,United Kingdom,Regular,0.7513,M002
+C016485,United Kingdom,Loyal,0.2963,M004
+C016486,United Kingdom,Low value,0.9595,M002
+C016487,United Kingdom,Low value,0.948,M002
+C016489,United Kingdom,Low value,0.8321,M002
+C016490,United Kingdom,Low value,0.9162,M002
+C016492,United Kingdom,Low value,0.947,M002
+C016493,United Kingdom,Loyal,0.2355,M004
+C016494,United Kingdom,Regular,0.7715,M002
+C016495,United Kingdom,Regular,0.7282,M002
+C016497,United Kingdom,Loyal,0.0932,M004
+C016498,United Kingdom,Regular,0.6244,M002
+C016500,United Kingdom,Loyal,0.2667,M004
+C016501,United Kingdom,Low value,0.836,M002
+C016502,United Kingdom,Low value,0.9532,M002
+C016503,United Kingdom,Premium,0.1686,M004
+C016506,United Kingdom,Regular,0.614,M002
+C016507,United Kingdom,Low value,0.9663,M002
+C016508,United Kingdom,Low value,0.9721,M002
+C016509,United Kingdom,Regular,0.8101,M002
+C016510,United Kingdom,Loyal,0.6402,M002
+C016515,United Kingdom,Loyal,0.1582,M004
+C016517,United Kingdom,Regular,0.8272,M002
+C016519,United Kingdom,Low value,0.8101,M002
+C016521,United Kingdom,Low value,0.7924,M002
+C016522,United Kingdom,Low value,0.8561,M002
+C016523,United Kingdom,Premium,0.0588,M004
+C016524,United Kingdom,Low value,0.8987,M002
+C016525,United Kingdom,Premium,0.0349,M004
+C016526,United Kingdom,Loyal,0.6174,M002
+C016530,United Kingdom,Low value,0.9856,M002
+C016531,United Kingdom,Loyal,0.1433,M004
+C016534,United Kingdom,Low value,0.966,M002
+C016535,United Kingdom,Low value,0.879,M002
+C016537,United Kingdom,Low value,0.9888,M002
+C016538,United Kingdom,Low value,0.9009,M002
+C016540,United Kingdom,Low value,0.9099,M002
+C016541,United Kingdom,Low value,0.9813,M002
+C016543,United Kingdom,Low value,0.9613,M002
+C016544,United Kingdom,Low value,0.8705,M002
+C016547,United Kingdom,Low value,0.9641,M002
+C016548,United Kingdom,Low value,0.9811,M002
+C016549,United Kingdom,Premium,0.0515,M004
+C016550,United Kingdom,Premium,0.111,M004
+C016551,United Kingdom,Loyal,0.284,M004
+C016552,United Kingdom,Regular,0.6887,M002
+C016553,United Kingdom,Premium,0.0831,M004
+C016554,United Kingdom,Premium,0.1793,M004
+C016555,United Kingdom,Premium,0.1952,M004
+C016556,United Kingdom,Premium,0.1002,M004
+C016557,United Kingdom,Regular,0.7047,M002
+C016558,United Kingdom,Premium,0.0482,M004
+C016559,United Kingdom,Low value,0.9053,M002
+C016560,United Kingdom,Loyal,0.1837,M004
+C016562,United Kingdom,Low value,0.9344,M002
+C016563,United Kingdom,Loyal,0.221,M004
+C016564,United Kingdom,Low value,0.9699,M002
+C016565,United Kingdom,Low value,0.7021,M002
+C016568,United Kingdom,Low value,0.8448,M002
+C016569,United Kingdom,Low value,0.9036,M002
+C016570,United Kingdom,Premium,0.0731,M004
+C016571,United Kingdom,Premium,0.126,M004
+C016576,United Kingdom,Low value,0.834,M002
+C016577,United Kingdom,Low value,0.9743,M002
+C016578,United Kingdom,Low value,0.9746,M002
+C016579,United Kingdom,Low value,0.9023,M002
+C016581,United Kingdom,Regular,0.7449,M002
+C016582,United Kingdom,Regular,0.6002,M002
+C016583,United Kingdom,Low value,0.8598,M002
+C016584,United Kingdom,Loyal,0.2658,M004
+C016585,United Kingdom,Low value,0.9468,M002
+C016586,United Kingdom,Loyal,0.6066,M002
+C016587,United Kingdom,Regular,0.7697,M002
+C016588,United Kingdom,Low value,0.7057,M002
+C016590,United Kingdom,Low value,0.8063,M002
+C016592,United Kingdom,Premium,0.0707,M004
+C016593,United Kingdom,Loyal,0.2555,M004
+C016596,United Kingdom,Low value,0.8229,M002
+C016598,United Kingdom,Regular,0.8312,M002
+C016599,United Kingdom,Low value,0.8994,M002
+C016600,United Kingdom,Premium,0.2138,M004
+C016604,United Kingdom,Low value,0.9225,M002
+C016605,United Kingdom,Low value,0.989,M002
+C016606,United Kingdom,Low value,0.8415,M002
+C016607,United Kingdom,Premium,0.0708,M004
+C016608,United Kingdom,Low value,0.8555,M002
+C016609,United Kingdom,Loyal,0.1689,M004
+C016610,United Kingdom,Regular,0.8082,M002
+C016612,United Kingdom,Loyal,0.1743,M004
+C016615,United Kingdom,Low value,0.9683,M002
+C016616,United Kingdom,Regular,0.686,M002
+C016617,United Kingdom,Regular,0.7919,M002
+C016618,United Kingdom,Loyal,0.1792,M004
+C016622,United Kingdom,Low value,0.9526,M002
+C016626,United Kingdom,Premium,0.0865,M004
+C016628,United Kingdom,Loyal,0.1981,M004
+C016630,United Kingdom,Low value,0.9172,M002
+C016631,United Kingdom,Low value,0.7093,M002
+C016632,United Kingdom,Low value,0.8985,M002
+C016635,United Kingdom,Low value,0.8838,M002
+C016636,United Kingdom,Low value,0.713,M002
+C016638,United Kingdom,Loyal,0.156,M004
+C016639,United Kingdom,Loyal,0.2478,M004
+C016640,United Kingdom,Low value,0.9047,M002
+C016642,United Kingdom,Loyal,0.6006,M002
+C016643,United Kingdom,Loyal,0.6347,M002
+C016645,United Kingdom,Low value,0.9865,M002
+C016646,United Kingdom,Low value,0.8937,M002
+C016649,United Kingdom,Low value,0.9442,M002
+C016650,United Kingdom,Loyal,0.2298,M004
+C016651,United Kingdom,Low value,0.9693,M002
+C016652,United Kingdom,Premium,0.074,M004
+C016655,United Kingdom,Premium,0.1185,M004
+C016656,United Kingdom,Premium,0.0477,M004
+C016658,United Kingdom,Low value,0.6846,M002
+C016659,United Kingdom,Regular,0.8092,M002
+C016661,United Kingdom,Low value,0.8628,M002
+C016662,United Kingdom,Low value,0.9074,M002
+C016663,United Kingdom,Low value,0.9859,M002
+C016664,United Kingdom,Low value,0.9681,M002
+C016665,United Kingdom,Low value,0.8931,M002
+C016666,United Kingdom,Low value,0.977,M002
+C016668,United Kingdom,Loyal,0.2694,M004
+C016670,United Kingdom,Premium,0.0767,M004
+C016672,United Kingdom,Premium,0.0551,M004
+C016673,United Kingdom,Low value,0.9809,M002
+C016675,United Kingdom,Low value,0.8512,M002
+C016676,United Kingdom,Loyal,0.1815,M004
+C016677,United Kingdom,Low value,0.8343,M002
+C016678,United Kingdom,Loyal,0.1248,M004
+C016679,United Kingdom,Low value,0.7594,M002
+C016681,United Kingdom,Loyal,0.2534,M004
+C016683,United Kingdom,Low value,0.9449,M002
+C016684,United Kingdom,Premium,0.0186,M004
+C016686,United Kingdom,Premium,0.1162,M004
+C016687,United Kingdom,Low value,0.9043,M002
+C016691,United Kingdom,Low value,0.8876,M002
+C016694,United Kingdom,Low value,0.9873,M002
+C016695,United Kingdom,Low value,0.9399,M002
+C016697,United Kingdom,Regular,0.811,M002
+C016699,United Kingdom,Low value,0.6607,M002
+C016700,United Kingdom,Premium,0.0679,M004
+C016701,United Kingdom,Premium,0.0679,M004
+C016702,United Kingdom,Low value,0.7658,M002
+C016704,United Kingdom,Low value,0.942,M002
+C016705,United Kingdom,Premium,0.032,M004
+C016707,United Kingdom,Low value,0.7825,M002
+C016709,United Kingdom,Loyal,0.1356,M004
+C016710,United Kingdom,Premium,0.1136,M004
+C016711,United Kingdom,Loyal,0.1921,M004
+C016712,United Kingdom,Loyal,0.1686,M004
+C016713,United Kingdom,Premium,0.0606,M004
+C016714,United Kingdom,Loyal,0.668,M002
+C016717,United Kingdom,Premium,0.1191,M004
+C016718,United Kingdom,Loyal,0.6399,M002
+C016719,United Kingdom,Premium,0.1594,M004
+C016720,United Kingdom,Low value,0.8496,M002
+C016721,United Kingdom,Regular,0.7876,M002
+C016722,United Kingdom,Premium,0.0855,M004
+C016724,United Kingdom,Low value,0.9128,M002
+C016727,United Kingdom,Low value,0.7067,M002
+C016729,United Kingdom,Premium,0.0508,M004
+C016731,United Kingdom,Low value,0.9771,M002
+C016732,United Kingdom,Premium,0.2351,M004
+C016733,United Kingdom,Low value,0.9493,M002
+C016735,United Kingdom,Premium,0.1258,M004
+C016736,United Kingdom,Low value,0.7589,M002
+C016738,United Kingdom,Low value,0.9367,M002
+C016740,United Kingdom,Low value,0.8977,M002
+C016741,United Kingdom,Low value,0.9738,M002
+C016742,United Kingdom,Low value,0.6304,M002
+C016743,United Kingdom,Loyal,0.1098,M004
+C016745,United Kingdom,Loyal,0.0839,M004
+C016746,United Kingdom,Premium,0.0433,M004
+C016748,United Kingdom,Loyal,0.1416,M004
+C016749,United Kingdom,Low value,0.8988,M002
+C016752,United Kingdom,Low value,0.8871,M002
+C016754,United Kingdom,Premium,0.1487,M004
+C016755,United Kingdom,Premium,0.2684,M004
+C016757,United Kingdom,Low value,0.7861,M002
+C016760,United Kingdom,Low value,0.9152,M002
+C016763,United Kingdom,Loyal,0.6528,M002
+C016765,United Kingdom,Low value,0.7324,M002
+C016766,United Kingdom,Regular,0.6291,M002
+C016767,United Kingdom,Premium,0.0889,M004
+C016768,United Kingdom,Premium,0.2006,M004
+C016769,United Kingdom,Loyal,0.6145,M002
+C016770,United Kingdom,Loyal,0.1739,M004
+C016771,United Kingdom,Loyal,0.1637,M004
+C016772,United Kingdom,Loyal,0.7375,M002
+C016774,United Kingdom,Loyal,0.2368,M004
+C016775,United Kingdom,Loyal,0.116,M004
+C016779,United Kingdom,Premium,0.0303,M004
+C016781,United Kingdom,Low value,0.8236,M002
+C016782,United Kingdom,Premium,0.0498,M004
+C016783,United Kingdom,Low value,0.9055,M002
+C016784,United Kingdom,Low value,0.7372,M002
+C016785,United Kingdom,Low value,0.8821,M002
+C016786,United Kingdom,Low value,0.9294,M002
+C016787,United Kingdom,Low value,0.7575,M002
+C016791,United Kingdom,Premium,0.116,M004
+C016792,United Kingdom,Loyal,0.6386,M002
+C016794,United Kingdom,Loyal,0.1404,M004
+C016795,United Kingdom,Loyal,0.706,M002
+C016797,United Kingdom,Loyal,0.673,M002
+C016798,United Kingdom,Low value,0.8946,M002
+C016799,United Kingdom,Low value,0.8464,M002
+C016802,United Kingdom,Low value,0.9602,M002
+C016804,United Kingdom,Regular,0.8342,M002
+C016809,United Kingdom,Loyal,0.226,M004
+C016814,United Kingdom,Premium,0.0523,M004
+C016815,United Kingdom,Low value,0.8785,M002
+C016817,United Kingdom,Premium,0.1136,M004
+C016819,United Kingdom,Low value,0.8997,M002
+C016821,United Kingdom,Low value,0.9077,M002
+C016822,United Kingdom,Low value,0.9798,M002
+C016825,United Kingdom,Loyal,0.2474,M004
+C016827,United Kingdom,Low value,0.7568,M002
+C016828,United Kingdom,Regular,0.6657,M002
+C016831,United Kingdom,Low value,0.9687,M002
+C016834,United Kingdom,Loyal,0.6859,M002
+C016837,United Kingdom,Loyal,0.1004,M004
+C016839,United Kingdom,Premium,0.0361,M004
+C016840,United Kingdom,Low value,0.9573,M002
+C016841,United Kingdom,Premium,0.134,M004
+C016843,United Kingdom,Premium,0.0465,M004
+C016844,United Kingdom,Low value,0.92,M002
+C016845,United Kingdom,Low value,0.9697,M002
+C016848,United Kingdom,Loyal,0.2845,M004
+C016849,United Kingdom,Regular,0.7506,M002
+C016850,United Kingdom,Low value,0.845,M002
+C016852,United Kingdom,Regular,0.7445,M002
+C016854,United Kingdom,Low value,0.8252,M002
+C016856,United Kingdom,Low value,0.8545,M002
+C016857,United Kingdom,Low value,0.911,M002
+C016860,United Kingdom,Low value,0.7995,M002
+C016861,United Kingdom,Loyal,0.2891,M004
+C016862,United Kingdom,Low value,0.8811,M002
+C016864,United Kingdom,Low value,0.875,M002
+C016865,United Kingdom,Low value,0.914,M002
+C016867,United Kingdom,Low value,0.9856,M002
+C016868,United Kingdom,Low value,0.8162,M002
+C016870,United Kingdom,Low value,0.9181,M002
+C016872,United Kingdom,Loyal,0.2689,M004
+C016873,United Kingdom,Premium,0.1095,M004
+C016874,United Kingdom,Low value,0.8908,M002
+C016875,United Kingdom,Premium,0.1477,M004
+C016876,United Kingdom,Low value,0.9141,M002
+C016878,United Kingdom,Regular,0.7532,M002
+C016880,United Kingdom,Loyal,0.1805,M004
+C016883,United Kingdom,Loyal,0.231,M004
+C016886,United Kingdom,Low value,0.9329,M002
+C016888,United Kingdom,Low value,0.8314,M002
+C016890,United Kingdom,Low value,0.8783,M002
+C016891,United Kingdom,Loyal,0.2046,M004
+C016893,United Kingdom,Low value,0.8215,M002
+C016894,United Kingdom,Low value,0.8218,M002
+C016896,United Kingdom,Low value,0.9659,M002
+C016897,United Kingdom,Regular,0.7384,M002
+C016899,United Kingdom,Loyal,0.2775,M004
+C016901,United Kingdom,Low value,0.985,M002
+C016904,United Kingdom,Loyal,0.0797,M004
+C016905,United Kingdom,Premium,0.1324,M004
+C016906,United Kingdom,Loyal,0.266,M004
+C016907,United Kingdom,Loyal,0.1817,M004
+C016908,United Kingdom,Low value,0.9825,M002
+C016911,United Kingdom,Low value,0.9561,M002
+C016912,United Kingdom,Premium,0.1135,M004
+C016913,United Kingdom,Low value,0.7332,M002
+C016915,United Kingdom,Loyal,0.1897,M004
+C016916,United Kingdom,Low value,0.7519,M002
+C016917,United Kingdom,Loyal,0.6727,M002
+C016918,United Kingdom,Premium,0.1282,M004
+C016919,United Kingdom,Premium,0.1115,M004
+C016920,United Kingdom,Low value,0.8947,M002
+C016922,United Kingdom,Low value,0.9498,M002
+C016923,United Kingdom,Premium,0.0481,M004
+C016925,United Kingdom,Low value,0.9609,M002
+C016926,United Kingdom,Low value,0.6437,M002
+C016928,United Kingdom,Premium,0.0972,M004
+C016931,United Kingdom,Loyal,0.0772,M004
+C016934,United Kingdom,Loyal,0.2387,M004
+C016935,United Kingdom,Low value,0.7611,M002
+C016936,United Kingdom,Low value,0.8856,M002
+C016937,United Kingdom,Low value,0.9443,M002
+C016938,United Kingdom,Premium,0.262,M004
+C016939,United Kingdom,Low value,0.8782,M002
+C016940,United Kingdom,Premium,0.1639,M004
+C016941,United Kingdom,Low value,0.982,M002
+C016944,United Kingdom,Low value,0.9752,M002
+C016945,United Kingdom,Premium,0.0606,M004
+C016946,United Kingdom,Low value,0.6817,M002
+C016950,United Kingdom,Premium,0.1655,M004
+C016953,United Kingdom,Regular,0.6627,M002
+C016954,United Kingdom,Premium,0.1181,M004
+C016957,United Kingdom,Regular,0.659,M002
+C016958,United Kingdom,Low value,0.8868,M002
+C016959,United Kingdom,Regular,0.6297,M002
+C016960,United Kingdom,Loyal,0.1985,M004
+C016962,United Kingdom,Low value,0.9026,M002
+C016963,United Kingdom,Regular,0.7579,M002
+C016964,United Kingdom,Low value,0.977,M002
+C016965,United Kingdom,Regular,0.7714,M002
+C016967,United Kingdom,Regular,0.7011,M002
+C016968,United Kingdom,Regular,0.6062,M002
+C016970,United Kingdom,Low value,0.9796,M002
+C016972,United Kingdom,Low value,0.7978,M002
+C016973,United Kingdom,Low value,0.9075,M002
+C016974,United Kingdom,Low value,0.915,M002
+C016975,United Kingdom,Low value,0.77,M002
+C016976,United Kingdom,Regular,0.7995,M002
+C016977,United Kingdom,Low value,0.7803,M002
+C016979,United Kingdom,Loyal,0.1636,M004
+C016983,United Kingdom,Loyal,0.1247,M004
+C016984,United Kingdom,Premium,0.1374,M004
+C016985,United Kingdom,Premium,0.0968,M004
+C016986,United Kingdom,Loyal,0.1373,M004
+C016987,United Kingdom,Loyal,0.1861,M004
+C016988,United Kingdom,Low value,0.8852,M002
+C016990,United Kingdom,Regular,0.6801,M002
+C016991,United Kingdom,Low value,0.8691,M002
+C016992,United Kingdom,Premium,0.1219,M004
+C016993,United Kingdom,Low value,0.8274,M002
+C016996,United Kingdom,Premium,0.1372,M004
+C016997,United Kingdom,Regular,0.6279,M002
+C017000,United Kingdom,Low value,0.8274,M002
+C017001,United Kingdom,Loyal,0.1036,M004
+C017002,United Kingdom,Loyal,0.24,M004
+C017003,United Kingdom,Low value,0.7503,M002
+C017004,United Kingdom,Loyal,0.2492,M004
+C017005,United Kingdom,Low value,0.8744,M002
+C017006,United Kingdom,Loyal,0.2595,M004
+C017007,United Kingdom,Loyal,0.2151,M004
+C017008,United Kingdom,Low value,0.9349,M002
+C017009,United Kingdom,Low value,0.9561,M002
+C017012,United Kingdom,Low value,0.982,M002
+C017016,United Kingdom,Low value,0.9523,M002
+C017017,United Kingdom,Premium,0.0642,M004
+C017018,United Kingdom,Loyal,0.2521,M004
+C017020,United Kingdom,Low value,0.908,M002
+C017021,United Kingdom,Low value,0.717,M002
+C017023,United Kingdom,Low value,0.8175,M002
+C017026,United Kingdom,Regular,0.6248,M002
+C017027,United Kingdom,Loyal,0.2543,M004
+C017028,United Kingdom,Low value,0.8941,M002
+C017029,United Kingdom,Loyal,0.2886,M004
+C017032,United Kingdom,Low value,0.8315,M002
+C017035,United Kingdom,Loyal,0.628,M002
+C017036,United Kingdom,Low value,0.8977,M002
+C017039,United Kingdom,Low value,0.9427,M002
+C017041,United Kingdom,Loyal,0.2222,M004
+C017043,United Kingdom,Loyal,0.2036,M004
+C017047,United Kingdom,Loyal,0.2953,M004
+C017048,United Kingdom,Premium,0.2784,M004
+C017049,United Kingdom,Premium,0.0868,M004
+C017050,United Kingdom,Loyal,0.1896,M004
+C017055,United Kingdom,Low value,0.9214,M002
+C017056,United Kingdom,Low value,0.9875,M002
+C017057,United Kingdom,Low value,0.9643,M002
+C017059,United Kingdom,Premium,0.1491,M004
+C017060,United Kingdom,Regular,0.8018,M002
+C017061,United Kingdom,Loyal,0.1049,M004
+C017063,United Kingdom,Premium,0.1477,M004
+C017065,United Kingdom,Low value,0.9587,M002
+C017066,United Kingdom,Low value,0.9843,M002
+C017067,United Kingdom,Low value,0.961,M002
+C017068,United Kingdom,Premium,0.0412,M004
+C017069,United Kingdom,Premium,0.1056,M004
+C017071,United Kingdom,Premium,0.1182,M004
+C017072,United Kingdom,Low value,0.9702,M002
+C017074,United Kingdom,Low value,0.9607,M002
+C017076,United Kingdom,Loyal,0.2827,M004
+C017077,United Kingdom,Low value,0.9598,M002
+C017079,United Kingdom,Regular,0.6163,M002
+C017082,United Kingdom,Loyal,0.2075,M004
+C017083,United Kingdom,Premium,0.2074,M004
+C017084,United Kingdom,Loyal,0.2207,M004
+C017085,United Kingdom,Premium,0.0982,M004
+C017087,United Kingdom,Low value,0.9854,M002
+C017089,United Kingdom,Low value,0.9072,M002
+C017090,United Kingdom,Loyal,0.1322,M004
+C017091,United Kingdom,Premium,0.0876,M004
+C017092,United Kingdom,Premium,0.1334,M004
+C017093,United Kingdom,Low value,0.9655,M002
+C017094,United Kingdom,Low value,0.763,M002
+C017096,United Kingdom,Premium,0.1443,M004
+C017097,Spain,Loyal,0.2752,M004
+C017098,United Kingdom,Low value,0.7772,M002
+C017099,United Kingdom,Low value,0.9384,M002
+C017101,United Kingdom,Loyal,0.2099,M004
+C017102,United Kingdom,Regular,0.8798,M002
+C017103,United Kingdom,Low value,0.9808,M002
+C017104,United Kingdom,Low value,0.8937,M002
+C017106,United Kingdom,Low value,0.8724,M002
+C017107,United Kingdom,Premium,0.1004,M004
+C017108,United Kingdom,Low value,0.9789,M002
+C017109,United Kingdom,Loyal,0.1825,M004
+C017112,United Kingdom,Low value,0.9452,M002
+C017113,United Kingdom,Low value,0.8044,M002
+C017114,United Kingdom,Loyal,0.2003,M004
+C017116,United Kingdom,Low value,0.9713,M002
+C017117,United Kingdom,Regular,0.849,M002
+C017118,United Kingdom,Regular,0.8598,M002
+C017120,United Kingdom,Regular,0.7548,M002
+C017121,United Kingdom,Low value,0.8929,M002
+C017124,United Kingdom,Regular,0.7009,M002
+C017126,United Kingdom,Loyal,0.2432,M004
+C017127,United Kingdom,Low value,0.7579,M002
+C017128,United Kingdom,Low value,0.8715,M002
+C017129,United Kingdom,Low value,0.9697,M002
+C017132,United Kingdom,Low value,0.8334,M002
+C017133,United Kingdom,Premium,0.1037,M004
+C017135,United Kingdom,Loyal,0.2007,M004
+C017136,United Kingdom,Low value,0.9771,M002
+C017137,United Kingdom,Low value,0.7135,M002
+C017139,United Kingdom,Premium,0.0562,M004
+C017140,United Kingdom,Regular,0.7496,M002
+C017141,United Kingdom,Low value,0.7899,M002
+C017143,United Kingdom,Low value,0.8261,M002
+C017145,United Kingdom,Low value,0.7752,M002
+C017146,United Kingdom,Premium,0.1501,M004
+C017147,United Kingdom,Premium,0.2068,M004
+C017149,United Kingdom,Low value,0.9331,M002
+C017150,United Kingdom,Low value,0.671,M002
+C017151,United Kingdom,Low value,0.985,M002
+C017156,United Kingdom,Low value,0.9181,M002
+C017157,United Kingdom,Premium,0.19,M004
+C017158,United Kingdom,Loyal,0.2484,M004
+C017160,United Kingdom,Premium,0.0888,M004
+C017161,United Kingdom,Low value,0.8895,M002
+C017162,United Kingdom,Loyal,0.1296,M004
+C017164,United Kingdom,Loyal,0.1447,M004
+C017167,United Kingdom,Low value,0.7374,M002
+C017168,United Kingdom,Low value,0.9323,M002
+C017170,United Kingdom,Low value,0.8352,M002
+C017171,United Kingdom,Low value,0.7884,M002
+C017174,United Kingdom,Regular,0.8164,M002
+C017177,United Kingdom,Low value,0.9529,M002
+C017178,United Kingdom,Low value,0.9817,M002
+C017180,United Kingdom,Premium,0.1721,M004
+C017182,United Kingdom,Low value,0.8888,M002
+C017184,United Kingdom,Low value,0.9503,M002
+C017185,United Kingdom,Low value,0.9317,M002
+C017187,United Kingdom,Loyal,0.6925,M002
+C017188,United Kingdom,Premium,0.1276,M004
+C017190,United Kingdom,Loyal,0.2373,M004
+C017191,United Kingdom,Premium,0.1185,M004
+C017192,United Kingdom,Low value,0.9652,M002
+C017193,United Kingdom,Premium,0.1832,M004
+C017194,United Kingdom,Low value,0.7908,M002
+C017195,United Kingdom,Low value,0.9694,M002
+C017196,United Kingdom,Low value,0.9053,M002
+C017198,United Kingdom,Low value,0.7868,M002
+C017199,United Kingdom,Low value,0.9686,M002
+C017200,United Kingdom,Low value,0.7933,M002
+C017202,United Kingdom,Low value,0.9182,M002
+C017203,United Kingdom,Loyal,0.112,M004
+C017204,United Kingdom,Premium,0.2156,M004
+C017207,United Kingdom,Low value,0.9741,M002
+C017208,United Kingdom,Low value,0.9149,M002
+C017209,United Kingdom,Low value,0.9407,M002
+C017210,United Kingdom,Low value,0.8933,M002
+C017211,United Kingdom,Premium,0.1276,M004
+C017212,United Kingdom,Loyal,0.6178,M002
+C017213,United Kingdom,Premium,0.1189,M004
+C017214,United Kingdom,Loyal,0.2309,M004
+C017215,United Kingdom,Low value,0.9333,M002
+C017216,United Kingdom,Low value,0.97,M002
+C017217,United Kingdom,Low value,0.7641,M002
+C017218,United Kingdom,Loyal,0.1194,M004
+C017220,United Kingdom,Loyal,0.1121,M004
+C017222,United Kingdom,Loyal,0.2906,M004
+C017223,United Kingdom,Low value,0.6828,M002
+C017224,United Kingdom,Low value,0.954,M002
+C017225,United Kingdom,Low value,0.9687,M002
+C017226,United Kingdom,Loyal,0.7107,M002
+C017227,United Kingdom,Loyal,0.2051,M004
+C017228,United Kingdom,Loyal,0.1819,M004
+C017230,United Kingdom,Premium,0.2166,M004
+C017231,United Kingdom,Premium,0.0858,M004
+C017234,United Kingdom,Regular,0.736,M002
+C017237,United Kingdom,Low value,0.784,M002
+C017238,United Kingdom,Loyal,0.0741,M004
+C017239,United Kingdom,Loyal,0.6029,M002
+C017240,United Kingdom,Low value,0.9713,M002
+C017243,United Kingdom,Premium,0.0278,M004
+C017245,United Kingdom,Loyal,0.7183,M002
+C017246,United Kingdom,Low value,0.965,M002
+C017249,United Kingdom,Low value,0.9376,M002
+C017250,United Kingdom,Regular,0.8133,M002
+C017251,United Kingdom,Low value,0.7694,M002
+C017254,United Kingdom,Low value,0.9043,M002
+C017257,United Kingdom,Low value,0.8819,M002
+C017258,United Kingdom,Low value,0.8608,M002
+C017260,United Kingdom,Low value,0.9202,M002
+C017261,United Kingdom,Low value,0.9456,M002
+C017262,United Kingdom,Loyal,0.1856,M004
+C017263,United Kingdom,Regular,0.8057,M002
+C017264,United Kingdom,Low value,0.9086,M002
+C017268,United Kingdom,Loyal,0.2503,M004
+C017269,United Kingdom,Low value,0.8691,M002
+C017270,United Kingdom,Low value,0.8952,M002
+C017271,United Kingdom,Low value,0.9856,M002
+C017273,United Kingdom,Low value,0.9227,M002
+C017275,United Kingdom,Low value,0.9085,M002
+C017276,United Kingdom,Low value,0.8739,M002
+C017278,United Kingdom,Low value,0.7467,M002
+C017280,United Kingdom,Low value,0.9316,M002
+C017281,United Kingdom,Low value,0.6888,M002
+C017283,United Kingdom,Low value,0.8932,M002
+C017284,United Kingdom,Loyal,0.1703,M004
+C017285,United Kingdom,Low value,0.9513,M002
+C017286,United Kingdom,Low value,0.8497,M002
+C017287,United Kingdom,Premium,0.0956,M004
+C017289,United Kingdom,Loyal,0.1744,M004
+C017290,United Kingdom,Low value,0.6993,M002
+C017291,United Kingdom,Regular,0.8027,M002
+C017292,United Kingdom,Low value,0.903,M002
+C017293,United Kingdom,Loyal,0.1261,M004
+C017294,United Kingdom,Low value,0.9583,M002
+C017296,United Kingdom,Low value,0.9828,M002
+C017300,United Kingdom,Low value,0.835,M002
+C017301,United Kingdom,Low value,0.9756,M002
+C017303,United Kingdom,Low value,0.8747,M002
+C017304,United Kingdom,Low value,0.9608,M002
+C017305,United Kingdom,Low value,0.9542,M002
+C017306,United Kingdom,Premium,0.0626,M004
+C017308,United Kingdom,Loyal,0.713,M002
+C017310,United Kingdom,Low value,0.8001,M002
+C017311,United Kingdom,Loyal,0.242,M004
+C017314,United Kingdom,Premium,0.1024,M004
+C017315,United Kingdom,Premium,0.0366,M004
+C017316,United Kingdom,Low value,0.9235,M002
+C017318,United Kingdom,Low value,0.9857,M002
+C017319,United Kingdom,Low value,0.9876,M002
+C017320,United Kingdom,Loyal,0.2974,M004
+C017321,United Kingdom,Loyal,0.2906,M004
+C017322,United Kingdom,Low value,0.7043,M002
+C017323,United Kingdom,Loyal,0.2197,M004
+C017325,United Kingdom,Loyal,0.6999,M002
+C017326,United Kingdom,Low value,0.8612,M002
+C017327,United Kingdom,Low value,0.8879,M002
+C017328,United Kingdom,Low value,0.9827,M002
+C017329,United Kingdom,Low value,0.7057,M002
+C017331,United Kingdom,Regular,0.6527,M002
+C017332,United Kingdom,Low value,0.8386,M002
+C017334,United Kingdom,Low value,0.6573,M002
+C017335,United Kingdom,Low value,0.8491,M002
+C017336,United Kingdom,Low value,0.9489,M002
+C017338,United Kingdom,Premium,0.1175,M004
+C017340,United Kingdom,Premium,0.0588,M004
+C017342,United Kingdom,Loyal,0.7031,M002
+C017343,United Kingdom,Loyal,0.6534,M002
+C017345,United Kingdom,Loyal,0.2628,M004
+C017346,United Kingdom,Premium,0.0828,M004
+C017348,United Kingdom,Loyal,0.1921,M004
+C017350,United Kingdom,Loyal,0.2831,M004
+C017351,United Kingdom,Loyal,0.1759,M004
+C017352,United Kingdom,Low value,0.9887,M002
+C017354,United Kingdom,Loyal,0.2379,M004
+C017355,United Kingdom,Low value,0.8876,M002
+C017356,United Kingdom,Loyal,0.64,M002
+C017358,United Kingdom,Loyal,0.6289,M002
+C017359,United Kingdom,Low value,0.9777,M002
+C017363,United Kingdom,Low value,0.7408,M002
+C017364,United Kingdom,Premium,0.0678,M004
+C017365,United Kingdom,Premium,0.1108,M004
+C017366,United Kingdom,Low value,0.8119,M002
+C017367,United Kingdom,Regular,0.7902,M002
+C017368,United Kingdom,Premium,0.1427,M004
+C017369,United Kingdom,Low value,0.8921,M002
+C017371,United Kingdom,Low value,0.7899,M002
+C017372,United Kingdom,Premium,0.0825,M004
+C017373,United Kingdom,Loyal,0.2523,M004
+C017377,United Kingdom,Premium,0.0249,M004
+C017378,United Kingdom,Low value,0.9446,M002
+C017380,United Kingdom,Low value,0.8063,M002
+C017381,United Kingdom,Premium,0.0383,M004
+C017382,United Kingdom,Loyal,0.2569,M004
+C017383,United Kingdom,Low value,0.9382,M002
+C017384,United Kingdom,Loyal,0.6819,M002
+C017386,United Kingdom,Loyal,0.2518,M004
+C017388,United Kingdom,Loyal,0.2024,M004
+C017389,United Kingdom,Premium,0.0219,M004
+C017390,United Kingdom,Low value,0.9198,M002
+C017392,United Kingdom,Low value,0.6887,M002
+C017393,United Kingdom,Low value,0.8502,M002
+C017394,United Kingdom,Regular,0.7609,M002
+C017395,United Kingdom,Low value,0.9562,M002
+C017396,United Kingdom,Premium,0.0848,M004
+C017397,United Kingdom,Low value,0.8872,M002
+C017400,United Kingdom,Loyal,0.2543,M004
+C017401,United Kingdom,Low value,0.962,M002
+C017402,United Kingdom,Premium,0.0914,M004
+C017404,Sweden,Premium,0.0556,M004
+C017407,United Kingdom,Low value,0.8822,M002
+C017409,United Kingdom,Loyal,0.2521,M004
+C017412,United Kingdom,Premium,0.1387,M004
+C017413,United Kingdom,Low value,0.8428,M002
+C017414,United Kingdom,Loyal,0.2562,M004
+C017416,United Kingdom,Premium,0.0612,M004
+C017417,United Kingdom,Low value,0.9598,M002
+C017419,United Kingdom,Premium,0.1043,M004
+C017420,United Kingdom,Loyal,0.2297,M004
+C017421,United Kingdom,Low value,0.7868,M002
+C017422,United Kingdom,Premium,0.1595,M004
+C017426,United Kingdom,Premium,0.146,M004
+C017427,United Kingdom,Regular,0.6175,M002
+C017428,United Kingdom,Premium,0.0347,M004
+C017431,United Kingdom,Regular,0.8208,M002
+C017432,United Kingdom,Loyal,0.2344,M004
+C017435,United Kingdom,Low value,0.8966,M002
+C017436,United Kingdom,Loyal,0.6204,M002
+C017437,United Kingdom,Low value,0.9442,M002
+C017439,United Kingdom,Low value,0.9737,M002
+C017441,United Kingdom,Low value,0.9837,M002
+C017442,United Kingdom,Premium,0.1017,M004
+C017443,Canada,Regular,0.7076,M002
+C017446,United Kingdom,Regular,0.6756,M002
+C017449,United Kingdom,Premium,0.1436,M004
+C017450,United Kingdom,Premium,0.0142,M004
+C017455,United Kingdom,Regular,0.7662,M002
+C017456,United Kingdom,Low value,0.7709,M002
+C017457,United Kingdom,Premium,0.1616,M004
+C017458,United Kingdom,Low value,0.8916,M002
+C017460,United Kingdom,Premium,0.1593,M004
+C017463,United Kingdom,Loyal,0.2175,M004
+C017465,United Kingdom,Loyal,0.6429,M002
+C017467,United Kingdom,Low value,0.9166,M002
+C017468,United Kingdom,Low value,0.9198,M002
+C017469,United Kingdom,Premium,0.1239,M004
+C017470,United Kingdom,Loyal,0.1475,M004
+C017471,United Kingdom,Low value,0.927,M002
+C017473,United Kingdom,Low value,0.8188,M002
+C017474,United Kingdom,Low value,0.9502,M002
+C017476,United Kingdom,Low value,0.8534,M002
+C017477,United Kingdom,Low value,0.9222,M002
+C017478,United Kingdom,Low value,0.8219,M002
+C017479,United Kingdom,Low value,0.9685,M002
+C017482,United Kingdom,Low value,0.8811,M002
+C017484,United Kingdom,Low value,0.9459,M002
+C017486,United Kingdom,Regular,0.7717,M002
+C017487,United Kingdom,Low value,0.9859,M002
+C017488,United Kingdom,Low value,0.9713,M002
+C017490,United Kingdom,Loyal,0.2351,M004
+C017491,United Kingdom,Premium,0.104,M004
+C017493,United Kingdom,Low value,0.9123,M002
+C017494,United Kingdom,Low value,0.961,M002
+C017496,United Kingdom,Loyal,0.6893,M002
+C017497,United Kingdom,Low value,0.8633,M002
+C017499,United Kingdom,Loyal,0.6908,M002
+C017501,United Kingdom,Regular,0.6475,M002
+C017504,United Kingdom,Premium,0.1745,M004
+C017507,United Kingdom,Regular,0.6656,M002
+C017510,United Kingdom,Low value,0.9128,M002
+C017511,United Kingdom,Premium,0.0155,M004
+C017512,United Kingdom,Premium,0.0962,M004
+C017514,United Kingdom,Loyal,0.6094,M002
+C017515,United Kingdom,Loyal,0.1831,M004
+C017517,United Kingdom,Regular,0.8539,M002
+C017518,United Kingdom,Low value,0.8794,M002
+C017519,United Kingdom,Premium,0.1854,M004
+C017521,United Kingdom,Loyal,0.2393,M004
+C017524,United Kingdom,Low value,0.7351,M002
+C017525,United Kingdom,Low value,0.697,M002
+C017529,United Kingdom,Low value,0.9306,M002
+C017530,United Kingdom,Loyal,0.1839,M004
+C017532,United Kingdom,Low value,0.9217,M002
+C017533,United Kingdom,Low value,0.9494,M002
+C017534,United Kingdom,Loyal,0.2906,M004
+C017535,United Kingdom,Regular,0.8294,M002
+C017536,United Kingdom,Loyal,0.6295,M002
+C017539,United Kingdom,Low value,0.9133,M002
+C017540,United Kingdom,Loyal,0.604,M002
+C017541,United Kingdom,Low value,0.9539,M002
+C017542,United Kingdom,Low value,0.7231,M002
+C017543,United Kingdom,Low value,0.9633,M002
+C017544,United Kingdom,Low value,0.7322,M002
+C017545,United Kingdom,Loyal,0.2508,M004
+C017547,United Kingdom,Low value,0.8141,M002
+C017549,United Kingdom,Regular,0.6718,M002
+C017551,United Kingdom,Low value,0.8686,M002
+C017552,United Kingdom,Premium,0.1477,M004
+C017555,United Kingdom,Low value,0.6896,M002
+C017556,United Kingdom,Regular,0.6648,M002
+C017558,United Kingdom,Low value,0.8931,M002
+C017559,United Kingdom,Low value,0.9504,M002
+C017560,United Kingdom,Loyal,0.261,M004
+C017561,United Kingdom,Low value,0.8202,M002
+C017563,United Kingdom,Low value,0.9292,M002
+C017565,United Kingdom,Low value,0.9695,M002
+C017567,United Kingdom,Premium,0.1453,M004
+C017568,United Kingdom,Low value,0.969,M002
+C017569,United Kingdom,Low value,0.8429,M002
+C017571,United Kingdom,Loyal,0.2664,M004
+C017572,United Kingdom,Loyal,0.2825,M004
+C017574,United Kingdom,Regular,0.7893,M002
+C017575,United Kingdom,Low value,0.9795,M002
+C017576,United Kingdom,Premium,0.0532,M004
+C017577,United Kingdom,Low value,0.9569,M002
+C017581,United Kingdom,Premium,0.0397,M004
+C017583,United Kingdom,Low value,0.9643,M002
+C017585,United Kingdom,Loyal,0.2524,M004
+C017586,United Kingdom,Low value,0.9731,M002
+C017587,United Kingdom,Low value,0.9742,M002
+C017588,United Kingdom,Loyal,0.2401,M004
+C017589,United Kingdom,Premium,0.0788,M004
+C017591,United Kingdom,Loyal,0.227,M004
+C017592,United Kingdom,Low value,0.9863,M002
+C017593,United Kingdom,Premium,0.1618,M004
+C017596,United Kingdom,Premium,0.1448,M004
+C017598,United Kingdom,Low value,0.8722,M002
+C017599,United Kingdom,Low value,0.9522,M002
+C017601,United Kingdom,Regular,0.6819,M002
+C017602,United Kingdom,Premium,0.1169,M004
+C017605,United Kingdom,Low value,0.9686,M002
+C017606,United Kingdom,Low value,0.9887,M002
+C017607,United Kingdom,Low value,0.8754,M002
+C017609,United Kingdom,Premium,0.1573,M004
+C017610,United Kingdom,Low value,0.8187,M002
+C017611,United Kingdom,Premium,0.0661,M004
+C017612,United Kingdom,Premium,0.096,M004
+C017613,United Kingdom,Loyal,0.0956,M004
+C017617,United Kingdom,Low value,0.9496,M002
+C017619,United Kingdom,Regular,0.845,M002
+C017620,United Kingdom,Regular,0.6149,M002
+C017622,United Kingdom,Low value,0.9172,M002
+C017623,United Kingdom,Loyal,0.2225,M004
+C017624,United Kingdom,Loyal,0.6097,M002
+C017625,United Kingdom,Loyal,0.1972,M004
+C017626,United Kingdom,Low value,0.9667,M002
+C017627,United Kingdom,Low value,0.9267,M002
+C017628,United Kingdom,Regular,0.6499,M002
+C017629,United Kingdom,Loyal,0.1832,M004
+C017633,United Kingdom,Loyal,0.1622,M004
+C017634,United Kingdom,Loyal,0.1419,M004
+C017635,United Kingdom,Low value,0.7758,M002
+C017638,United Kingdom,Low value,0.9484,M002
+C017640,United Kingdom,Loyal,0.2408,M004
+C017643,United Kingdom,Low value,0.8221,M002
+C017644,United Kingdom,Premium,0.083,M004
+C017646,United Kingdom,Premium,0.275,M004
+C017648,United Kingdom,Loyal,0.2202,M004
+C017651,United Kingdom,Premium,0.0856,M004
+C017652,United Kingdom,Premium,0.0881,M004
+C017654,United Kingdom,Regular,0.84,M002
+C017655,United Kingdom,Loyal,0.1557,M004
+C017657,United Kingdom,Low value,0.9274,M002
+C017658,United Kingdom,Regular,0.728,M002
+C017659,United Kingdom,Loyal,0.1257,M004
+C017660,United Kingdom,Loyal,0.6679,M002
+C017662,United Kingdom,Low value,0.9603,M002
+C017663,United Kingdom,Premium,0.097,M004
+C017665,United Kingdom,Low value,0.9238,M002
+C017667,United Kingdom,Premium,0.1707,M004
+C017669,United Kingdom,Loyal,0.1382,M004
+C017670,United Kingdom,Regular,0.769,M002
+C017672,United Kingdom,Premium,0.1861,M004
+C017673,United Kingdom,Loyal,0.1469,M004
+C017675,United Kingdom,Premium,0.0225,M004
+C017676,United Kingdom,Premium,0.1862,M004
+C017677,United Kingdom,Premium,0.0241,M004
+C017678,United Kingdom,Loyal,0.7209,M002
+C017679,United Kingdom,Premium,0.2007,M004
+C017680,United Kingdom,Low value,0.8363,M002
+C017681,United Kingdom,Low value,0.8816,M002
+C017682,United Kingdom,Loyal,0.2079,M004
+C017683,United Kingdom,Low value,0.7667,M002
+C017685,United Kingdom,Premium,0.1614,M004
+C017686,United Kingdom,Loyal,0.1625,M004
+C017687,United Kingdom,Low value,0.8945,M002
+C017688,United Kingdom,Low value,0.8834,M002
+C017689,United Kingdom,Low value,0.8411,M002
+C017690,United Kingdom,Premium,0.0833,M004
+C017691,United Kingdom,Low value,0.7056,M002
+C017692,United Kingdom,Loyal,0.1838,M004
+C017693,United Kingdom,Regular,0.644,M002
+C017696,United Kingdom,Premium,0.0618,M004
+C017697,United Kingdom,Regular,0.7529,M002
+C017698,United Kingdom,Regular,0.8144,M002
+C017699,United Kingdom,Low value,0.8902,M002
+C017700,United Kingdom,Premium,0.1516,M004
+C017701,United Kingdom,Regular,0.7595,M002
+C017702,United Kingdom,Loyal,0.158,M004
+C017703,United Kingdom,Loyal,0.2794,M004
+C017705,United Kingdom,Loyal,0.1622,M004
+C017706,United Kingdom,Premium,0.046,M004
+C017710,United Kingdom,Low value,0.906,M002
+C017711,United Kingdom,Regular,0.8251,M002
+C017713,United Kingdom,Low value,0.7037,M002
+C017715,United Kingdom,Loyal,0.6766,M002
+C017716,United Kingdom,Premium,0.0618,M004
+C017717,United Kingdom,Low value,0.8987,M002
+C017718,United Kingdom,Loyal,0.7165,M002
+C017719,United Kingdom,Premium,0.071,M004
+C017720,United Kingdom,Loyal,0.2214,M004
+C017721,United Kingdom,Low value,0.9747,M002
+C017722,United Kingdom,Loyal,0.2209,M004
+C017723,United Kingdom,Loyal,0.2238,M004
+C017725,United Kingdom,Loyal,0.1083,M004
+C017726,United Kingdom,Low value,0.659,M002
+C017728,United Kingdom,Loyal,0.233,M004
+C017729,United Kingdom,Low value,0.96,M002
+C017730,United Kingdom,Premium,0.0761,M004
+C017731,United Kingdom,Loyal,0.2825,M004
+C017734,United Kingdom,Loyal,0.2718,M004
+C017735,United Kingdom,Premium,0.048,M004
+C017737,United Kingdom,Regular,0.6087,M002
+C017738,United Kingdom,Premium,0.2021,M004
+C017739,United Kingdom,Premium,0.0968,M004
+C017740,United Kingdom,Low value,0.7454,M002
+C017741,United Kingdom,Low value,0.8976,M002
+C017742,United Kingdom,Loyal,0.2468,M004
+C017743,United Kingdom,Low value,0.9192,M002
+C017745,United Kingdom,Low value,0.8812,M002
+C017747,United Kingdom,Regular,0.6829,M002
+C017748,United Kingdom,Low value,0.9441,M002
+C017751,United Kingdom,Low value,0.9191,M002
+C017752,United Kingdom,Low value,0.9048,M002
+C017753,United Kingdom,Low value,0.8458,M002
+C017754,United Kingdom,Premium,0.1338,M004
+C017756,United Kingdom,Low value,0.7331,M002
+C017757,United Kingdom,Premium,0.0432,M004
+C017758,United Kingdom,Loyal,0.1508,M004
+C017760,United Kingdom,Low value,0.7119,M002
+C017762,United Kingdom,Low value,0.9366,M002
+C017763,United Kingdom,Low value,0.7518,M002
+C017766,United Kingdom,Low value,0.8254,M002
+C017767,United Kingdom,Low value,0.9164,M002
+C017768,United Kingdom,Loyal,0.2323,M004
+C017769,United Kingdom,Premium,0.1049,M004
+C017772,United Kingdom,Low value,0.901,M002
+C017773,United Kingdom,Low value,0.9118,M002
+C017774,United Kingdom,Premium,0.2009,M004
+C017775,United Kingdom,Regular,0.8492,M002
+C017776,United Kingdom,Low value,0.8638,M002
+C017778,United Kingdom,Low value,0.9779,M002
+C017780,United Kingdom,Low value,0.9505,M002
+C017781,United Kingdom,Regular,0.6141,M002
+C017782,United Kingdom,Low value,0.79,M002
+C017784,United Kingdom,Low value,0.9641,M002
+C017789,United Kingdom,Low value,0.7802,M002
+C017790,United Kingdom,Loyal,0.0967,M004
+C017792,United Kingdom,Low value,0.8824,M002
+C017794,United Kingdom,Low value,0.9726,M002
+C017796,United Kingdom,Loyal,0.2082,M004
+C017798,United Kingdom,Low value,0.9663,M002
+C017799,United Kingdom,Premium,0.1227,M004
+C017800,United Kingdom,Loyal,0.1681,M004
+C017801,United Kingdom,Low value,0.8347,M002
+C017802,United Kingdom,Premium,0.1669,M004
+C017803,United Kingdom,Low value,0.9014,M002
+C017804,United Kingdom,Low value,0.8173,M002
+C017807,United Kingdom,Low value,0.828,M002
+C017808,United Kingdom,Low value,0.8959,M002
+C017809,United Kingdom,Premium,0.0929,M004
+C017810,United Kingdom,Low value,0.9601,M002
+C017811,United Kingdom,Premium,0.0357,M004
+C017814,United Kingdom,Low value,0.7474,M002
+C017815,United Kingdom,Low value,0.8685,M002
+C017818,United Kingdom,Low value,0.9875,M002
+C017819,United Kingdom,Premium,0.1481,M004
+C017820,United Kingdom,Low value,0.8839,M002
+C017821,United Kingdom,Low value,0.8935,M002
+C017822,United Kingdom,Low value,0.678,M002
+C017823,United Kingdom,Low value,0.8422,M002
+C017825,United Kingdom,Low value,0.9056,M002
+C017826,United Kingdom,Low value,0.9001,M002
+C017830,United Kingdom,Regular,0.7068,M002
+C017831,United Kingdom,Regular,0.6334,M002
+C017833,United Kingdom,Low value,0.9821,M002
+C017834,United Kingdom,Low value,0.8238,M002
+C017838,United Kingdom,Premium,0.1059,M004
+C017840,United Kingdom,Low value,0.9262,M002
+C017841,United Kingdom,Premium,0.0078,M004
+C017842,United Kingdom,Low value,0.9615,M002
+C017843,United Kingdom,Low value,0.7664,M002
+C017844,Canada,Regular,0.7058,M002
+C017845,United Kingdom,Low value,0.8749,M002
+C017847,United Kingdom,Low value,0.9388,M002
+C017848,United Kingdom,Premium,0.1022,M004
+C017850,United Kingdom,Premium,0.0619,M004
+C017851,United Kingdom,Low value,0.7116,M002
+C017852,United Kingdom,Low value,0.818,M002
+C017853,United Kingdom,Low value,0.7846,M002
+C017855,United Kingdom,Low value,0.8869,M002
+C017857,United Kingdom,Premium,0.059,M004
+C017858,United Kingdom,Premium,0.0652,M004
+C017859,United Kingdom,Regular,0.8539,M002
+C017860,United Kingdom,Low value,0.7553,M002
+C017861,United Kingdom,Premium,0.1062,M004
+C017862,United Kingdom,Loyal,0.6404,M002
+C017863,United Kingdom,Loyal,0.1421,M004
+C017865,United Kingdom,Premium,0.0307,M004
+C017867,United Kingdom,Premium,0.1493,M004
+C017868,United Kingdom,Low value,0.8927,M002
+C017870,United Kingdom,Loyal,0.1257,M004
+C017872,United Kingdom,Low value,0.8888,M002
+C017873,United Kingdom,Premium,0.1167,M004
+C017875,United Kingdom,Low value,0.982,M002
+C017876,United Kingdom,Loyal,0.7257,M002
+C017877,United Kingdom,Regular,0.695,M002
+C017879,United Kingdom,Regular,0.7155,M002
+C017880,United Kingdom,Low value,0.7797,M002
+C017881,United Kingdom,Regular,0.856,M002
+C017882,United Kingdom,Low value,0.8248,M002
+C017886,United Kingdom,Loyal,0.2271,M004
+C017887,United Kingdom,Regular,0.6889,M002
+C017888,United Kingdom,Premium,0.1071,M004
+C017890,United Kingdom,Low value,0.7408,M002
+C017891,United Kingdom,Regular,0.6941,M002
+C017893,United Kingdom,Regular,0.7983,M002
+C017894,United Kingdom,Loyal,0.1145,M004
+C017897,United Kingdom,Loyal,0.2892,M004
+C017899,United Kingdom,Regular,0.7069,M002
+C017900,United Kingdom,Regular,0.6498,M002
+C017902,United Kingdom,Low value,0.9561,M002
+C017903,United Kingdom,Low value,0.8828,M002
+C017905,United Kingdom,Loyal,0.1739,M004
+C017906,United Kingdom,Regular,0.8341,M002
+C017907,United Kingdom,Low value,0.9722,M002
+C017908,United Kingdom,Loyal,0.6858,M002
+C017909,United Kingdom,Low value,0.988,M002
+C017910,United Kingdom,Low value,0.9836,M002
+C017913,United Kingdom,Loyal,0.1551,M004
+C017915,United Kingdom,Low value,0.9569,M002
+C017916,United Kingdom,Low value,0.9754,M002
+C017918,United Kingdom,Low value,0.872,M002
+C017920,United Kingdom,Premium,0.0334,M004
+C017921,United Kingdom,Loyal,0.1621,M004
+C017922,United Kingdom,Low value,0.9582,M002
+C017923,United Kingdom,Low value,0.6935,M002
+C017924,United Kingdom,Premium,0.1659,M004
+C017925,United Kingdom,Low value,0.8824,M002
+C017927,United Kingdom,Low value,0.9826,M002
+C017929,United Kingdom,Loyal,0.2178,M004
+C017930,United Kingdom,Premium,0.1196,M004
+C017931,United Kingdom,Premium,0.1798,M004
+C017933,United Kingdom,Low value,0.978,M002
+C017937,United Kingdom,Loyal,0.1588,M004
+C017938,United Kingdom,Low value,0.9205,M002
+C017939,United Kingdom,Regular,0.7322,M002
+C017940,United Kingdom,Premium,0.0764,M004
+C017944,United Kingdom,Low value,0.9341,M002
+C017945,United Kingdom,Low value,0.9569,M002
+C017946,United Kingdom,Regular,0.711,M002
+C017948,United Kingdom,Regular,0.6388,M002
+C017949,United Kingdom,Premium,0.012,M004
+C017950,United Kingdom,Loyal,0.2839,M004
+C017951,United Kingdom,Loyal,0.2588,M004
+C017952,United Kingdom,Low value,0.7228,M002
+C017953,United Kingdom,Low value,0.959,M002
+C017954,United Kingdom,Premium,0.1202,M004
+C017956,United Kingdom,Regular,0.8916,M002
+C017957,United Kingdom,Regular,0.6041,M002
+C017959,United Kingdom,Low value,0.97,M002
+C017960,United Kingdom,Loyal,0.6784,M002
+C017961,United Kingdom,Premium,0.0395,M004
+C017963,United Kingdom,Low value,0.8355,M002
+C017965,United Kingdom,Premium,0.0666,M004
+C017966,United Kingdom,Loyal,0.1894,M004
+C017967,United Kingdom,Low value,0.8353,M002
+C017968,United Kingdom,Low value,0.7286,M002
+C017969,United Kingdom,Premium,0.1882,M004
+C017970,United Kingdom,Regular,0.6946,M002
+C017971,United Kingdom,Low value,0.9599,M002
+C017972,United Kingdom,Regular,0.803,M002
+C017974,United Kingdom,Loyal,0.2455,M004
+C017975,United Kingdom,Premium,0.0738,M004
+C017976,United Kingdom,Low value,0.874,M002
+C017978,United Kingdom,Low value,0.7267,M002
+C017981,United Kingdom,Low value,0.9043,M002
+C017982,United Kingdom,Low value,0.9821,M002
+C017983,United Kingdom,Low value,0.9048,M002
+C017986,United Kingdom,Regular,0.6962,M002
+C017989,United Kingdom,Low value,0.8912,M002
+C017991,United Kingdom,Loyal,0.675,M002
+C017992,United Kingdom,Low value,0.8915,M002
+C017993,United Kingdom,Low value,0.9704,M002
+C017994,United Kingdom,Premium,0.2103,M004
+C017995,United Kingdom,Low value,0.6575,M002
+C017996,United Kingdom,Low value,0.7878,M002
+C017998,United Kingdom,Low value,0.7976,M002
+C018000,United Kingdom,Low value,0.966,M002
+C018002,United Kingdom,Low value,0.8152,M002
+C018003,United Kingdom,Low value,0.8736,M002
+C018004,United Kingdom,Low value,0.8889,M002
+C018006,United Kingdom,Low value,0.8129,M002
+C018007,United Kingdom,Low value,0.8975,M002
+C018008,United Kingdom,Premium,0.0747,M004
+C018010,United Kingdom,Regular,0.8055,M002
+C018011,United Kingdom,Low value,0.8339,M002
+C018012,United Kingdom,Low value,0.9868,M002
+C018016,United Kingdom,Loyal,0.2242,M004
+C018019,United Kingdom,Regular,0.6526,M002
+C018020,United Kingdom,Low value,0.9547,M002
+C018021,United Kingdom,Low value,0.9175,M002
+C018022,United Kingdom,Loyal,0.2573,M004
+C018025,United Kingdom,Low value,0.6574,M002
+C018026,United Kingdom,Low value,0.8471,M002
+C018027,United Kingdom,Regular,0.6459,M002
+C018028,United Kingdom,Low value,0.9656,M002
+C018029,United Kingdom,Low value,0.9694,M002
+C018031,United Kingdom,Low value,0.8671,M002
+C018032,United Kingdom,Low value,0.8937,M002
+C018033,United Kingdom,Regular,0.6138,M002
+C018034,United Kingdom,Low value,0.8747,M002
+C018035,United Kingdom,Loyal,0.2363,M004
+C018036,United Kingdom,Loyal,0.1911,M004
+C018038,United Kingdom,Low value,0.9631,M002
+C018039,United Kingdom,Low value,0.7585,M002
+C018040,United Kingdom,Regular,0.7802,M002
+C018041,United Kingdom,Premium,0.0569,M004
+C018043,United Kingdom,Regular,0.641,M002
+C018044,United Kingdom,Loyal,0.1036,M004
+C018046,United Kingdom,Low value,0.9766,M002
+C018047,United Kingdom,Low value,0.8218,M002
+C018048,United Kingdom,Loyal,0.6088,M002
+C018049,United Kingdom,Low value,0.8693,M002
+C018050,United Kingdom,Low value,0.7967,M002
+C018051,United Kingdom,Low value,0.8417,M002
+C018052,United Kingdom,Low value,0.8882,M002
+C018054,United Kingdom,Low value,0.9025,M002
+C018055,United Kingdom,Premium,0.0828,M004
+C018056,United Kingdom,Low value,0.752,M002
+C018057,United Kingdom,Low value,0.7801,M002
+C018058,United Kingdom,Low value,0.9192,M002
+C018060,United Kingdom,Low value,0.8145,M002
+C018061,United Kingdom,Premium,0.0888,M004
+C018063,United Kingdom,Low value,0.8798,M002
+C018064,United Kingdom,Premium,0.1946,M004
+C018065,United Kingdom,Premium,0.0998,M004
+C018068,United Kingdom,Regular,0.8545,M002
+C018069,United Kingdom,Loyal,0.1801,M004
+C018070,United Kingdom,Low value,0.9748,M002
+C018072,United Kingdom,Regular,0.7003,M002
+C018074,United Kingdom,Low value,0.7842,M002
+C018075,United Kingdom,Premium,0.0784,M004
+C018076,United Kingdom,Low value,0.9001,M002
+C018077,United Kingdom,Loyal,0.1205,M004
+C018079,United Kingdom,Loyal,0.2041,M004
+C018080,United Kingdom,Regular,0.7091,M002
+C018083,United Kingdom,Low value,0.8788,M002
+C018084,United Kingdom,Low value,0.776,M002
+C018085,United Kingdom,Loyal,0.659,M002
+C018086,United Kingdom,Regular,0.8432,M002
+C018087,United Kingdom,Premium,0.2372,M004
+C018089,United Kingdom,Low value,0.9084,M002
+C018090,United Kingdom,Low value,0.9027,M002
+C018091,United Kingdom,Low value,0.9614,M002
+C018092,United Kingdom,Premium,0.0818,M004
+C018093,United Kingdom,Loyal,0.2001,M004
+C018094,United Kingdom,Premium,0.1384,M004
+C018096,United Kingdom,Loyal,0.2775,M004
+C018097,United Kingdom,Premium,0.216,M004
+C018098,United Kingdom,Low value,0.8741,M002
+C018099,United Kingdom,Regular,0.6606,M002
+C018100,United Kingdom,Low value,0.9477,M002
+C018102,United Kingdom,Premium,0.0064,M004
+C018103,United Kingdom,Low value,0.9645,M002
+C018106,United Kingdom,Loyal,0.6044,M002
+C018107,United Kingdom,Low value,0.9269,M002
+C018108,United Kingdom,Loyal,0.6615,M002
+C018109,United Kingdom,Premium,0.0453,M004
+C018110,United Kingdom,Low value,0.9099,M002
+C018111,United Kingdom,Low value,0.9571,M002
+C018113,United Kingdom,Low value,0.9106,M002
+C018114,United Kingdom,Regular,0.826,M002
+C018115,United Kingdom,Low value,0.9921,M002
+C018116,United Kingdom,Loyal,0.1425,M004
+C018118,United Kingdom,Premium,0.0496,M004
+C018119,United Kingdom,Low value,0.888,M002
+C018120,United Kingdom,Regular,0.7859,M002
+C018124,United Kingdom,Low value,0.9455,M002
+C018128,United Kingdom,Low value,0.9456,M002
+C018129,United Kingdom,Regular,0.8129,M002
+C018131,United Kingdom,Low value,0.9728,M002
+C018132,United Kingdom,Low value,0.9442,M002
+C018133,United Kingdom,Regular,0.6528,M002
+C018134,United Kingdom,Low value,0.9441,M002
+C018135,United Kingdom,Loyal,0.1788,M004
+C018136,United Kingdom,Loyal,0.238,M004
+C018137,United Kingdom,Low value,0.941,M002
+C018138,United Kingdom,Regular,0.8444,M002
+C018140,West Indies,Low value,0.9161,M002
+C018141,United Kingdom,Low value,0.8133,M002
+C018144,United Kingdom,Loyal,0.1083,M004
+C018145,United Kingdom,Premium,0.1857,M004
+C018148,United Kingdom,Low value,0.9794,M002
+C018149,United Kingdom,Loyal,0.2434,M004
+C018152,United Kingdom,Low value,0.9702,M002
+C018153,United Kingdom,Low value,0.9763,M002
+C018156,United Kingdom,Low value,0.8883,M002
+C018157,United Kingdom,Low value,0.9621,M002
+C018159,United Kingdom,Regular,0.7978,M002
+C018161,United Kingdom,Loyal,0.2584,M004
+C018162,United Kingdom,Low value,0.9826,M002
+C018163,United Kingdom,Low value,0.9483,M002
+C018165,United Kingdom,Regular,0.6892,M002
+C018166,United Kingdom,Low value,0.9734,M002
+C018168,United Kingdom,Premium,0.2051,M004
+C018170,United Kingdom,Loyal,0.1823,M004
+C018171,United Kingdom,Premium,0.1963,M004
+C018172,United Kingdom,Premium,0.0328,M004
+C018173,United Kingdom,Loyal,0.2873,M004
+C018174,United Kingdom,Low value,0.9779,M002
+C018175,United Kingdom,Low value,0.9803,M002
+C018176,United Kingdom,Low value,0.8441,M002
+C018177,United Kingdom,Loyal,0.188,M004
+C018178,United Kingdom,Premium,0.175,M004
+C018179,United Kingdom,Loyal,0.2303,M004
+C018181,United Kingdom,Low value,0.7631,M002
+C018182,United Kingdom,Low value,0.9245,M002
+C018185,United Kingdom,Regular,0.7724,M002
+C018186,United Kingdom,Low value,0.9821,M002
+C018187,United Kingdom,Low value,0.9593,M002
+C018188,United Kingdom,Loyal,0.2603,M004
+C018191,United Kingdom,Low value,0.7106,M002
+C018194,United Kingdom,Loyal,0.2387,M004
+C018195,United Kingdom,Low value,0.9132,M002
+C018197,United Kingdom,Low value,0.9602,M002
+C018198,United Kingdom,Premium,0.0715,M004
+C018199,United Kingdom,Low value,0.9761,M002
+C018200,United Kingdom,Regular,0.6396,M002
+C018201,United Kingdom,Low value,0.9806,M002
+C018206,United Kingdom,Low value,0.9533,M002
+C018207,United Kingdom,Low value,0.9211,M002
+C018208,United Kingdom,Low value,0.9548,M002
+C018210,United Kingdom,Loyal,0.2374,M004
+C018212,United Kingdom,Low value,0.8069,M002
+C018213,United Kingdom,Regular,0.7723,M002
+C018214,United Kingdom,Low value,0.8074,M002
+C018215,United Kingdom,Loyal,0.293,M004
+C018217,United Kingdom,Loyal,0.2875,M004
+C018219,United Kingdom,Premium,0.1278,M004
+C018221,United Kingdom,Loyal,0.2481,M004
+C018223,United Kingdom,Premium,0.0558,M004
+C018224,United Kingdom,Regular,0.816,M002
+C018225,United Kingdom,Premium,0.0667,M004
+C018226,United Kingdom,Premium,0.0554,M004
+C018227,United Kingdom,Loyal,0.6737,M002
+C018229,United Kingdom,Premium,0.0729,M004
+C018230,United Kingdom,Premium,0.1427,M004
+C018231,United Kingdom,Premium,0.1375,M004
+C018233,United Kingdom,Regular,0.8276,M002
+C018234,United Kingdom,Low value,0.9595,M002
+C018236,United Kingdom,Loyal,0.1569,M004
+C018238,United Kingdom,Low value,0.9445,M002
+C018241,United Kingdom,Premium,0.1054,M004
+C018242,United Kingdom,Loyal,0.2149,M004
+C018243,United Kingdom,Low value,0.8861,M002
+C018244,United Kingdom,Low value,0.8499,M002
+C018245,United Kingdom,Premium,0.1427,M004
+C018246,United Kingdom,Loyal,0.7269,M002
+C018247,United Kingdom,Low value,0.7857,M002
+C018250,United Kingdom,Regular,0.8165,M002
+C018251,United Kingdom,Premium,0.1359,M004
+C018252,United Kingdom,Loyal,0.2507,M004
+C018253,United Kingdom,Low value,0.9719,M002
+C018254,United Kingdom,Low value,0.9619,M002
+C018256,United Kingdom,Low value,0.9069,M002
+C018257,United Kingdom,Premium,0.1201,M004
+C018258,United Kingdom,Low value,0.6853,M002
+C018259,United Kingdom,Loyal,0.282,M004
+C018260,United Kingdom,Premium,0.1224,M004
+C018264,United Kingdom,Low value,0.9245,M002
+C018266,United Kingdom,Low value,0.9149,M002
+C018267,United Kingdom,Low value,0.9762,M002
+C018269,United Kingdom,Low value,0.8841,M002
+C018271,United Kingdom,Low value,0.9425,M002
+C018272,United Kingdom,Premium,0.1686,M004
+C018275,United Kingdom,Low value,0.9321,M002
+C018276,United Kingdom,Loyal,0.2557,M004
+C018277,United Kingdom,Loyal,0.2622,M004
+C018279,United Kingdom,Low value,0.948,M002
+C018280,United Kingdom,Low value,0.7033,M002
+C018281,United Kingdom,Loyal,0.7067,M002
+C018282,United Kingdom,Regular,0.6802,M002
+C018283,United Kingdom,Loyal,0.1234,M004
+C018284,United Kingdom,Low value,0.897,M002
+C018285,United Kingdom,Low value,0.9734,M002
+C018286,United Kingdom,Low value,0.8709,M002
+C018287,United Kingdom,Loyal,0.172,M004

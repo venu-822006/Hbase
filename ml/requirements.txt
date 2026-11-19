@@ -1,0 +1,6 @@
+happybase
+phoenixdb
+pyspark
+pandas<3
+numpy
+pyarrow
