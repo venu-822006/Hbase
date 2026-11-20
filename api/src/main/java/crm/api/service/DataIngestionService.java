@@ -28,11 +28,14 @@ public class DataIngestionService {
 
     private final Connection connection;
 
-    public DataIngestionService(Connection connection) {
+    public DataIngestionService(@org.springframework.lang.Nullable Connection connection) {
         this.connection = connection;
     }
 
     public Map<String, Object> ingestAll() throws IOException {
+        if (connection == null) {
+            throw new IllegalStateException("HBase cluster connection is not available. Please ensure ZooKeeper and HBase RegionServers are running.");
+        }
 
         Configuration config = new Configuration();
         config.set("fs.defaultFS", HDFS);

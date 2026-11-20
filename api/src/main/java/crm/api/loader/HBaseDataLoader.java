@@ -63,7 +63,7 @@ public class HBaseDataLoader {
         return loadCsv(connection, CLEAN_DIR.resolve("orders.csv"),
                 "cid,ts14,invoice,amount,items", "crm_orders", fields -> {
                     requireFields(fields, 5);
-                    String key = fields[0] + "|" + fields[1] + "|" + fields[2];
+                    String key = fields[0] + "#" + fields[1] + "#" + fields[2];
                     Put put = new Put(Bytes.toBytes(key));
                     put.addColumn(INFO, Bytes.toBytes("cid"), Bytes.toBytes(fields[0]));
                     put.addColumn(INFO, Bytes.toBytes("ts14"), Bytes.toBytes(fields[1]));
@@ -78,7 +78,7 @@ public class HBaseDataLoader {
         return loadCsv(connection, CLEAN_DIR.resolve("cancellations.csv"),
                 "cid,ts14,invoice,amount", "crm_cancellations", fields -> {
                     requireFields(fields, 4);
-                    String key = fields[0] + "|" + fields[1] + "|" + fields[2];
+                    String key = fields[0] + "#" + fields[1] + "#" + fields[2];
                     Put put = new Put(Bytes.toBytes(key));
                     put.addColumn(INFO, Bytes.toBytes("cid"), Bytes.toBytes(fields[0]));
                     put.addColumn(INFO, Bytes.toBytes("ts14"), Bytes.toBytes(fields[1]));

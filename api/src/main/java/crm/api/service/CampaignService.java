@@ -24,7 +24,7 @@ public class CampaignService {
     private final Connection hbaseConnection;
 
     @Autowired
-    public CampaignService(CrmDataRepository repository, Connection hbaseConnection) {
+    public CampaignService(CrmDataRepository repository, @org.springframework.lang.Nullable Connection hbaseConnection) {
         this.repository = repository;
         this.hbaseConnection = hbaseConnection;
     }

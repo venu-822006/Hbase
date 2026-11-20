@@ -20,7 +20,7 @@ public class PipelineService {
     private final CrmDataRepository repository;
 
     @Autowired
-    public PipelineService(Connection hbaseConnection, CrmDataRepository repository) {
+    public PipelineService(@org.springframework.lang.Nullable Connection hbaseConnection, CrmDataRepository repository) {
         this.hbaseConnection = hbaseConnection;
         this.repository = repository;
     }

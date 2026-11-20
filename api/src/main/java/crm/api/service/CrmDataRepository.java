@@ -44,7 +44,7 @@ public class CrmDataRepository {
     private volatile boolean initialized = false;
 
     @Autowired
-    public CrmDataRepository(Connection hbaseConnection) {
+    public CrmDataRepository(@org.springframework.lang.Nullable Connection hbaseConnection) {
         this.hbaseConnection = hbaseConnection;
     }
 

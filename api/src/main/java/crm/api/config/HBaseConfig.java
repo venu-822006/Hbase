@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 @org.springframework.context.annotation.Configuration
 public class HBaseConfig {
@@ -25,14 +27,22 @@ public class HBaseConfig {
     @Value("${hbase.client.retries.number:2}")
     private int retries;
 
-    @Value("${hbase.rpc.timeout:10000}")
+    @Value("${hbase.rpc.timeout:5000}")
     private int rpcTimeout;
 
-    @Value("${hbase.client.operation.timeout:15000}")
+    @Value("${hbase.client.operation.timeout:8000}")
     private int opTimeout;
 
     @Bean(destroyMethod = "close")
     public Connection hbaseConnection() {
+        // Fast probe: check if ZooKeeper is responding before creating connection
+        try (Socket socket = new Socket()) {
+            socket.connect(new InetSocketAddress(zkQuorum, zkPort), 300);
+        } catch (Exception e) {
+            log.warn("ZooKeeper not reachable at {}:{}. Operating in analytical fallback dataset mode.", zkQuorum, zkPort);
+            return null;
+        }
+
         try {
             Configuration config = HBaseConfiguration.create();
             config.set("hbase.zookeeper.quorum", zkQuorum);
