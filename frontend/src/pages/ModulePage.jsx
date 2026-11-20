@@ -58,7 +58,7 @@ export default function ModulePage() {
         <Icon size={38} />
         <h2>{current.title}</h2>
         <p>
-          This module is being prepared for live HBase data integration.
+          This module is being prepared for live customer lake integration.
         </p>
       </div>
     </section>

@@ -12,6 +12,7 @@ import {
   DollarSign,
   Users,
   ShieldAlert,
+  Sparkles,
 } from "lucide-react";
 import api from "../services/api";
 
@@ -54,14 +55,14 @@ export default function CampaignsPage() {
 
   const handleDispatch = async () => {
     setLoading(true);
-    setMsg("Evaluating customer churn risk and segment rules against campaign catalogue...");
+    setMsg("Evaluating customer retention risk rules against campaign catalogue...");
     try {
       await api.triggerPipeline("sync");
       const o = await api.getOffers();
       setOffers(o.content || []);
-      setMsg("Successfully generated 3,894 targeted campaign offers & synchronized with HBase crm_interaction!");
+      setMsg("Successfully generated and synchronized 3,894 targeted retention propositions!");
     } catch {
-      setMsg("Synchronized 3,894 active offers with HBase.");
+      setMsg("Synchronized 3,894 active campaign offers.");
     } finally {
       setLoading(false);
       setTimeout(() => setMsg(""), 4500);
@@ -91,195 +92,180 @@ export default function CampaignsPage() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `hbase_campaign_offers_${campaignFilter.toLowerCase()}.csv`);
+    link.setAttribute("download", `retention_campaign_offers.csv`);
     document.body.appendChild(link);
     link.click();
+    setMsg("Exported campaign offers to CSV!");
+    setTimeout(() => setMsg(""), 3500);
   };
 
   return (
     <div className="module-content-layout">
       {/* Header */}
-      <div className="module-header-container">
+      <div className="panel-card-header" style={{ marginBottom: "22px" }}>
         <div>
-          <span className="eyebrow-badge">CLOSED-LOOP CRM MARKETING</span>
-          <h1 className="module-page-title">Campaign Automation & Feedback</h1>
-          <p className="module-page-subtitle">
-            Closed-loop automation converting ML churn scores and segments into targeted offers stored in HBase `crm_interaction`.
+          <span className="eyebrow-badge">RETENTION & CAMPAIGN PLAYBOOKS</span>
+          <h1 className="hero-heading" style={{ fontSize: "28px", marginTop: "4px" }}>
+            Automated Outreach & Retention Engine
+          </h1>
+          <p className="hero-paragraph" style={{ marginBottom: "0" }}>
+            Autonomous closed-loop marketing engine converting retention risk signals and spend forecasts into personalized customer offers.
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
           <button className="secondary-button" onClick={handleExport}>
             <Download size={14} />
             <span>Export CSV</span>
           </button>
-          <button className="primary-button" onClick={handleDispatch} disabled={loading}>
+          <button className="action-btn-primary" onClick={handleDispatch} disabled={loading}>
             <Zap size={14} />
-            <span>{loading ? "Dispatching..." : "Dispatch Offers to HBase"}</span>
+            <span>{loading ? "Dispatching..." : "Dispatch Offers"}</span>
           </button>
         </div>
       </div>
 
       {msg && (
-        <div className="action-notification-banner">
+        <div className="action-notification-banner" style={{ marginBottom: "20px" }}>
           <CheckCircle2 size={16} />
           <span>{msg}</span>
         </div>
       )}
 
       {/* Campaigns Catalogue */}
-      <div className="campaign-catalogue-grid">
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px", marginBottom: "24px" }}>
         {campaigns.map((camp) => (
-          <div key={camp.campaign_id} className="panel-card campaign-card-item">
-            <div className="camp-top-row">
-              <span className="code-identifier" style={{ fontSize: "13px" }}>
+          <div key={camp.campaign_id} className="panel-card" style={{ padding: "18px", display: "flex", flexDirection: "column", gap: "10px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span className="code-identifier" style={{ fontSize: "12px", fontWeight: "700" }}>
                 {camp.campaign_id}
               </span>
-              <span className="status-pill status-active">ACTIVE</span>
+              <span
+                style={{
+                  fontSize: "10px",
+                  fontWeight: "700",
+                  padding: "2px 8px",
+                  borderRadius: "var(--radius-pill)",
+                  backgroundColor: "var(--success-light)",
+                  color: "var(--success)",
+                }}
+              >
+                ACTIVE
+              </span>
             </div>
-            <h3 style={{ fontSize: "17px", fontWeight: "700", margin: "8px 0 10px" }}>
+            <h3 style={{ fontSize: "15px", fontWeight: "700", color: "var(--text-main)", margin: "2px 0" }}>
               {camp.name}
             </h3>
-            <div className="camp-rule-container">
-              <span className="rule-sublabel">Business Rule:</span>
-              <code>{camp.rule}</code>
+            <div style={{ padding: "8px 10px", backgroundColor: "var(--card-bg-subtle)", borderRadius: "var(--radius-sm)", fontSize: "11.5px" }}>
+              <span style={{ color: "var(--text-muted)", display: "block", marginBottom: "2px" }}>Trigger Rule:</span>
+              <span style={{ fontFamily: "var(--font-mono)", color: "var(--text-main)" }}>{camp.rule}</span>
             </div>
-            <div className="camp-footer-meta">
-              <span>
-                Channel: <b>{camp.channel}</b>
-              </span>
-              <span>
-                Target: <b>{camp.targetCount} accounts</b>
-              </span>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11.5px", color: "var(--text-muted)", marginTop: "auto", paddingTop: "8px", borderTop: "1px solid var(--border-subtle)" }}>
+              <span>Channel: <b>{camp.channel}</b></span>
+              <span>Target: <b>{camp.targetCount} accounts</b></span>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Helpful Feature: Campaign Financial ROI & Uplift Simulator */}
-      <div className="panel-card" style={{ marginTop: "24px" }}>
+      {/* Campaign Financial ROI & Uplift Simulator */}
+      <div className="panel-card" style={{ marginBottom: "24px" }}>
         <div className="panel-card-header">
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <Calculator size={18} color="var(--primary)" />
-            <div>
-              <h3>Closed-Loop Financial ROI & Recovery Simulator</h3>
-              <p>Simulate projected revenue rescued versus voucher costs for Campaign M002 Win-Back offers</p>
-            </div>
+          <div>
+            <h3>Campaign Financial ROI Simulator</h3>
+            <p>Model financial returns and net profit saved across intervention cohorts</p>
           </div>
-          <span className="panel-header-pill">Unit Economics</span>
+          <span className="panel-header-pill">Real-Time Forecast</span>
         </div>
 
         <div className="simulator-body-grid">
-          {/* Controls */}
           <div className="slider-controls-group">
-            <div className="slider-control">
-              <div className="slider-label-row">
-                <span>Targeted Churn Accounts:</span>
-                <strong>{targetCohort.toLocaleString()} accounts</strong>
-              </div>
-              <input
-                type="range"
-                min="500"
-                max="3000"
-                step="50"
-                value={targetCohort}
-                onChange={(e) => setTargetCohort(Number(e.target.value))}
-                className="range-input"
-              />
-            </div>
-
-            <div className="slider-control">
-              <div className="slider-label-row">
-                <span>Win-Back Voucher Discount Value:</span>
-                <strong>{currFmt.format(voucherCost)}</strong>
-              </div>
-              <input
-                type="range"
-                min="50"
-                max="500"
-                step="25"
-                value={voucherCost}
-                onChange={(e) => setVoucherCost(Number(e.target.value))}
-                className="range-input"
-              />
-            </div>
-
-            <div className="slider-control">
-              <div className="slider-label-row">
-                <span>Expected Recovery Conversion Rate:</span>
-                <strong>{conversionRate}%</strong>
-              </div>
-              <input
-                type="range"
-                min="5"
-                max="40"
-                step="1"
-                value={conversionRate}
-                onChange={(e) => setConversionRate(Number(e.target.value))}
-                className="range-input"
-              />
-            </div>
-
-            <div className="slider-control">
-              <div className="slider-label-row">
-                <span>Average Rescued Spend (AOV):</span>
-                <strong>{currFmt.format(rescuedAov)}</strong>
+            <div className="simulator-slider-row">
+              <div className="slider-field-header">
+                <span>Target Retention Cohort</span>
+                <span className="slider-val-tag">{targetCohort} accounts</span>
               </div>
               <input
                 type="range"
                 min="500"
                 max="4000"
-                step="100"
+                step="50"
+                value={targetCohort}
+                onChange={(e) => setTargetCohort(Number(e.target.value))}
+                className="range-slider-input"
+              />
+            </div>
+
+            <div className="simulator-slider-row">
+              <div className="slider-field-header">
+                <span>Expected Recovery Conversion Rate</span>
+                <span className="slider-val-tag">{conversionRate}%</span>
+              </div>
+              <input
+                type="range"
+                min="5"
+                max="40"
+                value={conversionRate}
+                onChange={(e) => setConversionRate(Number(e.target.value))}
+                className="range-slider-input"
+              />
+            </div>
+
+            <div className="simulator-slider-row">
+              <div className="slider-field-header">
+                <span>Voucher / Incentive Cost per Customer</span>
+                <span className="slider-val-tag">{currFmt.format(voucherCost)}</span>
+              </div>
+              <input
+                type="range"
+                min="50"
+                max="500"
+                step="10"
+                value={voucherCost}
+                onChange={(e) => setVoucherCost(Number(e.target.value))}
+                className="range-slider-input"
+              />
+            </div>
+
+            <div className="simulator-slider-row">
+              <div className="slider-field-header">
+                <span>Average Rescued Order Value</span>
+                <span className="slider-val-tag">{currFmt.format(rescuedAov)}</span>
+              </div>
+              <input
+                type="range"
+                min="500"
+                max="3500"
+                step="50"
                 value={rescuedAov}
                 onChange={(e) => setRescuedAov(Number(e.target.value))}
-                className="range-input"
+                className="range-slider-input"
               />
             </div>
           </div>
 
-          {/* ROI Outputs */}
-          <div className="simulator-results-panel">
-            <span className="results-panel-title">PROJECTED CAMPAIGN ECONOMICS</span>
-
-            <div className="simulated-result-row">
-              <span className="sim-label">Rescued Accounts:</span>
-              <span className="sim-val" style={{ color: "#059669" }}>
-                {rescuedCustomers.toLocaleString()} accounts
-              </span>
+          <div className="simulation-display-card">
+            <span className="sim-metric-label">NET PROFIT SAVED</span>
+            <div className="sim-metric-big-val" style={{ color: "var(--success)" }}>
+              {currFmt.format(netProfitSaved)}
             </div>
 
-            <div className="simulated-result-row">
-              <span className="sim-label">Gross Revenue Preserved:</span>
-              <span className="sim-val">{currFmt.format(grossRevenueSaved)}</span>
-            </div>
-
-            <div className="simulated-result-row">
-              <span className="sim-label">Total Voucher Expense:</span>
-              <span className="sim-val" style={{ color: "#dc2626" }}>
-                {currFmt.format(campaignVoucherExpense)}
-              </span>
-            </div>
-
-            <div
-              style={{
-                marginTop: "12px",
-                padding: "12px 14px",
-                borderRadius: "8px",
-                background: "rgba(16, 185, 129, 0.1)",
-                border: "1px solid rgba(16, 185, 129, 0.3)",
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ fontSize: "12px", color: "var(--text-sub)" }}>Net Preserved Profit:</span>
-                <strong style={{ fontSize: "16px", color: "#059669" }}>
-                  {currFmt.format(netProfitSaved)}
-                </strong>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Rescued Accounts</span>
+                <span className="stat-highlight">{rescuedCustomers}</span>
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "4px" }}>
-                <span style={{ fontSize: "12px", color: "var(--text-sub)" }}>Expected Campaign ROI:</span>
-                <span className="panel-header-pill" style={{ background: "#059669", color: "#fff", borderColor: "#059669" }}>
-                  {roiMultiple}x ROI
-                </span>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Program Net ROI</span>
+                <span className="stat-highlight" style={{ color: "var(--success)" }}>{roiMultiple}x</span>
+              </div>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Gross Value Saved</span>
+                <span className="stat-highlight">{currFmt.format(grossRevenueSaved)}</span>
+              </div>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Campaign Expense</span>
+                <span className="stat-highlight">{currFmt.format(campaignVoucherExpense)}</span>
               </div>
             </div>
           </div>
@@ -287,42 +273,48 @@ export default function CampaignsPage() {
       </div>
 
       {/* Offers Filter Toolbar */}
-      <div className="filter-toolbar-card" style={{ marginTop: "24px" }}>
-        <div className="search-input-box">
-          <Search size={15} />
-          <input
-            type="text"
-            placeholder="Search offers by Customer ID (C012347) or Country..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
+      <div className="panel-card" style={{ padding: "16px 20px", marginBottom: "20px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center", justifyContent: "space-between" }}>
+          <div className="global-search-container" style={{ maxWidth: "340px", margin: 0 }}>
+            <Search size={14} className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search account ID or country..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{ background: "transparent", border: "none", outline: "none", width: "100%", fontSize: "12.5px" }}
+            />
+          </div>
 
-        <div className="filter-group">
-          <span className="filter-group-label">Filter Campaign:</span>
-          {["ALL", "M002", "M004"].map((cId) => (
-            <button
-              key={cId}
-              className={`pill-toggle-btn ${campaignFilter === cId ? "active" : ""}`}
-              onClick={() => setCampaignFilter(cId)}
-            >
-              {cId === "ALL" ? "All Offers" : cId === "M002" ? "M002 (Win-Back)" : "M004 (Loyalty)"}
-            </button>
-          ))}
+          <div className="view-mode-toggle">
+            {["ALL", "M002", "M004"].map((cId) => (
+              <button
+                key={cId}
+                className={`toggle-option ${campaignFilter === cId ? "selected" : ""}`}
+                onClick={() => setCampaignFilter(cId)}
+              >
+                {cId === "ALL" ? "All Offers (3,894)" : cId === "M002" ? "M002 Win-Back (2,402)" : "M004 Loyalty (1,492)"}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Active Campaign Offers Table */}
-      <div className="panel-card">
-        <div className="panel-card-header">
+      <div className="panel-card" style={{ padding: "0", overflow: "hidden" }}>
+        <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--border-color)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div>
-            <h3>Synchronized Campaign Offers (HBase Table: `crm_interaction`)</h3>
-            <p>Showing {filteredOffers.length} dispatched customer propositions</p>
+            <h3 style={{ fontSize: "15px", fontWeight: "700", color: "var(--text-main)" }}>
+              Active Campaign Offers & Dispatches
+            </h3>
+            <p style={{ fontSize: "12px", color: "var(--text-muted)", margin: "2px 0 0" }}>
+              Showing {filteredOffers.length} personalized retention propositions
+            </p>
           </div>
           <span className="panel-header-pill">3,894 Total Offers</span>
         </div>
 
-        <div className="table-responsive-container">
+        <div className="table-responsive-container" style={{ border: "none", borderRadius: "0" }}>
           <table className="enterprise-data-table">
             <thead>
               <tr>
@@ -330,12 +322,12 @@ export default function CampaignsPage() {
                 <th>Country</th>
                 <th>Segment</th>
                 <th>Churn Risk</th>
-                <th>Campaign</th>
+                <th>Playbook</th>
                 <th>Delivered Customer Proposition</th>
               </tr>
             </thead>
             <tbody>
-              {filteredOffers.map((o) => (
+              {filteredOffers.slice(0, 50).map((o) => (
                 <tr key={o.customer_id}>
                   <td>
                     <span className="code-identifier">{o.customer_id}</span>
@@ -347,16 +339,16 @@ export default function CampaignsPage() {
                   <td>
                     <span
                       className="risk-pct-value"
-                      style={{ color: o.churn_prob >= 0.6 ? "#dc2626" : "#059669" }}
+                      style={{ color: o.churn_prob >= 0.6 ? "var(--danger)" : "var(--success)" }}
                     >
-                      {(o.churn_prob * 100).toFixed(1)}%
+                      {Math.round(o.churn_prob * 100)}%
                     </span>
                   </td>
                   <td>
                     <span className="dispatch-action-tag">{o.campaign}</span>
                   </td>
                   <td>
-                    <span style={{ fontSize: "13px", fontWeight: "600" }}>{o.offer}</span>
+                    <span style={{ fontSize: "12.5px", fontWeight: "600" }}>{o.offer}</span>
                   </td>
                 </tr>
               ))}

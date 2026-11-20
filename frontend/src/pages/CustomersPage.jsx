@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   Search,
   Filter,
@@ -15,9 +15,9 @@ import {
   X,
   TrendingDown,
   TrendingUp,
-  DollarSign,
-  Calendar,
-  Layers,
+  Sliders,
+  CheckCircle2,
+  AlertTriangle,
 } from "lucide-react";
 import api from "../services/api";
 
@@ -29,10 +29,16 @@ const currFmt = new Intl.NumberFormat("en-IN", {
 
 export default function CustomersPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [customers, setCustomers] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(() => searchParams.get("search") || "");
   const [segmentFilter, setSegmentFilter] = useState("ALL");
-  const [riskFilter, setRiskFilter] = useState("ALL"); // "ALL" | "HIGH" | "MEDIUM" | "SAFE"
+  const [riskFilter, setRiskFilter] = useState(() => {
+    const f = searchParams.get("filter");
+    if (f === "high_risk") return "HIGH";
+    if (f === "vip") return "ALL";
+    return "ALL";
+  });
   const [sortBy, setSortBy] = useState("risk"); // "risk" | "spend" | "recency"
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [toast, setToast] = useState("");
@@ -48,6 +54,14 @@ export default function CustomersPage() {
     };
     fetch();
   }, [search, segmentFilter]);
+
+  // Handle URL params on mount
+  useEffect(() => {
+    const f = searchParams.get("filter");
+    if (f === "vip") {
+      setSegmentFilter("Loyal");
+    }
+  }, [searchParams]);
 
   // Apply Risk filtering and sorting
   let displayed = customers.filter((c) => {
@@ -69,7 +83,7 @@ export default function CustomersPage() {
       setSelectedForCompare(selectedForCompare.filter((id) => id !== cid));
     } else {
       if (selectedForCompare.length >= 3) {
-        setToast("Maximum 3 customers can be compared side-by-side.");
+        setToast("Maximum 3 accounts can be compared side-by-side.");
         setTimeout(() => setToast(""), 3000);
         return;
       }
@@ -91,7 +105,7 @@ export default function CustomersPage() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `hbase_customers_${segmentFilter.toLowerCase()}_export.csv`);
+    link.setAttribute("download", `customer_directory_export.csv`);
     document.body.appendChild(link);
     link.click();
     setToast(`Exported ${displayed.length} customer records to CSV!`);
@@ -102,29 +116,29 @@ export default function CustomersPage() {
     .map((id) => customers.find((c) => c.customer_id === id))
     .filter(Boolean);
 
+  const calculateHealthScore = (c) => {
+    const base = (1 - (c.churn_prob || 0)) * 70;
+    const freqBonus = Math.min(15, (c.frequency || 1) * 3);
+    const spendBonus = (c.monetary || 0) > 1000 ? 15 : 5;
+    return Math.max(5, Math.min(99, Math.round(base + freqBonus + spendBonus)));
+  };
+
   return (
     <div className="module-content-layout">
       {/* Module Header */}
-      <div className="module-header-container">
+      <div className="panel-card-header" style={{ marginBottom: "22px" }}>
         <div>
-          <span className="eyebrow-badge">HBASE TABLE: CRM_CUSTOMER</span>
-          <h1 className="module-page-title">Customer 360 Directory</h1>
-          <p className="module-page-subtitle">
-            5,721 customer profiles constructed from real UK retail sales with wide-column storage and ML inference.
+          <span className="eyebrow-badge">CUSTOMER INTELLIGENCE 360</span>
+          <h1 className="hero-heading" style={{ fontSize: "28px", marginTop: "4px" }}>Customer Directory</h1>
+          <p className="hero-paragraph" style={{ marginBottom: "0" }}>
+            Comprehensive account directory with real-time churn risk probabilities, lifetime spend forecasts, and autonomous engagement playbooks.
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
           {selectedForCompare.length > 0 && (
             <button
               className="action-btn-primary"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-                background: "var(--accent, #6366f1)",
-                color: "#fff",
-              }}
               onClick={() => setShowCompareModal(true)}
             >
               <Users2 size={14} />
@@ -140,200 +154,268 @@ export default function CustomersPage() {
       </div>
 
       {toast && (
-        <div className="action-notification-banner">
+        <div className="action-notification-banner" style={{ marginBottom: "18px" }}>
+          <CheckCircle2 size={16} />
           <span>{toast}</span>
         </div>
       )}
 
-      {/* Advanced Filter & Sorter Toolbar */}
-      <div className="filter-toolbar-card">
-        <div className="search-input-box">
-          <Search size={15} />
-          <input
-            type="text"
-            placeholder="Search by Customer ID (C012347) or Country..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
+      {/* Filter Presets & Search Toolbar */}
+      <div className="panel-card" style={{ padding: "16px 20px", marginBottom: "20px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center", justifyContent: "space-between" }}>
+          {/* Search Box */}
+          <div className="global-search-container" style={{ maxWidth: "340px", margin: 0 }}>
+            <Search size={14} className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search account ID or country..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{ background: "transparent", border: "none", outline: "none", width: "100%", fontSize: "12.5px" }}
+            />
+          </div>
 
-        {/* Segment Toggles */}
-        <div className="filter-group">
-          <span className="filter-group-label">Segment:</span>
-          {["ALL", "Premium", "Loyal", "Regular", "Low value"].map((seg) => (
-            <button
-              key={seg}
-              className={`pill-toggle-btn ${segmentFilter === seg ? "active" : ""}`}
-              onClick={() => setSegmentFilter(seg)}
+          {/* Quick Segment Filter Pills */}
+          <div className="view-mode-toggle">
+            {["ALL", "Premium", "Loyal", "Regular", "Low value"].map((seg) => (
+              <button
+                key={seg}
+                className={`toggle-option ${segmentFilter === seg ? "selected" : ""}`}
+                onClick={() => setSegmentFilter(seg)}
+              >
+                {seg === "ALL" ? "All Segments" : seg}
+              </button>
+            ))}
+          </div>
+
+          {/* Risk Filters */}
+          <div className="view-mode-toggle">
+            {[
+              { id: "ALL", label: "All Risks" },
+              { id: "HIGH", label: "Critical (>60%)" },
+              { id: "MEDIUM", label: "Medium (30-60%)" },
+              { id: "SAFE", label: "Healthy (<30%)" },
+            ].map(({ id, label }) => (
+              <button
+                key={id}
+                className={`toggle-option ${riskFilter === id ? "selected" : ""}`}
+                onClick={() => setRiskFilter(id)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          {/* Sort Selector */}
+          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <ArrowUpDown size={13} color="var(--text-muted)" />
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              style={{
+                padding: "6px 12px",
+                borderRadius: "var(--radius-pill)",
+                backgroundColor: "var(--card-bg-subtle)",
+                border: "1px solid var(--border-color)",
+                fontSize: "12px",
+                color: "var(--text-main)",
+                outline: "none",
+              }}
             >
-              {seg}
-            </button>
-          ))}
-        </div>
-
-        {/* Risk Level Filter Dropdown */}
-        <div className="filter-group">
-          <span className="filter-group-label">Risk Tier:</span>
-          <select
-            className="filter-select-input"
-            value={riskFilter}
-            onChange={(e) => setRiskFilter(e.target.value)}
-          >
-            <option value="ALL">All Risk Tiers</option>
-            <option value="HIGH">High Risk (≥ 60%)</option>
-            <option value="MEDIUM">Medium Risk (30% - 60%)</option>
-            <option value="SAFE">Safe (&lt; 30%)</option>
-          </select>
-        </div>
-
-        {/* Sorter Dropdown */}
-        <div className="filter-group">
-          <span className="filter-group-label">Sort By:</span>
-          <select
-            className="filter-select-input"
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-          >
-            <option value="risk">Churn Risk (Highest first)</option>
-            <option value="spend">Total Spend (Highest first)</option>
-            <option value="recency">Recency (Most recent first)</option>
-          </select>
+              <option value="risk">Sort by Churn Risk</option>
+              <option value="spend">Sort by Total GMV</option>
+              <option value="recency">Sort by Dormancy</option>
+            </select>
+          </div>
         </div>
       </div>
 
-      {/* Customer Comparison Modal */}
+      {/* Directory Data Table */}
+      <div className="panel-card" style={{ padding: "0", overflow: "hidden" }}>
+        <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--border-color)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ fontSize: "13px", fontWeight: "600", color: "var(--text-main)" }}>
+            Showing {displayed.length} matched customer accounts
+          </span>
+          <span style={{ fontSize: "11.5px", color: "var(--text-muted)" }}>
+            Select checkboxes to compare up to 3 accounts side-by-side
+          </span>
+        </div>
+
+        <div className="table-responsive-container" style={{ border: "none", borderRadius: "0" }}>
+          <table className="enterprise-data-table">
+            <thead>
+              <tr>
+                <th style={{ width: "40px", textAlign: "center" }}>Compare</th>
+                <th>Customer ID</th>
+                <th>Country</th>
+                <th>Segment</th>
+                <th>Health Score</th>
+                <th>Churn Risk</th>
+                <th>Projected CLV</th>
+                <th>Total Invoiced</th>
+                <th>Dormancy</th>
+                <th>Inspect</th>
+              </tr>
+            </thead>
+            <tbody>
+              {displayed.slice(0, 50).map((c) => {
+                const isSelected = selectedForCompare.includes(c.customer_id);
+                const health = calculateHealthScore(c);
+                const riskPct = Math.round((c.churn_prob || 0) * 100);
+
+                return (
+                  <tr key={c.customer_id} style={{ backgroundColor: isSelected ? "var(--card-bg-subtle)" : undefined }}>
+                    <td style={{ textAlign: "center" }}>
+                      <button
+                        onClick={() => toggleSelectCompare(c.customer_id)}
+                        style={{ color: isSelected ? "var(--accent)" : "var(--text-muted)" }}
+                      >
+                        {isSelected ? <CheckSquare size={16} /> : <Square size={16} />}
+                      </button>
+                    </td>
+                    <td>
+                      <span className="code-identifier">{c.customer_id}</span>
+                    </td>
+                    <td>{c.country}</td>
+                    <td>
+                      <span className="segment-chip">{c.segment}</span>
+                    </td>
+                    <td>
+                      <span
+                        style={{
+                          fontSize: "12px",
+                          fontWeight: "700",
+                          color: health >= 70 ? "var(--success)" : health >= 40 ? "var(--warning)" : "var(--danger)",
+                        }}
+                      >
+                        {health}/100
+                      </span>
+                    </td>
+                    <td>
+                      <div className="risk-metric-cell">
+                        <span
+                          className="risk-pct-value"
+                          style={{ color: riskPct > 60 ? "var(--danger)" : riskPct > 30 ? "var(--warning)" : "var(--success)" }}
+                        >
+                          {riskPct}%
+                        </span>
+                        <div className="risk-meter-container">
+                          <div
+                            className="risk-meter-bar"
+                            style={{
+                              width: `${riskPct}%`,
+                              backgroundColor: riskPct > 60 ? "var(--danger)" : riskPct > 30 ? "var(--warning)" : "var(--success)",
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span className="currency-num">{currFmt.format(c.clv_pred || 0)}</span>
+                    </td>
+                    <td>
+                      <span className="currency-num">{currFmt.format(c.monetary || 0)}</span>
+                    </td>
+                    <td>{c.recency} days</td>
+                    <td>
+                      <button
+                        className="icon-action-btn"
+                        onClick={() => setSelectedCustomer(c)}
+                        title="View Customer Dossier"
+                      >
+                        <Eye size={14} />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Side-by-Side Customer Comparison Modal */}
       {showCompareModal && (
-        <div className="modal-backdrop-overlay" onClick={() => setShowCompareModal(false)}>
+        <div className="dossier-overlay" onClick={() => setShowCompareModal(false)}>
           <div
-            className="modal-dossier-card"
+            className="dossier-dialog"
             style={{ maxWidth: "860px" }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="modal-dossier-header">
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <Users2 size={20} color="var(--primary)" />
-                <div>
-                  <h2 style={{ fontSize: "18px", margin: 0, fontWeight: "700" }}>
-                    Multi-Customer 360 Comparison
-                  </h2>
-                  <p style={{ margin: "2px 0 0", fontSize: "12.5px", color: "var(--text-sub)" }}>
-                    Side-by-side behavioral RFM and predictive MLlib intelligence analysis
-                  </p>
-                </div>
+            <div className="dossier-header">
+              <div>
+                <span className="eyebrow-badge">ACCOUNT BENCHMARKING</span>
+                <h2>Side-by-Side Customer Comparison</h2>
+                <p>Comparative behavioral RFM, health score, and predictive retention metrics</p>
               </div>
-              <button
-                className="close-dossier-btn"
-                onClick={() => setShowCompareModal(false)}
-              >
-                <X size={18} />
-              </button>
+              <button className="dossier-close-btn" onClick={() => setShowCompareModal(false)}>✕</button>
             </div>
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: `repeat(${comparedCustomersData.length}, 1fr)`,
-                gap: "16px",
-                padding: "20px",
-              }}
-            >
+            <div style={{ display: "grid", gridTemplateColumns: `repeat(${comparedCustomersData.length}, 1fr)`, gap: "16px", marginBottom: "20px" }}>
               {comparedCustomersData.map((c) => {
-                const aov = c.monetary && c.frequency ? Math.round(c.monetary / c.frequency) : 0;
-                const isHighRisk = c.churn_prob >= 0.6;
+                const health = calculateHealthScore(c);
+                const riskPct = Math.round((c.churn_prob || 0) * 100);
+
                 return (
-                  <div
-                    key={c.customer_id}
-                    className="panel-card"
-                    style={{
-                      background: "var(--card-bg-subtle)",
-                      border: isHighRisk ? "1px solid rgba(220, 38, 38, 0.4)" : "1px solid var(--border)",
-                    }}
-                  >
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <span className="code-identifier" style={{ fontSize: "14px", fontWeight: "700" }}>
-                        {c.customer_id}
-                      </span>
+                  <div key={c.customer_id} className="dossier-stat" style={{ padding: "18px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                      <span className="code-identifier" style={{ fontSize: "15px", fontWeight: "800" }}>{c.customer_id}</span>
                       <span className="segment-chip">{c.segment}</span>
                     </div>
 
-                    <div style={{ fontSize: "12px", color: "var(--text-sub)", margin: "4px 0 14px" }}>
-                      Country: <strong>{c.country}</strong>
-                    </div>
-
-                    {/* Churn Risk Bar */}
-                    <div style={{ marginBottom: "14px" }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                        <span>Churn Probability:</span>
-                        <strong style={{ color: isHighRisk ? "#dc2626" : "#059669" }}>
-                          {(c.churn_prob * 100).toFixed(1)}%
+                    <div style={{ display: "flex", flexDirection: "column", gap: "10px", fontSize: "12px" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ color: "var(--text-muted)" }}>Country:</span>
+                        <strong>{c.country}</strong>
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ color: "var(--text-muted)" }}>Health Score:</span>
+                        <strong style={{ color: health >= 70 ? "var(--success)" : health >= 40 ? "var(--warning)" : "var(--danger)" }}>
+                          {health}/100
                         </strong>
                       </div>
-                      <div className="spend-bar-track">
-                        <div
-                          className="spend-bar-fill"
-                          style={{
-                            width: `${c.churn_prob * 100}%`,
-                            backgroundColor: isHighRisk ? "#dc2626" : "#059669",
-                          }}
-                        />
+                      <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ color: "var(--text-muted)" }}>Churn Risk:</span>
+                        <strong style={{ color: riskPct > 60 ? "var(--danger)" : "var(--success)" }}>{riskPct}%</strong>
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ color: "var(--text-muted)" }}>Projected CLV:</span>
+                        <strong>{currFmt.format(c.clv_pred || 0)}</strong>
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ color: "var(--text-muted)" }}>Historical GMV:</span>
+                        <strong>{currFmt.format(c.monetary || 0)}</strong>
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ color: "var(--text-muted)" }}>Invoiced Orders:</span>
+                        <strong>{c.frequency}</strong>
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ color: "var(--text-muted)" }}>Dormancy:</span>
+                        <strong>{c.recency} days</strong>
                       </div>
                     </div>
 
-                    {/* Metrics Grid */}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", fontSize: "12px" }}>
-                      <div className="mini-stat-box">
-                        <span className="mini-stat-label">Lifetime Spend</span>
-                        <span className="mini-stat-val">{currFmt.format(c.monetary || 0)}</span>
-                      </div>
-                      <div className="mini-stat-box">
-                        <span className="mini-stat-label">Orders (Freq)</span>
-                        <span className="mini-stat-val">{c.frequency || 1}</span>
-                      </div>
-                      <div className="mini-stat-box">
-                        <span className="mini-stat-label">Recency</span>
-                        <span className="mini-stat-val">{c.recency} days</span>
-                      </div>
-                      <div className="mini-stat-box">
-                        <span className="mini-stat-label">Avg Order (AOV)</span>
-                        <span className="mini-stat-val">{currFmt.format(aov)}</span>
-                      </div>
-                    </div>
-
-                    <div
-                      style={{
-                        marginTop: "12px",
-                        padding: "8px 10px",
-                        borderRadius: "6px",
-                        background: "var(--card-bg)",
-                        fontSize: "11.5px",
+                    <button
+                      className="secondary-button"
+                      style={{ width: "100%", marginTop: "14px", justifyContent: "center" }}
+                      onClick={() => {
+                        navigate(`/segmentation?cid=${c.customer_id}&recency=${c.recency}&monetary=${c.monetary}&frequency=${c.frequency}`);
+                        setShowCompareModal(false);
                       }}
                     >
-                      <div style={{ color: "var(--text-sub)", marginBottom: "2px" }}>Forecast 180d Spend:</div>
-                      <strong>{currFmt.format(c.clv_pred || 0)}</strong>
-                    </div>
-
-                    <div
-                      style={{
-                        marginTop: "8px",
-                        padding: "8px 10px",
-                        borderRadius: "6px",
-                        background: isHighRisk ? "rgba(220, 38, 38, 0.08)" : "rgba(37, 99, 235, 0.08)",
-                        fontSize: "11.5px",
-                      }}
-                    >
-                      <div style={{ color: "var(--text-sub)", marginBottom: "2px" }}>Target Campaign:</div>
-                      <strong>{isHighRisk ? "M002 Win-back discount" : "M004 Loyalty rewards"}</strong>
-                    </div>
+                      <Sliders size={13} />
+                      <span>Simulate Trajectory</span>
+                    </button>
                   </div>
                 );
               })}
             </div>
 
-            <div style={{ padding: "12px 20px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "flex-end" }}>
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
               <button
-                className="action-btn-secondary"
+                className="secondary-button"
                 onClick={() => setSelectedForCompare([])}
-                style={{ marginRight: "8px" }}
               >
                 Clear Selection
               </button>
@@ -348,173 +430,91 @@ export default function CustomersPage() {
         </div>
       )}
 
-      {/* Main Customers Table Card */}
-      <div className="panel-card">
-        <div className="panel-card-header">
-          <div>
-            <h3>Enterprise Customer Records</h3>
-            <p>Showing {displayed.length} matched customer accounts from HBase NoSQL store</p>
-          </div>
-          <span className="panel-header-pill">5,721 Ingested</span>
-        </div>
-
-        <div className="table-responsive-container">
-          <table className="enterprise-data-table">
-            <thead>
-              <tr>
-                <th style={{ width: "36px" }}>
-                  <span title="Select to compare">Cmp</span>
-                </th>
-                <th>Customer ID</th>
-                <th>Country</th>
-                <th>Segment</th>
-                <th>Churn Risk</th>
-                <th>Forecast 180d Spend</th>
-                <th>Lifetime Spend</th>
-                <th>Recency</th>
-                <th>Frequency</th>
-                <th style={{ textAlign: "right" }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {displayed.map((c) => {
-                const isSelected = selectedForCompare.includes(c.customer_id);
-                return (
-                  <tr key={c.customer_id} className={isSelected ? "row-selected" : ""}>
-                    <td>
-                      <button
-                        onClick={() => toggleSelectCompare(c.customer_id)}
-                        style={{
-                          background: "none",
-                          border: "none",
-                          cursor: "pointer",
-                          color: isSelected ? "var(--primary)" : "var(--text-sub)",
-                        }}
-                        title={isSelected ? "Remove from comparison" : "Add to comparison"}
-                      >
-                        {isSelected ? <CheckSquare size={16} /> : <Square size={16} />}
-                      </button>
-                    </td>
-                    <td>
-                      <span className="code-identifier">{c.customer_id}</span>
-                    </td>
-                    <td>{c.country}</td>
-                    <td>
-                      <span className="segment-chip">{c.segment}</span>
-                    </td>
-                    <td>
-                      <span
-                        className="risk-pct-value"
-                        style={{ color: c.churn_prob >= 0.6 ? "#dc2626" : "#059669" }}
-                      >
-                        {(c.churn_prob * 100).toFixed(1)}%
-                      </span>
-                    </td>
-                    <td style={{ fontWeight: 600 }}>{currFmt.format(c.clv_pred || 0)}</td>
-                    <td style={{ fontWeight: 600 }}>{currFmt.format(c.monetary || 0)}</td>
-                    <td>{c.recency} days</td>
-                    <td>{c.frequency} orders</td>
-                    <td style={{ textAlign: "right" }}>
-                      <button
-                        className="table-action-button"
-                        onClick={() => setSelectedCustomer(c)}
-                        title="View Customer 360 Dossier"
-                      >
-                        <Eye size={13} />
-                        <span>Dossier</span>
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Customer 360 Dossier Modal Dialog */}
+      {/* Customer 360 Dossier Modal */}
       {selectedCustomer && (
-        <div className="modal-backdrop-overlay" onClick={() => setSelectedCustomer(null)}>
-          <div className="modal-dossier-card" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-dossier-header">
-              <div className="dossier-id-box">
-                <span className="dossier-title-code">{selectedCustomer.customer_id}</span>
-                <span className="dossier-badge-pill">{selectedCustomer.segment}</span>
+        <div className="dossier-overlay" onClick={() => setSelectedCustomer(null)}>
+          <div className="dossier-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="dossier-header">
+              <div>
+                <span className="eyebrow-badge">CUSTOMER PROFILE 360</span>
+                <h2>{selectedCustomer.customer_id}</h2>
+                <p>Location: {selectedCustomer.country} · Customer Tier: {selectedCustomer.segment}</p>
               </div>
-              <button
-                className="close-dossier-btn"
-                onClick={() => setSelectedCustomer(null)}
-              >
-                ✕
-              </button>
+              <button className="dossier-close-btn" onClick={() => setSelectedCustomer(null)}>✕</button>
             </div>
 
-            <div className="dossier-body-grid">
-              <div className="dossier-stat-tile">
-                <span className="dossier-stat-label">Country of Origin</span>
-                <span className="dossier-stat-value">{selectedCustomer.country}</span>
-              </div>
-              <div className="dossier-stat-tile">
-                <span className="dossier-stat-label">Predicted Churn Risk</span>
+            <div className="dossier-grid">
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Health Score</span>
                 <span
-                  className="dossier-stat-value"
-                  style={{ color: selectedCustomer.churn_prob >= 0.6 ? "#dc2626" : "#059669" }}
+                  className="stat-highlight"
+                  style={{
+                    color: calculateHealthScore(selectedCustomer) >= 70 ? "var(--success)" : "var(--warning)",
+                  }}
                 >
-                  {(selectedCustomer.churn_prob * 100).toFixed(1)}%
+                  {calculateHealthScore(selectedCustomer)}/100
                 </span>
               </div>
-              <div className="dossier-stat-tile">
-                <span className="dossier-stat-label">Forecast 180-Day Spend</span>
-                <span className="dossier-stat-value">{currFmt.format(selectedCustomer.clv_pred || 0)}</span>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Churn Probability</span>
+                <span className="stat-highlight" style={{ color: "var(--danger)" }}>
+                  {Math.round((selectedCustomer.churn_prob || 0) * 100)}%
+                </span>
               </div>
-              <div className="dossier-stat-tile">
-                <span className="dossier-stat-label">Actual Lifetime GMV</span>
-                <span className="dossier-stat-value">{currFmt.format(selectedCustomer.monetary || 0)}</span>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Actual Lifetime GMV</span>
+                <span className="stat-highlight">{currFmt.format(selectedCustomer.monetary || 0)}</span>
               </div>
-              <div className="dossier-stat-tile">
-                <span className="dossier-stat-label">Dormancy (Recency)</span>
-                <span className="dossier-stat-value">{selectedCustomer.recency} days ago</span>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Projected 12-Month CLV</span>
+                <span className="stat-highlight">{currFmt.format(selectedCustomer.clv_pred || 0)}</span>
               </div>
-              <div className="dossier-stat-tile">
-                <span className="dossier-stat-label">Invoiced Frequency</span>
-                <span className="dossier-stat-value">{selectedCustomer.frequency} orders</span>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Dormancy (Recency)</span>
+                <span className="stat-highlight">{selectedCustomer.recency} days ago</span>
+              </div>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Invoiced Frequency</span>
+                <span className="stat-highlight">{selectedCustomer.frequency} orders</span>
               </div>
             </div>
 
             <div className="dossier-action-section">
-              <div className="dossier-action-info">
-                <h4>Automated Closed-Loop Campaign Recommendation</h4>
-                <p>
-                  {selectedCustomer.churn_prob >= 0.6
-                    ? "Trigger Campaign M002 Win-back Discount (15% off voucher) to re-engage account before churn."
-                    : selectedCustomer.segment === "Premium" || selectedCustomer.segment === "Loyal"
-                    ? "Dispatch Campaign M004 VIP Loyalty Rewards & Concierge service."
-                    : "Enroll in Campaign M003 Seasonal re-engagement offers."}
-                </p>
+              <div className="action-rule-header">
+                <strong>Autonomous Playbook Recommendation</strong>
+                <span>Real-Time Matching</span>
               </div>
-              <div style={{ display: "flex", gap: "8px" }}>
+              <p>
+                {selectedCustomer.churn_prob >= 0.6
+                  ? "Trigger Playbook M002 Win-back Discount (15% off voucher) to re-engage account before churn."
+                  : selectedCustomer.segment === "Premium" || selectedCustomer.segment === "Loyal"
+                  ? "Dispatch Playbook M004 VIP Loyalty Rewards & Concierge service."
+                  : "Enroll in Playbook M003 Seasonal re-engagement offers."}
+              </p>
+              <div style={{ display: "flex", gap: "10px", marginTop: "14px" }}>
                 <button
                   className="secondary-button"
-                  style={{ display: "flex", alignItems: "center", gap: "5px" }}
+                  style={{ flex: 1, justifyContent: "center" }}
                   onClick={() => {
                     navigate(
                       `/segmentation?recency=${selectedCustomer.recency}&frequency=${selectedCustomer.frequency}&monetary=${selectedCustomer.monetary}&cid=${selectedCustomer.customer_id}`
                     );
                   }}
                 >
-                  <Sparkles size={13} />
-                  <span>Simulate Account</span>
+                  <Sliders size={13} />
+                  <span>Simulate in What-If Studio</span>
                 </button>
                 <button
-                  className="primary-button"
+                  className="action-btn-primary"
+                  style={{ flex: 1, justifyContent: "center" }}
                   onClick={() => {
-                    setToast(`Campaign offer dispatched to HBase crm_interaction for ${selectedCustomer.customer_id}!`);
+                    setToast(`Dispatched retention playbook to account ${selectedCustomer.customer_id}!`);
                     setSelectedCustomer(null);
                     setTimeout(() => setToast(""), 3500);
                   }}
                 >
                   <Send size={13} />
-                  <span>Dispatch Offer</span>
+                  <span>Dispatch Playbook</span>
                 </button>
               </div>
             </div>

@@ -16,6 +16,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -39,6 +41,7 @@ public class CrmDataRepository {
     private final List<Map<String, Object>> cancellationsCache = new ArrayList<>();
     private final List<Map<String, Object>> campaignsCache = new ArrayList<>();
     private final List<Map<String, Object>> offersCache = new ArrayList<>();
+    private final List<Map<String, Object>> interactionsCache = new java.util.concurrent.CopyOnWriteArrayList<>();
     private final Map<String, Object> mlMetricsCache = new ConcurrentHashMap<>();
 
     private volatile boolean initialized = false;
@@ -377,6 +380,59 @@ public class CrmDataRepository {
         } catch (Exception e) {
             log.warn("Could not sync live customers from HBase: {}", e.getMessage());
         }
+
+        syncInteractionsFromHBase();
+    }
+
+    private void syncInteractionsFromHBase() {
+        try (Admin admin = hbaseConnection.getAdmin()) {
+            if (!admin.tableExists(TableName.valueOf("crm_interaction"))) {
+                return;
+            }
+        } catch (Exception e) {
+            return;
+        }
+
+        try (Table intTable = hbaseConnection.getTable(TableName.valueOf("crm_interaction"))) {
+            Scan scan = new Scan();
+            scan.addFamily(Bytes.toBytes("activity"));
+            scan.setCaching(200);
+            scan.setLimit(500);
+            try (ResultScanner scanner = intTable.getScanner(scan)) {
+                for (Result r : scanner) {
+                    String rk = Bytes.toString(r.getRow());
+                    if (rk == null) continue;
+                    String[] parts = rk.split("_");
+                    String cid = parts.length > 0 ? parts[0] : "";
+                    String ts = parts.length > 1 ? parts[1] : "";
+
+                    byte[] typeVal = r.getValue(Bytes.toBytes("activity"), Bytes.toBytes("type"));
+                    byte[] campVal = r.getValue(Bytes.toBytes("activity"), Bytes.toBytes("campaign"));
+                    byte[] chanVal = r.getValue(Bytes.toBytes("activity"), Bytes.toBytes("channel"));
+                    byte[] notesVal = r.getValue(Bytes.toBytes("activity"), Bytes.toBytes("notes"));
+                    byte[] statusVal = r.getValue(Bytes.toBytes("activity"), Bytes.toBytes("status"));
+                    byte[] amtVal = r.getValue(Bytes.toBytes("activity"), Bytes.toBytes("amount"));
+
+                    Map<String, Object> map = new LinkedHashMap<>();
+                    map.put("rowKey", rk);
+                    map.put("cid", cid);
+                    map.put("timestamp", ts);
+                    map.put("formattedDate", formatDate(ts));
+                    map.put("type", typeVal != null ? Bytes.toString(typeVal) : "activity");
+                    if (campVal != null) map.put("campaign", Bytes.toString(campVal));
+                    if (chanVal != null) map.put("channel", Bytes.toString(chanVal));
+                    if (notesVal != null) map.put("notes", Bytes.toString(notesVal));
+                    if (statusVal != null) map.put("status", Bytes.toString(statusVal));
+                    if (amtVal != null) {
+                        try { map.put("amount", Double.parseDouble(Bytes.toString(amtVal))); } catch (Exception ignored) {}
+                    }
+                    map.put("hbaseCommitted", true);
+                    interactionsCache.add(map);
+                }
+            }
+        } catch (Exception e) {
+            log.warn("Could not sync interactions from HBase: {}", e.getMessage());
+        }
     }
 
     public static String formatDate(String ts14) {
@@ -425,6 +481,7 @@ public class CrmDataRepository {
 
         res.put("orders", custOrders);
         res.put("cancellations", custCanc);
+        res.put("interactions", getInteractions(cid));
         return Optional.of(res);
     }
 
@@ -441,5 +498,54 @@ public class CrmDataRepository {
     public List<Map<String, Object>> getOffers() {
         ensureInitialized();
         return offersCache;
+    }
+
+    public Map<String, Object> recordInteraction(String cid, String campaignId, String channel, String notes) {
+        ensureInitialized();
+        String ts = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        String rowKey = cid + "_" + ts + "_" + campaignId;
+
+        Map<String, Object> record = new LinkedHashMap<>();
+        record.put("rowKey", rowKey);
+        record.put("cid", cid);
+        record.put("campaign", campaignId);
+        record.put("channel", channel);
+        record.put("notes", notes);
+        record.put("status", "SENT");
+        record.put("type", "campaign_dispatch");
+        record.put("timestamp", ts);
+        record.put("formattedDate", formatDate(ts));
+
+        boolean hbaseWritten = false;
+        if (isHBaseAvailable()) {
+            try (Table t = hbaseConnection.getTable(TableName.valueOf("crm_interaction"))) {
+                Put p = new Put(Bytes.toBytes(rowKey));
+                p.addColumn(Bytes.toBytes("activity"), Bytes.toBytes("type"), Bytes.toBytes("campaign_dispatch"));
+                p.addColumn(Bytes.toBytes("activity"), Bytes.toBytes("campaign"), Bytes.toBytes(campaignId));
+                p.addColumn(Bytes.toBytes("activity"), Bytes.toBytes("channel"), Bytes.toBytes(channel));
+                p.addColumn(Bytes.toBytes("activity"), Bytes.toBytes("notes"), Bytes.toBytes(notes));
+                p.addColumn(Bytes.toBytes("activity"), Bytes.toBytes("status"), Bytes.toBytes("SENT"));
+                p.addColumn(Bytes.toBytes("activity"), Bytes.toBytes("timestamp"), Bytes.toBytes(ts));
+                t.put(p);
+                hbaseWritten = true;
+                log.info("Recorded campaign dispatch in HBase crm_interaction: {}", rowKey);
+            } catch (Exception e) {
+                log.warn("Failed to write interaction to HBase: {}", e.getMessage());
+            }
+        }
+
+        record.put("hbaseCommitted", hbaseWritten);
+        interactionsCache.add(0, record);
+        return record;
+    }
+
+    public List<Map<String, Object>> getInteractions(String cid) {
+        ensureInitialized();
+        if (cid == null || cid.isBlank() || "all".equalsIgnoreCase(cid)) {
+            return new ArrayList<>(interactionsCache);
+        }
+        return interactionsCache.stream()
+                .filter(i -> cid.equalsIgnoreCase(String.valueOf(i.get("cid"))))
+                .collect(Collectors.toList());
     }
 }

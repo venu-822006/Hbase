@@ -2,23 +2,24 @@ import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
   Users,
-  ShoppingBag,
-  RotateCcw,
   BrainCircuit,
   Megaphone,
-  Database,
-  Layers,
-  Server,
+  ShoppingBag,
+  RotateCcw,
+  Sparkles,
   Activity,
+  ShieldCheck,
+  TrendingUp,
 } from "lucide-react";
+import VoiceWave from "./VoiceWave";
 
 const navLinks = [
   { name: "Overview 360", path: "/", icon: LayoutDashboard, badge: "Live" },
   { name: "Customer Directory", path: "/customers", icon: Users, badge: "5,721" },
+  { name: "Predictive Studio", path: "/segmentation", icon: BrainCircuit, badge: "What-If" },
+  { name: "Retention Campaigns", path: "/campaigns", icon: Megaphone, badge: "3,894" },
   { name: "Invoiced Orders", path: "/orders", icon: ShoppingBag, badge: "34.2K" },
-  { name: "Returns & Cancels", path: "/cancellations", icon: RotateCcw, badge: "7.5K" },
-  { name: "Customer Intelligence", path: "/segmentation", icon: BrainCircuit, badge: "Predictive" },
-  { name: "Closed-Loop CRM", path: "/campaigns", icon: Megaphone, badge: "Offers" },
+  { name: "Returns & Risk Signals", path: "/cancellations", icon: RotateCcw, badge: "7.5K" },
 ];
 
 export default function Sidebar() {
@@ -27,16 +28,16 @@ export default function Sidebar() {
       {/* Brand Header */}
       <div className="sidebar-brand">
         <div className="brand-icon-box">
-          <Database size={20} />
+          <Sparkles size={18} />
         </div>
         <div className="brand-title-group">
-          <h2>HBase CRM</h2>
-          <span>DATA WAREHOUSE MVP</span>
+          <h2>AURA 360</h2>
+          <span>CUSTOMER INTELLIGENCE</span>
         </div>
       </div>
 
       {/* Navigation Menu */}
-      <div className="sidebar-section-label">CORE MODULES</div>
+      <div className="sidebar-section-label">INTELLIGENCE PLATFORM</div>
       <nav className="sidebar-nav-list">
         {navLinks.map(({ name, path, icon: Icon, badge }) => (
           <NavLink
@@ -56,26 +57,35 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      {/* Cluster & Architecture Status Card */}
+      {/* Portfolio & Stream Status Card */}
       <div className="cluster-health-card">
         <div className="cluster-header">
-          <Server size={14} />
-          <span>Warehouse Infrastructure</span>
+          <Activity size={14} />
+          <span>Real-Time Portfolio</span>
         </div>
 
-        <div className="tech-badge-container">
-          <span className="infra-pill pill-hbase">HBase 2.5</span>
-          <span className="infra-pill pill-spark">Spark 3.5</span>
-          <span className="infra-pill pill-kafka">Kafka 3.6</span>
-          <span className="infra-pill pill-spring">Spring Boot</span>
+        <div className="portfolio-stat-rows">
+          <div className="portfolio-stat-item">
+            <span className="stat-label">Active Accounts</span>
+            <span className="stat-val">5,721</span>
+          </div>
+          <div className="portfolio-stat-item">
+            <span className="stat-label">Portfolio Revenue</span>
+            <span className="stat-val">₹15.89M</span>
+          </div>
+          <div className="portfolio-stat-item">
+            <span className="stat-label">Retention Priority</span>
+            <span className="stat-val highlight-danger">2,402 Accounts</span>
+          </div>
         </div>
 
         <div className="cluster-meta-row">
           <div className="meta-dot online" />
-          <span className="meta-text">HBase NoSQL Cluster Online</span>
+          <span className="meta-text">Intelligence Stream Active</span>
+          <VoiceWave count={3} color="var(--success)" />
         </div>
         <div className="cluster-meta-sub">
-          Dataset: UK Retail (No Synthetic Data)
+          Continuous Real-Time Scoring
         </div>
       </div>
 
@@ -83,8 +93,8 @@ export default function Sidebar() {
       <div className="sidebar-user-card">
         <div className="user-avatar-initials">AD</div>
         <div className="user-details">
-          <strong>CRM Data Lead</strong>
-          <span>Admin / Read-Write</span>
+          <strong>Enterprise Director</strong>
+          <span>Strategic Retention & CLV</span>
         </div>
       </div>
     </aside>

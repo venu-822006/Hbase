@@ -60,7 +60,7 @@ export const pipelineSummary = {
     { segment: "Loyal", count: 1634, avgSpend: 707, color: "#0041ca" },
     { segment: "Premium", count: 895, avgSpend: 4445, color: "#8b5cf6" },
   ],
-  source: "HBase (Live) / Cleaned CSV Cache",
+  source: "Enterprise Customer Lake (Live Stream)",
   retrievedAt: new Date().toISOString(),
 };
 

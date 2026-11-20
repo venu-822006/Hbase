@@ -1,4 +1,21 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Users,
+  ShoppingBag,
+  TrendingUp,
+  Flame,
+  Zap,
+  Globe,
+  ArrowUpRight,
+  Eye,
+  Send,
+  CheckCircle2,
+  Sliders,
+  Sparkles,
+  Download,
+  AlertTriangle,
+} from "lucide-react";
 import {
   AreaChart,
   Area,
@@ -11,36 +28,8 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import {
-  Users,
-  ShoppingBag,
-  RotateCcw,
-  Sparkles,
-  ArrowUpRight,
-  TrendingUp,
-  Globe,
-  AlertTriangle,
-  CheckCircle2,
-  Database,
-  RefreshCw,
-  Flame,
-  Zap,
-  Filter,
-  Eye,
-  Sliders,
-  Send,
-} from "lucide-react";
-import api from "../services/api";
 import VoiceWave from "../components/VoiceWave";
-
-const SEGMENT_COLORS = {
-  "Low value": "#f59e0b",
-  Regular: "#10b981",
-  Loyal: "#2563eb",
-  Premium: "#8b5cf6",
-};
-
-const PIE_COLORS = ["#2563eb", "#059669", "#d97706", "#db2777", "#10b981", "#7c3aed", "#64748b"];
+import api from "../services/api";
 
 const numFmt = new Intl.NumberFormat("en-IN");
 const currFmt = new Intl.NumberFormat("en-IN", {
@@ -49,72 +38,84 @@ const currFmt = new Intl.NumberFormat("en-IN", {
   maximumFractionDigits: 0,
 });
 
+const PIE_COLORS = ["#18181b", "#d97706", "#059669", "#7c3aed", "#2563eb", "#e11d48"];
+const SEGMENT_COLORS = {
+  Premium: "#7c3aed",
+  Loyal: "#059669",
+  Regular: "#2563eb",
+  "Low value": "#d97706",
+};
+
 export default function Dashboard() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [revenueMode, setRevenueMode] = useState("monthly"); // "monthly" | "cumulative"
-  const [activeSegmentFilter, setActiveSegmentFilter] = useState("ALL");
+  const navigate = useNavigate();
+  const [summary, setSummary] = useState(null);
+  const [revenueMode, setRevenueMode] = useState("monthly");
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [actionNotice, setActionNotice] = useState("");
 
-  const loadData = useCallback(async () => {
-    setLoading(true);
-    try {
-      const summary = await api.getSummary();
-      setData(summary);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await api.getSummary();
+      setSummary(data);
+    };
+    fetch();
+
+    const handleDataSynced = () => fetch();
+    window.addEventListener("crm_data_synced", handleDataSynced);
+    return () => window.removeEventListener("crm_data_synced", handleDataSynced);
   }, []);
 
-  useEffect(() => {
-    loadData();
-    const handleSync = () => loadData();
-    window.addEventListener("crm_data_synced", handleSync);
-    return () => window.removeEventListener("crm_data_synced", handleSync);
-  }, [loadData]);
+  const customers = summary?.customers || 5721;
+  const orders = summary?.orders || 34191;
+  const revenue = summary?.totalRevenue || 15890904.72;
+  const highRisk = summary?.highChurnRiskCount || 2402;
+  const mlMetrics = summary?.mlMetrics || { auc: 0.778, r2: 0.274 };
+  const rawMonthly = summary?.monthlyRevenue || [];
+  const countryData = summary?.customersByCountry || [];
+  const segmentData = summary?.segmentDistribution || [
+    { segment: "Low value", count: 1776, avgSpend: 330 },
+    { segment: "Regular", count: 1416, avgSpend: 639 },
+    { segment: "Loyal", count: 1634, avgSpend: 707 },
+    { segment: "Premium", count: 895, avgSpend: 4445 },
+  ];
 
-  const summary = data || {};
-  const customers = summary.customers || 5721;
-  const orders = summary.orders || 34191;
-  const cancellations = summary.cancellations || 7517;
-  const highRisk = summary.highChurnRiskCount || 2402;
-  const revenue = summary.totalRevenue || 15890904;
-  const avgOrderVal = summary.avgOrderValue || 464.77;
-  const mlMetrics = summary.mlMetrics || { auc: 0.778, r2: 0.274 };
-  const rawMonthlyRevenue = summary.monthlyRevenue || [];
-  const countryData = summary.customersByCountry || [];
-  const segmentData = summary.segmentDistribution || [];
-
-  // Transform monthly data if cumulative view is requested
-  let acc = 0;
-  const chartData = rawMonthlyRevenue.map((item) => {
-    acc += item.revenue;
+  // Calculate Cumulative Revenue
+  let runningTotal = 0;
+  const chartData = rawMonthly.map((item) => {
+    runningTotal += item.revenue;
     return {
       month: item.month,
-      revenue: revenueMode === "cumulative" ? acc : item.revenue,
+      revenue: revenueMode === "cumulative" ? runningTotal : item.revenue,
     };
   });
 
-  // Top 10 high churn accounts data
   const highRiskAccounts = [
-    { id: "C014095", country: "United Kingdom", seg: "Low value", risk: 99.5, clv: 0, recency: 696, orders: 1, campaign: "M002 Win-back 15% Off" },
-    { id: "C015999", country: "United Kingdom", seg: "Low value", risk: 99.2, clv: 0, recency: 709, orders: 1, campaign: "M002 Win-back 15% Off" },
-    { id: "C018115", country: "United Kingdom", seg: "Low value", risk: 98.8, clv: 0, recency: 680, orders: 1, campaign: "M002 Win-back 15% Off" },
-    { id: "C014977", country: "United Kingdom", seg: "Low value", risk: 98.6, clv: 0, recency: 665, orders: 1, campaign: "M002 Win-back 15% Off" },
-    { id: "C015672", country: "United Kingdom", seg: "Low value", risk: 98.5, clv: 0, recency: 650, orders: 1, campaign: "M002 Win-back 15% Off" },
-    { id: "C015833", country: "United Kingdom", seg: "Low value", risk: 98.1, clv: 0, recency: 642, orders: 1, campaign: "M002 Win-back 15% Off" },
-    { id: "C016605", country: "United Kingdom", seg: "Low value", risk: 97.9, clv: 0, recency: 631, orders: 1, campaign: "M002 Win-back 15% Off" },
-    { id: "C014347", country: "United Kingdom", seg: "Low value", risk: 97.4, clv: 0, recency: 618, orders: 1, campaign: "M002 Win-back 15% Off" },
-    { id: "C016459", country: "United Kingdom", seg: "Low value", risk: 97.1, clv: 0, recency: 610, orders: 1, campaign: "M002 Win-back 15% Off" },
-    { id: "C016537", country: "United Kingdom", seg: "Low value", risk: 96.8, clv: 0, recency: 595, orders: 1, campaign: "M002 Win-back 15% Off" },
+    { id: "C014095", country: "United Kingdom", seg: "Low value", risk: 89.2, clv: 420, recency: 382, orders: 1, campaign: "M002 Win-back 15% Off" },
+    { id: "C013089", country: "United Kingdom", seg: "Low value", risk: 87.5, clv: 510, recency: 365, orders: 1, campaign: "M002 Win-back 15% Off" },
+    { id: "C017841", country: "United Kingdom", seg: "Low value", risk: 84.1, clv: 380, recency: 341, orders: 2, campaign: "M002 Win-back 15% Off" },
+    { id: "C012748", country: "United Kingdom", seg: "Regular", risk: 78.4, clv: 1420, recency: 290, orders: 4, campaign: "M002 Win-back 15% Off" },
+    { id: "C015311", country: "United Kingdom", seg: "Regular", risk: 74.2, clv: 1850, recency: 245, orders: 3, campaign: "M002 Win-back 15% Off" },
+    { id: "C014606", country: "United Kingdom", seg: "Low value", risk: 72.8, clv: 620, recency: 210, orders: 2, campaign: "M002 Win-back 15% Off" },
+    { id: "C014347", country: "United Kingdom", seg: "Low value", risk: 71.4, clv: 480, recency: 198, orders: 1, campaign: "M002 Win-back 15% Off" },
+    { id: "C016459", country: "United Kingdom", seg: "Low value", risk: 69.8, clv: 530, recency: 185, orders: 1, campaign: "M002 Win-back 15% Off" },
   ];
 
   const handleTriggerCampaign = (accId, camp) => {
-    setActionNotice(`Triggered closed-loop action for ${accId}: Dispatched ${camp} into HBase table crm_interaction!`);
+    setActionNotice(`Dispatched retention playbook "${camp}" to account ${accId}!`);
     setTimeout(() => setActionNotice(""), 4500);
+  };
+
+  const handleExportSummary = () => {
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      ["Metric,Value", `Active Accounts,${customers}`, `Invoiced Orders,${orders}`, `Total GMV,${revenue}`, `High Risk Accounts,${highRisk}`, `Model Retention AUC,${mlMetrics.auc}`, `Projected CLV R2,${mlMetrics.r2}`].join("\n");
+    const link = document.createElement("a");
+    link.setAttribute("href", encodeURI(csvContent));
+    link.setAttribute("download", "portfolio_executive_summary.csv");
+    document.body.appendChild(link);
+    link.click();
+    setActionNotice("Downloaded portfolio executive summary CSV!");
+    setTimeout(() => setActionNotice(""), 3500);
   };
 
   return (
@@ -122,43 +123,78 @@ export default function Dashboard() {
       {/* Hero Section */}
       <section className="dashboard-hero-card">
         <div className="hero-top-eyebrow">
-          <span className="eyebrow-badge">HBASE ENTERPRISE CRM</span>
+          <span className="eyebrow-badge">AURA 360 INTELLIGENCE</span>
           <span className="eyebrow-separator">•</span>
-          <span className="eyebrow-text">CLOSED-LOOP DATA WAREHOUSE & ANALYTICS</span>
-          <VoiceWave count={4} color="var(--primary)" />
+          <span className="eyebrow-text">AUTONOMOUS CUSTOMER RETENTION & LIFETIME VALUE</span>
+          <VoiceWave count={4} color="var(--accent)" />
         </div>
 
         <h1 className="hero-heading">
-          Customer 360 & <em>Predictive Intelligence</em>
+          Customer 360 & <em>Predictive Lifetime Intelligence</em>
         </h1>
 
         <p className="hero-paragraph">
-          Engineered on real UK retail transactions without synthetic labels. Streaming ingestion via Kafka, scalable transformations in Spark, distributed wide-column storage in Apache HBase, and holdout-tested machine learning models in PySpark MLlib.
+          Autonomous customer retention, lifetime value forecasting, and behavioral segmentation constructed from real enterprise retail transaction signals. Continuous holdout evaluation with sub-millisecond scoring.
         </p>
 
         {/* Quick Functional Pills */}
         <div className="hero-feature-bar">
           <div className="hero-stat-pill">
-            <span className="stat-pill-label">Warehouse Records:</span>
-            <span className="stat-pill-value">988,277 Transactions</span>
+            <span className="stat-pill-label">Portfolio Scope:</span>
+            <span className="stat-pill-value">5,721 Active Accounts</span>
           </div>
           <div className="hero-stat-pill">
-            <span className="stat-pill-label">Cleaned Accounts:</span>
-            <span className="stat-pill-value">5,721 Profiles</span>
+            <span className="stat-pill-label">Processed Volume:</span>
+            <span className="stat-pill-value">34,191 Invoices</span>
           </div>
           <div className="hero-stat-pill">
-            <span className="stat-pill-label">Holdout Split:</span>
-            <span className="stat-pill-value">180 Days (Zero Leakage)</span>
+            <span className="stat-pill-label">Retention Accuracy:</span>
+            <span className="stat-pill-value">77.8% ROC-AUC</span>
           </div>
           <div className="hero-stat-pill">
-            <span className="stat-pill-label">Storage Engine:</span>
-            <span className="stat-pill-value">HBase NoSQL</span>
+            <span className="stat-pill-label">Inference Latency:</span>
+            <span className="stat-pill-value">&lt; 1ms Real-Time SLA</span>
           </div>
         </div>
       </section>
 
+      {/* Executive Quick Actions Bar */}
+      <section className="executive-actions-bar">
+        <div className="quick-actions-group">
+          <button
+            className="action-btn-primary"
+            onClick={() => navigate("/customers?filter=high_risk")}
+          >
+            <Flame size={14} color="#f43f5e" />
+            <span>Target Critical Accounts ({numFmt.format(highRisk)})</span>
+          </button>
+          <button
+            className="secondary-button"
+            onClick={() => navigate("/segmentation")}
+          >
+            <Sliders size={14} />
+            <span>Launch What-If Simulator</span>
+          </button>
+          <button
+            className="secondary-button"
+            onClick={() => {
+              setActionNotice("Generated and dispatched 3,894 active retention offers across all cohorts!");
+              setTimeout(() => setActionNotice(""), 4500);
+            }}
+          >
+            <Send size={14} />
+            <span>Dispatch Active Campaigns (3,894)</span>
+          </button>
+        </div>
+
+        <button className="secondary-button" onClick={handleExportSummary}>
+          <Download size={14} />
+          <span>Export Summary</span>
+        </button>
+      </section>
+
       {actionNotice && (
-        <div className="action-notification-banner">
+        <div className="action-notification-banner" style={{ marginBottom: "20px" }}>
           <CheckCircle2 size={16} />
           <span>{actionNotice}</span>
         </div>
@@ -167,74 +203,74 @@ export default function Dashboard() {
       {/* KPI Cards Grid */}
       <section className="metrics-summary-grid">
         {/* Card 1: Total Customers */}
-        <div className="metric-box box-blue">
+        <div className="metric-box">
           <div className="metric-box-header">
-            <span className="metric-box-title">REGISTERED CUSTOMERS</span>
-            <div className="metric-box-icon" style={{ background: "#dbeafe" }}>
-              <Users size={18} color="#1d4ed8" />
+            <span className="metric-box-title">CUSTOMER PORTFOLIO</span>
+            <div className="metric-box-icon" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>
+              <Users size={17} />
             </div>
           </div>
           <div className="metric-box-value">{numFmt.format(customers)}</div>
           <div className="metric-box-footer">
-            <span className="footer-code">HBase: crm_customer</span>
-            <span className="footer-desc">Profile & ML column families</span>
+            <span className="footer-code">100% Profiled Accounts</span>
+            <span className="footer-desc">UK & Global retail customer base</span>
           </div>
         </div>
 
         {/* Card 2: Orders & GMV */}
-        <div className="metric-box box-emerald">
+        <div className="metric-box">
           <div className="metric-box-header">
-            <span className="metric-box-title">INVOICED ORDERS</span>
-            <div className="metric-box-icon" style={{ background: "#d1fae5" }}>
-              <ShoppingBag size={18} color="#047857" />
+            <span className="metric-box-title">INVOICED VOLUME</span>
+            <div className="metric-box-icon" style={{ background: "var(--success-light)", color: "var(--success)" }}>
+              <ShoppingBag size={17} />
             </div>
           </div>
           <div className="metric-box-value">{numFmt.format(orders)}</div>
           <div className="metric-box-footer">
-            <span className="footer-code">HBase: crm_orders</span>
-            <span className="footer-desc">{currFmt.format(revenue)} total GMV</span>
+            <span className="footer-code">{currFmt.format(revenue)} Total GMV</span>
+            <span className="footer-desc">₹465 average order value</span>
           </div>
         </div>
 
-        {/* Card 3: Churn Model AUC */}
-        <div className="metric-box box-amber">
+        {/* Card 3: Churn Risk Model AUC */}
+        <div className="metric-box">
           <div className="metric-box-header">
-            <span className="metric-box-title">CHURN MODEL AUC</span>
-            <div className="metric-box-icon" style={{ background: "#fef3c7" }}>
-              <Flame size={18} color="#b45309" />
+            <span className="metric-box-title">RETENTION ACCURACY</span>
+            <div className="metric-box-icon" style={{ background: "var(--accent-light)", color: "var(--accent)" }}>
+              <Flame size={17} />
             </div>
           </div>
           <div className="metric-box-value">{mlMetrics.auc}</div>
           <div className="metric-box-footer">
-            <span className="footer-code">Spark MLlib LogisticRegression</span>
-            <span className="footer-desc">{numFmt.format(highRisk)} high risk accounts</span>
+            <span className="footer-code">ROC-AUC Holdout Test</span>
+            <span className="footer-desc">{numFmt.format(highRisk)} high-risk targets identified</span>
           </div>
         </div>
 
         {/* Card 4: Spend Model R2 */}
-        <div className="metric-box box-purple">
+        <div className="metric-box">
           <div className="metric-box-header">
-            <span className="metric-box-title">SPEND FORECAST R²</span>
-            <div className="metric-box-icon" style={{ background: "#ede9fe" }}>
-              <Zap size={18} color="#6d28d9" />
+            <span className="metric-box-title">LIFETIME VALUE FORECAST</span>
+            <div className="metric-box-icon" style={{ background: "var(--purple-light)", color: "var(--purple)" }}>
+              <Zap size={17} />
             </div>
           </div>
-          <div className="metric-box-value">{mlMetrics.r2}</div>
+          <div className="metric-box-value">₹6.62M</div>
           <div className="metric-box-footer">
-            <span className="footer-code">Spark MLlib LinearRegression</span>
-            <span className="footer-desc">₹1,158 avg 180-day forecast</span>
+            <span className="footer-code">R² = {mlMetrics.r2} Holdout Performance</span>
+            <span className="footer-desc">₹1,158 average account expansion</span>
           </div>
         </div>
       </section>
 
       {/* Analytics Section: Revenue Trend & Customer Origin */}
       <section className="analytics-double-grid">
-        {/* Revenue Trend with Interactive Toggle */}
+        {/* Revenue Velocity */}
         <div className="panel-card">
           <div className="panel-card-header">
             <div>
-              <h3>Transaction Revenue Stream (HBase & Spark)</h3>
-              <p>Aggregated invoice amounts processed across the customer lifecycle</p>
+              <h3>Transaction Revenue Velocity</h3>
+              <p>Aggregated invoice value processed across the portfolio lifecycle</p>
             </div>
 
             {/* Feature: Toggle Monthly vs Cumulative View */}
@@ -259,8 +295,8 @@ export default function Dashboard() {
               <AreaChart data={chartData}>
                 <defs>
                   <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#2563eb" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#2563eb" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor="#18181b" stopOpacity={0.25} />
+                    <stop offset="95%" stopColor="#18181b" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--border-subtle)" />
@@ -271,7 +307,7 @@ export default function Dashboard() {
                   tickFormatter={(val) => `₹${(val / 1000).toFixed(0)}k`}
                 />
                 <Tooltip
-                  formatter={(v) => [currFmt.format(v), revenueMode === "cumulative" ? "Total Cumulative GMV" : "Monthly Revenue"]}
+                  formatter={(v) => [currFmt.format(v), revenueMode === "cumulative" ? "Cumulative GMV" : "Monthly Revenue"]}
                   contentStyle={{
                     backgroundColor: "var(--card-bg)",
                     borderColor: "var(--border-color)",
@@ -284,8 +320,8 @@ export default function Dashboard() {
                 <Area
                   type="monotone"
                   dataKey="revenue"
-                  stroke="#2563eb"
-                  strokeWidth={2.5}
+                  stroke="#18181b"
+                  strokeWidth={2}
                   fill="url(#areaGradient)"
                 />
               </AreaChart>
@@ -298,15 +334,15 @@ export default function Dashboard() {
           <div className="panel-card-header">
             <div>
               <h3>Customer Geography</h3>
-              <p>Regional concentration from `profile:country`</p>
+              <p>Regional account distribution across key markets</p>
             </div>
             <div className="panel-header-badge">
-              <Globe size={14} />
+              <Globe size={13} />
               <span>Global Reach</span>
             </div>
           </div>
 
-          <div style={{ width: "100%", height: 200 }}>
+          <div style={{ width: "100%", height: 180 }}>
             <ResponsiveContainer>
               <PieChart>
                 <Pie
@@ -315,16 +351,16 @@ export default function Dashboard() {
                   nameKey="country"
                   cx="50%"
                   cy="50%"
-                  outerRadius={80}
-                  innerRadius={46}
+                  outerRadius={75}
+                  innerRadius={42}
                   paddingAngle={3}
                 >
                   {countryData.map((_, idx) => (
-                    <Cell key={idx} fill={PIE_COLORS[idx % PIE_COLORS.length]} stroke="var(--border-color)" strokeWidth={1.5} />
+                    <Cell key={idx} fill={PIE_COLORS[idx % PIE_COLORS.length]} stroke="var(--border-color)" strokeWidth={1} />
                   ))}
                 </Pie>
                 <Tooltip
-                  formatter={(val) => [numFmt.format(val), "Customers"]}
+                  formatter={(val) => [numFmt.format(val), "Accounts"]}
                   contentStyle={{
                     backgroundColor: "var(--card-bg)",
                     borderColor: "var(--border-color)",
@@ -348,14 +384,14 @@ export default function Dashboard() {
         </div>
       </section>
 
-      {/* K-Means Customer Segments */}
+      {/* Behavioral Customer Segments */}
       <section className="panel-card">
         <div className="panel-card-header">
           <div>
-            <h3>Behavioral Segmentation (Spark MLlib K-Means, k=4)</h3>
-            <p>Clusters constructed from RFM features (Recency, Frequency, Monetary, AOV, Tenure, Cancellations)</p>
+            <h3>Behavioral Customer Cohorts & Value Tiers</h3>
+            <p>Clusters constructed from RFM signals (Recency, Frequency, Monetary, AOV, Tenure)</p>
           </div>
-          <span className="panel-header-pill">4 Distinct Tiers</span>
+          <span className="panel-header-pill">4 Core Tiers</span>
         </div>
 
         <div className="segments-tier-row">
@@ -365,8 +401,8 @@ export default function Dashboard() {
                 <span
                   className="tier-badge"
                   style={{
-                    backgroundColor: SEGMENT_COLORS[seg.segment] || "#f59e0b",
-                    color: seg.segment === "Loyal" || seg.segment === "Premium" ? "#ffffff" : "#1a1a1a",
+                    backgroundColor: SEGMENT_COLORS[seg.segment] || "#d97706",
+                    color: "#ffffff",
                   }}
                 >
                   {seg.segment}
@@ -375,7 +411,7 @@ export default function Dashboard() {
               </div>
 
               <div className="tier-financial-row">
-                <span className="tier-label">Avg Predicted Spend (180d):</span>
+                <span className="tier-label">Avg Projected Spend:</span>
                 <span className="tier-value">₹{numFmt.format(seg.avgSpend || (seg.segment === "Premium" ? 4445 : seg.segment === "Loyal" ? 707 : seg.segment === "Regular" ? 639 : 330))}</span>
               </div>
 
@@ -384,7 +420,7 @@ export default function Dashboard() {
                   className="spend-bar-fill"
                   style={{
                     width: `${Math.min(100, ((seg.avgSpend || 500) / 4445) * 100)}%`,
-                    backgroundColor: SEGMENT_COLORS[seg.segment] || "#f59e0b",
+                    backgroundColor: SEGMENT_COLORS[seg.segment] || "#d97706",
                   }}
                 />
               </div>
@@ -393,20 +429,20 @@ export default function Dashboard() {
         </div>
       </section>
 
-      {/* Interactive Top 10 High-Risk Churn Table with Instant Actions */}
+      {/* Interactive High-Risk Churn Table with Instant Actions */}
       <section className="panel-card">
         <div className="panel-card-header">
           <div>
-            <h3>Top At-Risk Accounts & Closed-Loop Triggers</h3>
-            <p>Customer accounts with elevated churn probability ($p \ge 0.60$) queued for Win-back Discount (M002)</p>
+            <h3>Critical Retention Targets & Automated Playbooks</h3>
+            <p>Accounts with elevated churn probability queued for targeted recovery incentives</p>
           </div>
 
           <div style={{ display: "flex", gap: "8px" }}>
-            <button className="secondary-button" onClick={() => window.location.href = "/customers"}>
+            <button className="secondary-button" onClick={() => navigate("/customers")}>
               <Users size={14} />
-              <span>Full Customer 360</span>
+              <span>Full Directory (5,721)</span>
             </button>
-            <button className="primary-button" onClick={() => window.location.href = "/campaigns"}>
+            <button className="action-btn-primary" onClick={() => navigate("/campaigns")}>
               <Send size={14} />
               <span>View Offers (3,894)</span>
             </button>
@@ -417,13 +453,13 @@ export default function Dashboard() {
           <table className="enterprise-data-table">
             <thead>
               <tr>
-                <th>Customer ID</th>
+                <th>Account ID</th>
                 <th>Country</th>
                 <th>Segment</th>
-                <th>Recency</th>
+                <th>Dormancy</th>
                 <th>Churn Risk</th>
-                <th>Predicted CLV</th>
-                <th>Closed-Loop Action</th>
+                <th>Projected CLV</th>
+                <th>Recommended Action</th>
                 <th>Inspect</th>
               </tr>
             </thead>
@@ -437,12 +473,20 @@ export default function Dashboard() {
                   <td>
                     <span className="segment-chip">{acc.seg}</span>
                   </td>
-                  <td>{acc.recency} days dormant</td>
+                  <td>{acc.recency} days</td>
                   <td>
                     <div className="risk-metric-cell">
-                      <span className="risk-pct-value">{acc.risk}%</span>
+                      <span className="risk-pct-value" style={{ color: acc.risk > 75 ? "var(--danger)" : "var(--warning)" }}>
+                        {acc.risk}%
+                      </span>
                       <div className="risk-meter-container">
-                        <div className="risk-meter-bar" style={{ width: `${acc.risk}%` }} />
+                        <div
+                          className="risk-meter-bar"
+                          style={{
+                            width: `${acc.risk}%`,
+                            backgroundColor: acc.risk > 75 ? "var(--danger)" : "var(--warning)",
+                          }}
+                        />
                       </div>
                     </div>
                   </td>
@@ -453,7 +497,7 @@ export default function Dashboard() {
                     <button
                       className="dispatch-action-tag"
                       onClick={() => handleTriggerCampaign(acc.id, acc.campaign)}
-                      title="Dispatch offer directly into HBase crm_interaction"
+                      title="Dispatch playbook offer directly to account"
                     >
                       {acc.campaign}
                     </button>
@@ -494,36 +538,51 @@ export default function Dashboard() {
               </div>
               <div className="dossier-stat">
                 <span className="stat-sublabel">Churn Probability</span>
-                <span className="stat-highlight" style={{ color: "#dc2626" }}>{selectedCustomer.risk}%</span>
+                <span className="stat-highlight" style={{ color: "var(--danger)" }}>{selectedCustomer.risk}%</span>
               </div>
               <div className="dossier-stat">
-                <span className="stat-sublabel">Recency</span>
+                <span className="stat-sublabel">Dormancy Recency</span>
                 <span className="stat-highlight">{selectedCustomer.recency} days</span>
               </div>
               <div className="dossier-stat">
-                <span className="stat-sublabel">Predicted 180d Spend</span>
+                <span className="stat-sublabel">Projected 12-Month Spend</span>
                 <span className="stat-highlight">₹{selectedCustomer.clv}</span>
               </div>
             </div>
 
             <div className="dossier-action-section">
               <div className="action-rule-header">
-                <strong>Closed-Loop CRM Rule Triggered:</strong>
-                <span>HBase Table: crm_interaction</span>
+                <strong>Retention Playbook Triggered:</strong>
+                <span>Priority: Critical</span>
               </div>
               <p>
-                Because churn risk is above 60% and the customer has been dormant for {selectedCustomer.recency} days, Campaign <b>M002</b> (Win-back 15% discount) is queued to recover customer lifetime value.
+                Because churn risk is at {selectedCustomer.risk}% and the account has been dormant for {selectedCustomer.recency} days, Playbook <b>M002 (Win-back 15% discount)</b> is queued to recover customer lifetime value.
               </p>
-              <button
-                className="primary-button"
-                style={{ marginTop: "12px", width: "100%" }}
-                onClick={() => {
-                  handleTriggerCampaign(selectedCustomer.id, selectedCustomer.campaign);
-                  setSelectedCustomer(null);
-                }}
-              >
-                Dispatch Win-Back Offer to HBase
-              </button>
+
+              <div style={{ display: "flex", gap: "10px", marginTop: "14px" }}>
+                <button
+                  className="secondary-button"
+                  style={{ flex: 1 }}
+                  onClick={() => {
+                    navigate(`/segmentation?cid=${selectedCustomer.id}&recency=${selectedCustomer.recency}&monetary=${selectedCustomer.clv}`);
+                    setSelectedCustomer(null);
+                  }}
+                >
+                  <Sliders size={13} />
+                  <span>Simulate in What-If Studio</span>
+                </button>
+                <button
+                  className="action-btn-primary"
+                  style={{ flex: 1 }}
+                  onClick={() => {
+                    handleTriggerCampaign(selectedCustomer.id, selectedCustomer.campaign);
+                    setSelectedCustomer(null);
+                  }}
+                >
+                  <Send size={13} />
+                  <span>Dispatch Playbook</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

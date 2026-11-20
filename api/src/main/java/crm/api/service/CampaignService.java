@@ -33,6 +33,14 @@ public class CampaignService {
         return repository.getAllCampaigns();
     }
 
+    public Map<String, Object> dispatchCampaign(String cid, String campaignId, String channel, String notes) {
+        return repository.recordInteraction(cid, campaignId, channel, notes);
+    }
+
+    public List<Map<String, Object>> getInteractions(String cid) {
+        return repository.getInteractions(cid);
+    }
+
     public Map<String, Object> getOffers(int page, int size, String campaignFilter) {
         List<Map<String, Object>> all = repository.getOffers();
 
