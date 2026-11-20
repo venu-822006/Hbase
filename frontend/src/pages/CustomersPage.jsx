@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Search,
   Filter,
@@ -27,6 +28,7 @@ const currFmt = new Intl.NumberFormat("en-IN", {
 });
 
 export default function CustomersPage() {
+  const navigate = useNavigate();
   const [customers, setCustomers] = useState([]);
   const [search, setSearch] = useState("");
   const [segmentFilter, setSegmentFilter] = useState("ALL");
@@ -490,17 +492,31 @@ export default function CustomersPage() {
                     : "Enroll in Campaign M003 Seasonal re-engagement offers."}
                 </p>
               </div>
-              <button
-                className="primary-button"
-                onClick={() => {
-                  setToast(`Campaign offer dispatched to HBase crm_interaction for ${selectedCustomer.customer_id}!`);
-                  setSelectedCustomer(null);
-                  setTimeout(() => setToast(""), 3500);
-                }}
-              >
-                <Send size={13} />
-                <span>Dispatch Offer</span>
-              </button>
+              <div style={{ display: "flex", gap: "8px" }}>
+                <button
+                  className="secondary-button"
+                  style={{ display: "flex", alignItems: "center", gap: "5px" }}
+                  onClick={() => {
+                    navigate(
+                      `/segmentation?recency=${selectedCustomer.recency}&frequency=${selectedCustomer.frequency}&monetary=${selectedCustomer.monetary}&cid=${selectedCustomer.customer_id}`
+                    );
+                  }}
+                >
+                  <Sparkles size={13} />
+                  <span>Simulate Account</span>
+                </button>
+                <button
+                  className="primary-button"
+                  onClick={() => {
+                    setToast(`Campaign offer dispatched to HBase crm_interaction for ${selectedCustomer.customer_id}!`);
+                    setSelectedCustomer(null);
+                    setTimeout(() => setToast(""), 3500);
+                  }}
+                >
+                  <Send size={13} />
+                  <span>Dispatch Offer</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

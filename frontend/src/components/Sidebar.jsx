@@ -17,7 +17,7 @@ const navLinks = [
   { name: "Customer Directory", path: "/customers", icon: Users, badge: "5,721" },
   { name: "Invoiced Orders", path: "/orders", icon: ShoppingBag, badge: "34.2K" },
   { name: "Returns & Cancels", path: "/cancellations", icon: RotateCcw, badge: "7.5K" },
-  { name: "ML & Simulator", path: "/segmentation", icon: BrainCircuit, badge: "MLlib" },
+  { name: "Customer Intelligence", path: "/segmentation", icon: BrainCircuit, badge: "Predictive" },
   { name: "Closed-Loop CRM", path: "/campaigns", icon: Megaphone, badge: "Offers" },
 ];
 

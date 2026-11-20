@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   BrainCircuit,
   Sliders,
@@ -20,11 +21,18 @@ import {
 import api from "../services/api";
 
 export default function SegmentationPage() {
-  // Interactive "What-If" ML Simulator State
-  const [recency, setRecency] = useState(45);
-  const [frequency, setFrequency] = useState(5);
-  const [monetary, setMonetary] = useState(2400);
-  const [cancellations, setCancellations] = useState(0);
+  const [searchParams] = useSearchParams();
+  const initRecency = searchParams.get("recency") ? Number(searchParams.get("recency")) : 45;
+  const initFrequency = searchParams.get("frequency") ? Number(searchParams.get("frequency")) : 5;
+  const initMonetary = searchParams.get("monetary") ? Number(searchParams.get("monetary")) : 2400;
+  const initCancellations = searchParams.get("cancellations") ? Number(searchParams.get("cancellations")) : 0;
+  const targetCid = searchParams.get("cid") || null;
+
+  // Interactive "What-If" Customer Scoring Simulator State
+  const [recency, setRecency] = useState(initRecency);
+  const [frequency, setFrequency] = useState(initFrequency);
+  const [monetary, setMonetary] = useState(initMonetary);
+  const [cancellations, setCancellations] = useState(initCancellations);
 
   // Live ML Prediction State
   const [prediction, setPrediction] = useState({
@@ -253,10 +261,10 @@ export default function SegmentationPage() {
       {/* Header */}
       <div className="module-header-container">
         <div>
-          <span className="eyebrow-badge">APACHE SPARK MLLIB CLUSTERING & INFERENCE</span>
-          <h1 className="module-page-title">Machine Learning Intelligence</h1>
+          <span className="eyebrow-badge">PREDICTIVE BEHAVIORAL SCORING & RETENTION</span>
+          <h1 className="module-page-title">Customer Predictive Intelligence</h1>
           <p className="module-page-subtitle">
-            Zero-lookahead holdout MLlib models and 4-tier RFM K-Means clustering trained on real transaction logs.
+            Automated churn risk scoring, forward CLV spend forecasting, and behavioral customer tiering integrated directly into the CRM pipeline.
           </p>
         </div>
 
@@ -393,6 +401,29 @@ export default function SegmentationPage() {
               {predicting ? "Inference..." : "Spark MLlib Live"}
             </span>
           </div>
+
+          {targetCid && (
+            <div
+              style={{
+                margin: "0 20px 14px",
+                padding: "8px 14px",
+                borderRadius: "6px",
+                background: "rgba(99, 102, 241, 0.1)",
+                border: "1px solid rgba(99, 102, 241, 0.3)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                fontSize: "12.5px",
+              }}
+            >
+              <span>
+                Preloaded from Customer Directory: <strong>{targetCid}</strong>
+              </span>
+              <span style={{ fontSize: "11px", color: "var(--text-sub)" }}>
+                Adjust behavioral sliders to simulate real-time scoring impact
+              </span>
+            </div>
+          )}
 
           <div className="simulator-body-grid">
             {/* Left Column: Sliders */}
