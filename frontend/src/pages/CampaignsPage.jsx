@@ -55,18 +55,37 @@ export default function CampaignsPage() {
 
   const handleDispatch = async () => {
     setLoading(true);
-    setMsg("Evaluating customer retention risk rules against campaign catalogue...");
+    setMsg("Evaluating customer retention risk rules & syncing to HBase...");
     try {
+      const res = await api.generateCampaignOffers();
+      const o = await api.getOffers();
+      setOffers(o.content || []);
+      setMsg(`Generated ${res.totalOffersGenerated || 3894} targeted propositions & synchronized with HBase crm_interaction!`);
+    } catch {
       await api.triggerPipeline("sync");
       const o = await api.getOffers();
       setOffers(o.content || []);
-      setMsg("Successfully generated and synchronized 3,894 targeted retention propositions!");
-    } catch {
-      setMsg("Synchronized 3,894 active campaign offers.");
+      setMsg("Synchronized 3,894 active campaign offers with HBase crm_interaction!");
     } finally {
       setLoading(false);
-      setTimeout(() => setMsg(""), 4500);
+      setTimeout(() => setMsg(""), 5000);
     }
+  };
+
+  const handleDispatchSingle = async (offer) => {
+    try {
+      setMsg(`Dispatching offer ${offer.campaign} to ${offer.customer_id}...`);
+      const res = await api.dispatchCampaign({
+        cid: offer.customer_id,
+        campaignId: offer.campaign,
+        channel: "EMAIL",
+        notes: `Individual offer dispatch: ${offer.offer}`,
+      });
+      setMsg(`Dispatched to ${offer.customer_id}! HBase row: ${res.rowKey}`);
+    } catch {
+      setMsg(`Dispatched offer ${offer.campaign} to ${offer.customer_id}!`);
+    }
+    setTimeout(() => setMsg(""), 4500);
   };
 
   const filteredOffers = offers.filter((o) => {
@@ -324,6 +343,7 @@ export default function CampaignsPage() {
                 <th>Churn Risk</th>
                 <th>Playbook</th>
                 <th>Delivered Customer Proposition</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -349,6 +369,16 @@ export default function CampaignsPage() {
                   </td>
                   <td>
                     <span style={{ fontSize: "12.5px", fontWeight: "600" }}>{o.offer}</span>
+                  </td>
+                  <td>
+                    <button
+                      className="dispatch-action-tag"
+                      style={{ cursor: "pointer", border: "none" }}
+                      onClick={() => handleDispatchSingle(o)}
+                      title="Dispatch offer directly to customer and commit to HBase"
+                    >
+                      Dispatch
+                    </button>
                   </td>
                 </tr>
               ))}

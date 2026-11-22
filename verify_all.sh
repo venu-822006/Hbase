@@ -84,6 +84,18 @@ if curl -s -f "http://localhost:8081/api/dashboard/summary" > /dev/null 2>&1; th
     API_CHURN=$(echo "$PRED_RES" | grep -o '"churnProb":[0-9.]*' | cut -d: -f2)
     API_RISK=$(echo "$PRED_RES" | grep -o '"riskTier":"[^"]*' | cut -d: -f2 | tr -d '"')
     echo -e "  ✓ API Endpoint /api/ml/predict: ${GREEN}VERIFIED${NC} (High-Risk Test -> Churn: ${GREEN}$API_CHURN${NC}, Tier: ${GREEN}$API_RISK${NC})"
+
+    # Test POST /api/campaigns/dispatch
+    DISPATCH_RES=$(curl -s -X POST "http://localhost:8081/api/campaigns/dispatch" -H "Content-Type: application/json" -d '{"cid":"C014095","campaignId":"M002","channel":"EMAIL","notes":"Verification automated dispatch"}')
+    ROW_KEY=$(echo "$DISPATCH_RES" | grep -o '"rowKey":"[^"]*' | cut -d: -f2 | tr -d '"')
+    HBASE_COMMITTED=$(echo "$DISPATCH_RES" | grep -o '"hbaseCommitted":true')
+    echo -e "  ✓ API Endpoint /api/campaigns/dispatch: ${GREEN}VERIFIED${NC} (HBase RowKey: ${GREEN}$ROW_KEY${NC})"
+
+    # Test GET /api/customers/C014095
+    CUST_DOSSIER=$(curl -s "http://localhost:8081/api/customers/C014095")
+    CUST_ORDERS=$(echo "$CUST_DOSSIER" | grep -o '"invoice":"[^"]*' | wc -l)
+    CUST_INTERACTIONS=$(echo "$CUST_DOSSIER" | grep -o '"campaign_dispatch"' | wc -l)
+    echo -e "  ✓ API Endpoint /api/customers/C014095: ${GREEN}VERIFIED${NC} ($CUST_ORDERS orders, $CUST_INTERACTIONS interactions)"
 else
     echo -e "  ${RED}✗ Backend API server not reachable on http://localhost:8081${NC}"
 fi

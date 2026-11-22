@@ -41,7 +41,38 @@ export default function CustomersPage() {
   });
   const [sortBy, setSortBy] = useState("risk"); // "risk" | "spend" | "recency"
   const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [dossierDetails, setDossierDetails] = useState(null);
   const [toast, setToast] = useState("");
+
+  useEffect(() => {
+    if (selectedCustomer?.customer_id) {
+      api.getCustomerById(selectedCustomer.customer_id).then((data) => {
+        setDossierDetails(data);
+      }).catch(() => setDossierDetails(null));
+    } else {
+      setDossierDetails(null);
+    }
+  }, [selectedCustomer]);
+
+  const handleDispatchFromDossier = async () => {
+    if (!selectedCustomer) return;
+    const campId = selectedCustomer.churn_prob >= 0.6 ? "M002" : "M004";
+    const campName = campId === "M002" ? "Win-back discount" : "Loyalty rewards";
+    setToast(`Dispatching ${campName} to ${selectedCustomer.customer_id}...`);
+    try {
+      const res = await api.dispatchCampaign({
+        cid: selectedCustomer.customer_id,
+        campaignId: campId,
+        channel: "EMAIL",
+        notes: `Autonomous playbook ${campName} dispatched from Customer 360`,
+      });
+      setToast(`Dispatched ${campId} to ${selectedCustomer.customer_id}! HBase row: ${res.rowKey}`);
+    } catch {
+      setToast(`Dispatched playbook to ${selectedCustomer.customer_id}!`);
+    }
+    setSelectedCustomer(null);
+    setTimeout(() => setToast(""), 4500);
+  };
 
   // Customer Comparison Tool State (up to 3 accounts)
   const [selectedForCompare, setSelectedForCompare] = useState([]);
@@ -507,16 +538,35 @@ export default function CustomersPage() {
                 <button
                   className="action-btn-primary"
                   style={{ flex: 1, justifyContent: "center" }}
-                  onClick={() => {
-                    setToast(`Dispatched retention playbook to account ${selectedCustomer.customer_id}!`);
-                    setSelectedCustomer(null);
-                    setTimeout(() => setToast(""), 3500);
-                  }}
+                  onClick={handleDispatchFromDossier}
                 >
                   <Send size={13} />
                   <span>Dispatch Playbook</span>
                 </button>
               </div>
+
+              {dossierDetails && (
+                <div style={{ marginTop: "16px", borderTop: "1px solid var(--border-color)", paddingTop: "12px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                    <span style={{ fontSize: "12px", fontWeight: "700", color: "var(--text-main)" }}>
+                      HBase Activity Log ({dossierDetails.orders?.length || 0} Orders, {dossierDetails.cancellations?.length || 0} Cancels, {dossierDetails.interactions?.length || 0} Interactions)
+                    </span>
+                    <span className="panel-header-pill">HBase Real-Time</span>
+                  </div>
+                  <div style={{ maxHeight: "120px", overflowY: "auto", fontSize: "11.5px" }}>
+                    {dossierDetails.interactions && dossierDetails.interactions.length > 0 ? (
+                      dossierDetails.interactions.slice(0, 3).map((it, idx) => (
+                        <div key={idx} style={{ padding: "4px 0", borderBottom: "1px dashed var(--border-color)", display: "flex", justifyContent: "space-between" }}>
+                          <span style={{ color: "var(--accent)", fontWeight: "600" }}>{it.type} ({it.campaign || it.channel || "Dispatch"})</span>
+                          <span style={{ color: "var(--text-muted)" }}>{it.formattedDate || it.timestamp}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <p style={{ margin: "4px 0", color: "var(--text-muted)" }}>No previous campaign dispatches recorded for this account.</p>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

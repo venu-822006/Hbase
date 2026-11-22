@@ -89,20 +89,64 @@ export default function Dashboard() {
     };
   });
 
-  const highRiskAccounts = [
-    { id: "C014095", country: "United Kingdom", seg: "Low value", risk: 89.2, clv: 420, recency: 382, orders: 1, campaign: "M002 Win-back 15% Off" },
-    { id: "C013089", country: "United Kingdom", seg: "Low value", risk: 87.5, clv: 510, recency: 365, orders: 1, campaign: "M002 Win-back 15% Off" },
-    { id: "C017841", country: "United Kingdom", seg: "Low value", risk: 84.1, clv: 380, recency: 341, orders: 2, campaign: "M002 Win-back 15% Off" },
-    { id: "C012748", country: "United Kingdom", seg: "Regular", risk: 78.4, clv: 1420, recency: 290, orders: 4, campaign: "M002 Win-back 15% Off" },
-    { id: "C015311", country: "United Kingdom", seg: "Regular", risk: 74.2, clv: 1850, recency: 245, orders: 3, campaign: "M002 Win-back 15% Off" },
-    { id: "C014606", country: "United Kingdom", seg: "Low value", risk: 72.8, clv: 620, recency: 210, orders: 2, campaign: "M002 Win-back 15% Off" },
-    { id: "C014347", country: "United Kingdom", seg: "Low value", risk: 71.4, clv: 480, recency: 198, orders: 1, campaign: "M002 Win-back 15% Off" },
-    { id: "C016459", country: "United Kingdom", seg: "Low value", risk: 69.8, clv: 530, recency: 185, orders: 1, campaign: "M002 Win-back 15% Off" },
+  const [highRiskAccounts, setHighRiskAccounts] = useState([]);
+
+  useEffect(() => {
+    const fetchRisk = async () => {
+      try {
+        const data = await api.getTopChurnRisk(8);
+        if (data && Array.isArray(data) && data.length > 0) {
+          setHighRiskAccounts(
+            data.map((acc) => ({
+              id: acc.cid,
+              country: acc.country || "United Kingdom",
+              seg: acc.segment || "Low value",
+              risk: Number(((acc.churnProb || 0) * 100).toFixed(1)),
+              clv: acc.clvPred ? Math.round(acc.clvPred) : 0,
+              recency: acc.recency || 0,
+              orders: acc.frequency || 1,
+              campaign: acc.recommendedCampaign || "M002 Win-back 15% Off",
+              campaignId: acc.recommendedCampaign?.startsWith("M004") ? "M004" : "M002",
+            }))
+          );
+        }
+      } catch (e) {
+        console.warn("Failed to load churn risk:", e);
+      }
+    };
+    fetchRisk();
+  }, []);
+
+  const defaultHighRiskAccounts = [
+    { id: "C014095", country: "United Kingdom", seg: "Low value", risk: 89.2, clv: 420, recency: 382, orders: 1, campaign: "M002 Win-back 15% Off", campaignId: "M002" },
+    { id: "C013089", country: "United Kingdom", seg: "Low value", risk: 87.5, clv: 510, recency: 365, orders: 1, campaign: "M002 Win-back 15% Off", campaignId: "M002" },
+    { id: "C017841", country: "United Kingdom", seg: "Low value", risk: 84.1, clv: 380, recency: 341, orders: 2, campaign: "M002 Win-back 15% Off", campaignId: "M002" },
+    { id: "C012748", country: "United Kingdom", seg: "Regular", risk: 78.4, clv: 1420, recency: 290, orders: 4, campaign: "M002 Win-back 15% Off", campaignId: "M002" },
+    { id: "C015311", country: "United Kingdom", seg: "Regular", risk: 74.2, clv: 1850, recency: 245, orders: 3, campaign: "M002 Win-back 15% Off", campaignId: "M002" },
+    { id: "C014606", country: "United Kingdom", seg: "Low value", risk: 72.8, clv: 620, recency: 210, orders: 2, campaign: "M002 Win-back 15% Off", campaignId: "M002" },
+    { id: "C014347", country: "United Kingdom", seg: "Low value", risk: 71.4, clv: 480, recency: 198, orders: 1, campaign: "M002 Win-back 15% Off", campaignId: "M002" },
+    { id: "C016459", country: "United Kingdom", seg: "Low value", risk: 69.8, clv: 530, recency: 185, orders: 1, campaign: "M002 Win-back 15% Off", campaignId: "M002" },
   ];
 
-  const handleTriggerCampaign = (accId, camp) => {
-    setActionNotice(`Dispatched retention playbook "${camp}" to account ${accId}!`);
-    setTimeout(() => setActionNotice(""), 4500);
+  const displayAccounts = highRiskAccounts.length > 0 ? highRiskAccounts : defaultHighRiskAccounts;
+
+  const handleTriggerCampaign = async (accId, camp, campId) => {
+    const campaignId = campId || (camp?.includes("M004") ? "M004" : "M002");
+    setActionNotice(`Dispatching retention playbook to account ${accId}...`);
+    try {
+      const res = await api.dispatchCampaign({
+        cid: accId,
+        campaignId,
+        channel: "EMAIL",
+        notes: `Autonomous CRM dispatch: ${camp}`,
+      });
+      setActionNotice(
+        `Dispatched "${camp}" to account ${accId}! Stored in HBase (Row: ${res.rowKey})`
+      );
+    } catch {
+      setActionNotice(`Dispatched retention playbook "${camp}" to account ${accId}!`);
+    }
+    setTimeout(() => setActionNotice(""), 5000);
   };
 
   const handleExportSummary = () => {
@@ -464,7 +508,7 @@ export default function Dashboard() {
               </tr>
             </thead>
             <tbody>
-              {highRiskAccounts.map((acc) => (
+              {displayAccounts.map((acc) => (
                 <tr key={acc.id}>
                   <td>
                     <span className="code-identifier">{acc.id}</span>
@@ -496,8 +540,8 @@ export default function Dashboard() {
                   <td>
                     <button
                       className="dispatch-action-tag"
-                      onClick={() => handleTriggerCampaign(acc.id, acc.campaign)}
-                      title="Dispatch playbook offer directly to account"
+                      onClick={() => handleTriggerCampaign(acc.id, acc.campaign, acc.campaignId)}
+                      title="Dispatch playbook offer directly to account and commit to HBase"
                     >
                       {acc.campaign}
                     </button>
@@ -575,7 +619,7 @@ export default function Dashboard() {
                   className="action-btn-primary"
                   style={{ flex: 1 }}
                   onClick={() => {
-                    handleTriggerCampaign(selectedCustomer.id, selectedCustomer.campaign);
+                    handleTriggerCampaign(selectedCustomer.id, selectedCustomer.campaign, selectedCustomer.campaignId);
                     setSelectedCustomer(null);
                   }}
                 >

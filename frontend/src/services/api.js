@@ -262,6 +262,58 @@ const api = {
       return { status: "SUCCESS", message: `Simulated ${action} completed successfully.` };
     }
   },
+
+  getTopChurnRisk: async (limit = 15) => {
+    try {
+      const res = await axiosInstance.get("/ml/churn-risk", { params: { limit } });
+      return res.data;
+    } catch (err) {
+      console.warn("Failed to fetch top churn risk accounts:", err);
+      return [];
+    }
+  },
+
+  dispatchCampaign: async (payload) => {
+    try {
+      const res = await axiosInstance.post("/campaigns/dispatch", payload);
+      return res.data;
+    } catch (err) {
+      console.warn("Failed to dispatch campaign:", err);
+      throw err;
+    }
+  },
+
+  getInteractions: async (cid) => {
+    try {
+      const res = await axiosInstance.get("/campaigns/interactions", {
+        params: cid ? { cid } : {},
+      });
+      return res.data;
+    } catch (err) {
+      console.warn("Failed to fetch interactions:", err);
+      return [];
+    }
+  },
+
+  getCustomerById: async (id) => {
+    try {
+      const res = await axiosInstance.get(`/customers/${id}`);
+      return res.data;
+    } catch (err) {
+      console.warn(`Failed to fetch customer ${id}:`, err);
+      return null;
+    }
+  },
+
+  generateCampaignOffers: async () => {
+    try {
+      const res = await axiosInstance.post("/campaigns/generate");
+      return res.data;
+    } catch (err) {
+      console.warn("Failed to generate campaign offers:", err);
+      throw err;
+    }
+  },
 };
 
 export default api;
