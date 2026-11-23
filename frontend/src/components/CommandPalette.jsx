@@ -16,6 +16,8 @@ import {
   ArrowRight,
   Sparkles,
   X,
+  Package,
+  Layers,
 } from "lucide-react";
 
 export default function CommandPalette({ isOpen, onClose, theme, setTheme, onSync }) {
@@ -64,6 +66,22 @@ export default function CommandPalette({ isOpen, onClose, theme, setTheme, onSyn
       sub: "Active win-back incentives, loyalty rewards & dispatch engine",
       icon: Megaphone,
       action: () => navigate("/campaigns"),
+    },
+    {
+      id: "nav-prod",
+      category: "Navigation",
+      title: "Products & Merchandise Catalog",
+      sub: "Explore all 4,723 retail SKUs, units sold, revenue, and return rate",
+      icon: Package,
+      action: () => navigate("/products"),
+    },
+    {
+      id: "nav-warehouse",
+      category: "Navigation",
+      title: "Data Warehouse & Lineage Explorer",
+      sub: "Inspect multi-tier data architecture across HDFS, HBase, Spark, and MLlib",
+      icon: Layers,
+      action: () => navigate("/warehouse"),
     },
     {
       id: "nav-orders",

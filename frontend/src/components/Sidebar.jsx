@@ -11,16 +11,19 @@ import {
   Database,
   Layers,
   Server,
+  Package,
 } from "lucide-react";
 import VoiceWave from "./VoiceWave";
 
 const navLinks = [
   { name: "Overview 360", path: "/", icon: LayoutDashboard, badge: "Live" },
   { name: "Customer Directory", path: "/customers", icon: Users, badge: "5,721" },
+  { name: "Products & SKUs", path: "/products", icon: Package, badge: "4.7K" },
   { name: "Predictive Studio", path: "/segmentation", icon: BrainCircuit, badge: "What-If" },
   { name: "Retention Campaigns", path: "/campaigns", icon: Megaphone, badge: "3,894" },
   { name: "Invoiced Orders", path: "/orders", icon: ShoppingBag, badge: "34.2K" },
   { name: "Returns & Signals", path: "/cancellations", icon: RotateCcw, badge: "7.5K" },
+  { name: "Warehouse & Lineage", path: "/warehouse", icon: Layers, badge: "8 Tiers" },
 ];
 
 export default function Sidebar() {

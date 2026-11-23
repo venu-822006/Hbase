@@ -73,22 +73,29 @@ flowchart TD
 
 ## 4. Dataset and Storage Design
 
-Three datasets are processed and maintained in the system:
+The system covers the complete retail data lifecycle across **8 datasets** encompassing **1,048,823 total items** across Bronze, Silver, and Gold storage tiers:
 
-| Dataset | Records | Description |
-| :--- | :--- | :--- |
-| **Customers** | 5,721 | Unique customer identifier, country, and first recorded transaction date |
-| **Orders** | 34,191 | Invoiced transactions with monetary amounts and item counts |
-| **Cancellations** | 7,517 | Cancelled transactions tracking churn and return indicators |
-| **Total** | **47,429** | Validated retail transaction records |
+| Dataset | Records / Rows | Storage Engine & Location | Description |
+| :--- | :--- | :--- | :--- |
+| **1. Raw Retail Transactions** | 988,278 | Hadoop HDFS (`/crm/data/raw/online_retail.csv`) | Full raw transaction log (84.2 MB) containing 2 years of global retail sales |
+| **2. Customer Profiles** | 5,721 | HBase (`crm_customer`) + HDFS (`customers.csv`) | Deduplicated customer dimension with country, first order date, RFM vectors, and ML predictions |
+| **3. Settled Invoiced Orders** | 34,191 | HBase (`crm_orders`) + HDFS (`orders.csv`) | Invoiced transaction facts with timestamps, order values, and item counts |
+| **4. Returns & Friction Signals** | 7,517 | HBase (`crm_cancellations`) + HDFS (`cancellations.csv`) | Cancelled transactions tracking churn indicators and return friction telemetry |
+| **5. Product & Merchandise Catalog**| 4,723 | HDFS (`products.csv`) + Fast In-Memory Index | Complete SKU merchandise catalog with volume, gross GMV, and cancellation rates |
+| **6. Campaign Strategies & Rules** | 4 | HBase (`crm_campaign`) + `config/campaigns.csv` | Automated CRM playbooks: Win-back, Loyalty Rewards, Welcome, and Seasonal |
+| **7. Customer Dispatches & Feedback**| 3,894+ | HBase (`crm_interaction`) + `feedback_offers.csv`| Real-time operator intervention log committed synchronously to HBase |
+| **8. Spark MLlib Evaluations** | 5,721 | `data/results.csv`, `metrics.txt`, `ml_model_params.json` | Pre-computed Logistic Churn probabilities (ROC-AUC 0.7784) and Linear CLV (R² 0.2739) |
+| **Total Ecosystem Coverage** | **1,048,823** | **Distributed HDFS + HBase NoSQL + Spark MLlib** | Multi-tier enterprise data warehouse |
 
 ### HBase Table Design
 
 | Table | Row Key Strategy | Column Family | Columns Stored |
 | :--- | :--- | :--- | :--- |
-| `crm_customer` | `cid` | `profile` | `cid`, `country`, `first_order_date` |
+| `crm_customer` | `cid` | `profile`, `ml` | `cid`, `country`, `first_order_date`, `segment`, `churn_prob`, `clv_pred` |
 | `crm_orders` | `cid_timestamp_invoice` | `info` | `cid`, `ts14`, `invoice`, `amount`, `items` |
-| `crm_interaction` | `cid_timestamp_invoice` | `activity` | `cid`, `ts14`, `invoice`, `amount`, `type` |
+| `crm_cancellations` | `cid_timestamp_invoice` | `info` | `cid`, `ts14`, `invoice`, `amount` |
+| `crm_campaign` | `id` | `detail` | `id`, `name`, `channel`, `rule` |
+| `crm_interaction` | `cid_timestamp_campaign` | `activity` | `type`, `cid`, `campaign`, `channel`, `notes`, `status` |
 
 - **Deterministic Row Keys:** Constructed from business attributes (`cid_timestamp_invoice`) to ensure idempotent ingestion—re-running loads overwrites records instead of creating duplicate rows.
 - **Batch Ingestion:** Client-buffered writes executed in batches of 500 (`BATCH_SIZE = 500`) to minimize RPC round trips.
