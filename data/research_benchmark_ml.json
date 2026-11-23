@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-11-23T11:06:20Z",
+  "modelMetrics": {
+    "churnAuc": 0.7784,
+    "clvR2": 0.2739
+  },
+  "singleInference": {
+    "iterations": 10000,
+    "meanUs": 6.9,
+    "p50Us": 4.7,
+    "p90Us": 7.36,
+    "p95Us": 8.37,
+    "p99Us": 45.57,
+    "minUs": 4.21,
+    "maxUs": 365.12,
+    "p50Ms": 0.0047,
+    "p99Ms": 0.0456,
+    "throughputQps": 138889.7,
+    "slaPassP50": true,
+    "slaPassP99": true
+  },
+  "batchInference": {
+    "batchSize": 50000,
+    "durationMs": 18.04,
+    "throughputQps": 2771415.7
+  }
+}

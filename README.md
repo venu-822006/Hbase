@@ -152,7 +152,34 @@ npm run dev -- --host 0.0.0.0 --port 5173
 
 ---
 
-## 7. Preparation & Viva Defense Guide
+## 7. Systems Research Performance Benchmark
+
+The project includes an empirical research benchmark suite (`benchmark/run_research_benchmark.sh` and `crm.ResearchBenchmark`) measuring storage layer latency, scan throughput, concurrency, and real-time inference against rigorous SLAs:
+
+```bash
+# Execute full academic benchmark suite
+./benchmark/run_research_benchmark.sh
+
+# Or run combined with verification
+./verify_all.sh --benchmark
+```
+
+### Empirical Benchmark Results & SLA Audit
+
+| Benchmark Operation | Target SLA | Measured Performance | Latency (p50 / p99) | Status |
+|:---|:---|:---|:---|:---|
+| **HBase Hot Point Lookup** (`crm_customer`) | $p50 < 2.0\text{ ms}, p99 < 10.0\text{ ms}$ | $606.1\text{ ops/sec}$ | $1.32\text{ ms} / 5.70\text{ ms}$ | **PASS** |
+| **HBase Uniform Key Lookup** (`crm_customer`) | $p50 < 5.0\text{ ms}, p99 < 25.0\text{ ms}$ | $609.5\text{ ops/sec}$ | $1.39\text{ ms} / 4.55\text{ ms}$ | **PASS** |
+| **HBase Scan Throughput** (`crm_orders`) | $> 10,000\text{ rows/sec}$ | $25,930.6\text{ rows/sec}$ | Stream | **PASS** |
+| **HBase Scan Throughput** (`crm_interaction`) | $> 10,000\text{ rows/sec}$ | $33,059.6\text{ rows/sec}$ | Stream | **PASS** |
+| **Concurrent Read Scale** (4 Threads) | $> 500\text{ QPS}$ | $1,478.4\text{ QPS}$ | $2.17\text{ ms} / 9.78\text{ ms}$ | **PASS** |
+| **Batch Ingestion Rate** (`crm_interaction`) | $> 1,000\text{ rec/sec}$ | $1,842.7\text{ records/sec}$ | $27.13\text{ ms / batch}$ | **PASS** |
+| **Spark MLlib Real-Time Inference** | $p50 < 0.1\text{ ms}, p99 < 1.0\text{ ms}$ | $138,889.7\text{ ops/sec}$ | $0.0047\text{ ms} / 0.0456\text{ ms}$ | **PASS** |
+| **MLlib Vectorized Batch Scoring** | $> 50,000\text{ records/sec}$ | $2,771,415.7\text{ ops/sec}$ | Vectorized ($18\text{ ms / 50k}$) | **PASS** |
+
+---
+
+## 8. Preparation & Viva Defense Guide
 
 A comprehensive technical defense and interview guide is available at:
 👉 **[readme_preparation_guide.md](readme_preparation_guide.md)**

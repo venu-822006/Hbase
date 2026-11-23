@@ -21,6 +21,7 @@ public class HBaseDataLoader {
     private static final byte[] PROFILE = Bytes.toBytes("profile");
     private static final byte[] ML = Bytes.toBytes("ml");
     private static final byte[] INFO = Bytes.toBytes("info");
+    private static final byte[] ACTIVITY = Bytes.toBytes("activity");
     private static final byte[] DETAIL = Bytes.toBytes("detail");
 
     private static Path resolveDataDir() {
@@ -60,7 +61,7 @@ public class HBaseDataLoader {
             if (truncate) {
                 System.out.println("Truncating tables to eliminate duplicate delimiter runs...");
                 truncateTable(admin, "crm_orders");
-                truncateTable(admin, "crm_cancellations");
+                truncateTable(admin, "crm_interaction");
                 truncateTable(admin, "crm_campaign");
             }
 
@@ -80,11 +81,11 @@ public class HBaseDataLoader {
             long campaigns = loadCampaigns(connection, configDir.resolve("campaigns.csv"));
 
             System.out.println("\n=================== HBASE IMPORT SUMMARY ===================");
-            System.out.println("crm_customer (profile) : " + customers + " records");
-            System.out.println("crm_customer (ml)      : " + customerMl + " records");
-            System.out.println("crm_orders (info)      : " + orders + " records");
-            System.out.println("crm_cancellations (info): " + cancellations + " records");
-            System.out.println("crm_campaign (detail)  : " + campaigns + " campaigns");
+            System.out.println("crm_customer (profile)    : " + customers + " records");
+            System.out.println("crm_customer (ml)         : " + customerMl + " records");
+            System.out.println("crm_orders (info)         : " + orders + " records");
+            System.out.println("crm_interaction (activity): " + cancellations + " records");
+            System.out.println("crm_campaign (detail)     : " + campaigns + " campaigns");
             System.out.println("Total Core Records     : " + (customers + orders + cancellations));
             System.out.println("=============================================================");
         }
@@ -131,7 +132,7 @@ public class HBaseDataLoader {
         return loadCsv(connection, file,
                 "cid,ts14,invoice,amount,items", "crm_orders", fields -> {
                     requireFields(fields, 5);
-                    String key = fields[0] + "#" + fields[1] + "#" + fields[2];
+                    String key = fields[0] + "_" + fields[1] + "_" + fields[2];
                     Put put = new Put(Bytes.toBytes(key));
                     put.addColumn(INFO, Bytes.toBytes("cid"), Bytes.toBytes(fields[0]));
                     put.addColumn(INFO, Bytes.toBytes("ts14"), Bytes.toBytes(fields[1]));
@@ -144,14 +145,15 @@ public class HBaseDataLoader {
 
     private static long loadCancellations(Connection connection, Path file) throws Exception {
         return loadCsv(connection, file,
-                "cid,ts14,invoice,amount", "crm_cancellations", fields -> {
+                "cid,ts14,invoice,amount", "crm_interaction", fields -> {
                     requireFields(fields, 4);
-                    String key = fields[0] + "#" + fields[1] + "#" + fields[2];
+                    String key = fields[0] + "_" + fields[1] + "_" + fields[2];
                     Put put = new Put(Bytes.toBytes(key));
-                    put.addColumn(INFO, Bytes.toBytes("cid"), Bytes.toBytes(fields[0]));
-                    put.addColumn(INFO, Bytes.toBytes("ts14"), Bytes.toBytes(fields[1]));
-                    put.addColumn(INFO, Bytes.toBytes("invoice"), Bytes.toBytes(fields[2]));
-                    put.addColumn(INFO, Bytes.toBytes("amount"), Bytes.toBytes(fields[3]));
+                    put.addColumn(ACTIVITY, Bytes.toBytes("type"), Bytes.toBytes("cancellation"));
+                    put.addColumn(ACTIVITY, Bytes.toBytes("cid"), Bytes.toBytes(fields[0]));
+                    put.addColumn(ACTIVITY, Bytes.toBytes("ts14"), Bytes.toBytes(fields[1]));
+                    put.addColumn(ACTIVITY, Bytes.toBytes("invoice"), Bytes.toBytes(fields[2]));
+                    put.addColumn(ACTIVITY, Bytes.toBytes("amount"), Bytes.toBytes(fields[3]));
                     return put;
                 });
     }

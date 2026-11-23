@@ -314,6 +314,56 @@ const api = {
       throw err;
     }
   },
+
+  getProducts: async (params = {}) => {
+    try {
+      const res = await axiosInstance.get("/products", { params });
+      return res.data;
+    } catch (err) {
+      console.warn("Failed to fetch products:", err);
+      return { content: [], totalElements: 0, totalPages: 0, page: 0 };
+    }
+  },
+
+  getProduct: async (code) => {
+    try {
+      const res = await axiosInstance.get(`/products/${encodeURIComponent(code)}`);
+      return res.data;
+    } catch (err) {
+      console.warn(`Failed to fetch product ${code}:`, err);
+      return null;
+    }
+  },
+
+  getProductSummary: async () => {
+    try {
+      const res = await axiosInstance.get("/products/summary");
+      return res.data;
+    } catch (err) {
+      console.warn("Failed to fetch product summary:", err);
+      return null;
+    }
+  },
+
+  getProductCategories: async () => {
+    try {
+      const res = await axiosInstance.get("/products/categories");
+      return res.data;
+    } catch (err) {
+      console.warn("Failed to fetch product categories:", err);
+      return [];
+    }
+  },
+
+  getWarehouseLineage: async () => {
+    try {
+      const res = await axiosInstance.get("/warehouse/lineage");
+      return res.data;
+    } catch (err) {
+      console.warn("Failed to fetch warehouse lineage:", err);
+      return null;
+    }
+  },
 };
 
 export default api;

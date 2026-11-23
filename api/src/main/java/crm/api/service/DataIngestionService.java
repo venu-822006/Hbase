@@ -143,7 +143,7 @@ public class DataIngestionService {
                 String timestamp = fields[1].trim();
                 String invoice = fields[2].trim();
 
-                String rowKey = cid + "#" + timestamp + "#" + invoice;
+                String rowKey = cid + "_" + timestamp + "_" + invoice;
 
                 Put put = new Put(Bytes.toBytes(rowKey));
 
@@ -177,7 +177,7 @@ public class DataIngestionService {
 
         try (
             Table table = connection.getTable(
-                TableName.valueOf("crm_cancellations")
+                TableName.valueOf("crm_interaction")
             );
             BufferedReader reader = openReader(fs, path)
         ) {
@@ -199,14 +199,15 @@ public class DataIngestionService {
                 String timestamp = fields[1].trim();
                 String invoice = fields[2].trim();
 
-                String rowKey = cid + "#" + timestamp + "#" + invoice;
+                String rowKey = cid + "_" + timestamp + "_" + invoice;
 
                 Put put = new Put(Bytes.toBytes(rowKey));
 
-                add(put, "info", "cid", cid);
-                add(put, "info", "ts14", timestamp);
-                add(put, "info", "invoice", invoice);
-                add(put, "info", "amount", fields[3].trim());
+                add(put, "activity", "type", "cancellation");
+                add(put, "activity", "cid", cid);
+                add(put, "activity", "ts14", timestamp);
+                add(put, "activity", "invoice", invoice);
+                add(put, "activity", "amount", fields[3].trim());
 
                 batch.add(put);
                 count++;

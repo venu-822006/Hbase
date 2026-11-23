@@ -1,0 +1,42 @@
+{
+  "timestamp": "Mon Nov 23 11:06:19 EST 2026",
+  "hotCachePointLookup": {
+    "samples": 1000,
+    "meanMs": 1.650,
+    "p50Ms": 1.322,
+    "p90Ms": 2.814,
+    "p95Ms": 3.613,
+    "p99Ms": 5.698,
+    "minMs": 0.342,
+    "maxMs": 26.540,
+    "throughputOpsPerSec": 606.1,
+    "slaPassP50": true,
+    "slaPassP99": true
+  },
+  "uniformPointLookup": {
+    "samples": 1000,
+    "meanMs": 1.641,
+    "p50Ms": 1.391,
+    "p90Ms": 2.673,
+    "p95Ms": 3.338,
+    "p99Ms": 4.551,
+    "throughputOpsPerSec": 609.5
+  },
+  "scanThroughput": {
+    "orders": {"rows": 10000, "durationMs": 385.64, "rowsPerSec": 25930.6, "mbPerSec": 0.14},
+    "interaction": {"rows": 10000, "durationMs": 302.48, "rowsPerSec": 33059.6, "mbPerSec": 0.13}
+  },
+  "concurrency": {
+    "threads": 4,
+    "throughputQps": 1478.4,
+    "p50Ms": 2.17,
+    "p95Ms": 5.64,
+    "p99Ms": 9.78
+  },
+  "batchIngestion": {
+    "totalRecords": 500,
+    "durationMs": 271.34,
+    "avgBatchLatencyMs": 27.13,
+    "recordsPerSec": 1842.7
+  }
+}

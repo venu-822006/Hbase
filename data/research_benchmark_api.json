@@ -1,0 +1,4 @@
+[  ✓ http://localhost:8081/api/dashboard/summary p50:  35.90 ms | p95:  97.54 ms | p99: 153.30 ms
+{"url":"http://localhost:8081/api/dashboard/summary","p50Ms":35.895000,"p95Ms":97.545000,"p99Ms":153.298000,"meanMs":45.80428000000000000000},  ✓ http://localhost:8081/api/customers/C014095 p50:  10.96 ms | p95:  31.77 ms | p99:  41.02 ms
+{"url":"http://localhost:8081/api/customers/C014095","p50Ms":10.956000,"p95Ms":31.773000,"p99Ms":41.019000,"meanMs":12.46698000000000000000},  ✓ http://localhost:8081/api/campaigns/offers p50:  12.22 ms | p95:  18.78 ms | p99:  32.35 ms
+{"url":"http://localhost:8081/api/campaigns/offers","p50Ms":12.223000,"p95Ms":18.780000,"p99Ms":32.349000,"meanMs":12.88268000000000000000}]

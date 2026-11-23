@@ -55,7 +55,7 @@ flowchart TD
         HDFS --> Loader["Java HBase Data Loader (DataIngestionService)"]
         Loader --> Cust["crm_customer (profile: cid, country, first_order_date)"]
         Loader --> Ord["crm_orders (info: cid, ts14, invoice, amount, items)"]
-        Loader --> Canc["crm_cancellations (info: cid, ts14, invoice, amount)"]
+        Loader --> Canc["crm_interaction (activity: cid, ts14, invoice, amount, type)"]
         ZK["Apache ZooKeeper (Coordination)"] -.-> Cust
         ZK -.-> Ord
         ZK -.-> Canc
@@ -87,10 +87,10 @@ Three datasets are processed and maintained in the system:
 | Table | Row Key Strategy | Column Family | Columns Stored |
 | :--- | :--- | :--- | :--- |
 | `crm_customer` | `cid` | `profile` | `cid`, `country`, `first_order_date` |
-| `crm_orders` | `cid#timestamp#invoice` | `info` | `cid`, `ts14`, `invoice`, `amount`, `items` |
-| `crm_cancellations` | `cid#timestamp#invoice` | `info` | `cid`, `ts14`, `invoice`, `amount` |
+| `crm_orders` | `cid_timestamp_invoice` | `info` | `cid`, `ts14`, `invoice`, `amount`, `items` |
+| `crm_interaction` | `cid_timestamp_invoice` | `activity` | `cid`, `ts14`, `invoice`, `amount`, `type` |
 
-- **Deterministic Row Keys:** Constructed from business attributes (`cid#timestamp#invoice`) to ensure idempotent ingestion—re-running loads overwrites records instead of creating duplicate rows.
+- **Deterministic Row Keys:** Constructed from business attributes (`cid_timestamp_invoice`) to ensure idempotent ingestion—re-running loads overwrites records instead of creating duplicate rows.
 - **Batch Ingestion:** Client-buffered writes executed in batches of 500 (`BATCH_SIZE = 500`) to minimize RPC round trips.
 
 ---

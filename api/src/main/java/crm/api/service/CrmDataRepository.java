@@ -42,6 +42,8 @@ public class CrmDataRepository {
     private final List<Map<String, Object>> campaignsCache = new ArrayList<>();
     private final List<Map<String, Object>> offersCache = new ArrayList<>();
     private final List<Map<String, Object>> interactionsCache = new java.util.concurrent.CopyOnWriteArrayList<>();
+    private final List<Map<String, Object>> productsCache = new ArrayList<>();
+    private final Map<String, Map<String, Object>> productCodeIndex = new ConcurrentHashMap<>();
     private final Map<String, Object> mlMetricsCache = new ConcurrentHashMap<>();
 
     private volatile boolean initialized = false;
@@ -68,11 +70,14 @@ public class CrmDataRepository {
         cancellationsCache.clear();
         campaignsCache.clear();
         offersCache.clear();
+        productsCache.clear();
+        productCodeIndex.clear();
         mlMetricsCache.clear();
 
         loadCampaigns();
         loadMlMetrics();
         loadCleanDataAndMl();
+        loadProducts();
 
         // If HBase is active, supplement with live HBase data
         if (isHBaseAvailable()) {
@@ -80,8 +85,8 @@ public class CrmDataRepository {
         }
 
         initialized = true;
-        log.info("CRM Data initialized: {} customers, {} orders, {} cancellations, {} campaigns",
-                customerCache.size(), ordersCache.size(), cancellationsCache.size(), campaignsCache.size());
+        log.info("CRM Data initialized: {} customers, {} orders, {} cancellations, {} products, {} campaigns",
+                customerCache.size(), ordersCache.size(), cancellationsCache.size(), productsCache.size(), campaignsCache.size());
     }
 
     public boolean isHBaseAvailable() {
@@ -547,5 +552,182 @@ public class CrmDataRepository {
         return interactionsCache.stream()
                 .filter(i -> cid.equalsIgnoreCase(String.valueOf(i.get("cid"))))
                 .collect(Collectors.toList());
+    }
+
+    private void loadProducts() {
+        productsCache.clear();
+        productCodeIndex.clear();
+        Path p = resolveDataPath("clean/products.csv");
+        if (Files.exists(p)) {
+            try (BufferedReader br = Files.newBufferedReader(p, StandardCharsets.UTF_8)) {
+                br.readLine(); // skip header
+                String line;
+                while ((line = br.readLine()) != null) {
+                    if (line.isBlank()) continue;
+                    List<String> f = parseCsvLine(line);
+                    if (f.size() >= 10) {
+                        Map<String, Object> prod = new LinkedHashMap<>();
+                        String code = f.get(0);
+                        prod.put("stockCode", code);
+                        prod.put("description", f.get(1));
+                        prod.put("category", f.get(2));
+                        try { prod.put("avgPrice", Double.parseDouble(f.get(3))); } catch (Exception e) { prod.put("avgPrice", 0.0); }
+                        try { prod.put("unitsSold", Long.parseLong(f.get(4))); } catch (Exception e) { prod.put("unitsSold", 0L); }
+                        try { prod.put("unitsCancelled", Long.parseLong(f.get(5))); } catch (Exception e) { prod.put("unitsCancelled", 0L); }
+                        try { prod.put("totalRevenue", Double.parseDouble(f.get(6))); } catch (Exception e) { prod.put("totalRevenue", 0.0); }
+                        try { prod.put("orderCount", Long.parseLong(f.get(7))); } catch (Exception e) { prod.put("orderCount", 0L); }
+                        try { prod.put("cancelCount", Long.parseLong(f.get(8))); } catch (Exception e) { prod.put("cancelCount", 0L); }
+                        try { prod.put("customerCount", Long.parseLong(f.get(9))); } catch (Exception e) { prod.put("customerCount", 0L); }
+                        if (f.size() >= 11) {
+                            try { prod.put("cancellationRate", Double.parseDouble(f.get(10))); } catch (Exception e) { prod.put("cancellationRate", 0.0); }
+                        } else {
+                            prod.put("cancellationRate", 0.0);
+                        }
+                        productsCache.add(prod);
+                        productCodeIndex.put(code.toUpperCase(), prod);
+                    }
+                }
+                log.info("Loaded {} products into catalog cache", productsCache.size());
+            } catch (Exception e) {
+                log.warn("Error reading clean/products.csv: {}", e.getMessage());
+            }
+        }
+    }
+
+    public List<Map<String, Object>> getAllProducts() {
+        ensureInitialized();
+        return new ArrayList<>(productsCache);
+    }
+
+    public Optional<Map<String, Object>> getProductByCode(String code) {
+        ensureInitialized();
+        if (code == null) return Optional.empty();
+        return Optional.ofNullable(productCodeIndex.get(code.toUpperCase().trim()));
+    }
+
+    public Map<String, Object> getWarehouseLineage() {
+        ensureInitialized();
+        Map<String, Object> lineage = new LinkedHashMap<>();
+        lineage.put("clusterStatus", isHBaseAvailable() ? "UP" : "DEGRADED");
+        lineage.put("hdfsUri", "hdfs://localhost:9000");
+        lineage.put("zookeeperQuorum", "localhost:2181");
+        lineage.put("timestamp", LocalDateTime.now().toString());
+
+        List<Map<String, Object>> datasets = new ArrayList<>();
+
+        // 1. Raw Retail Transactions
+        Map<String, Object> d1 = new LinkedHashMap<>();
+        d1.put("id", "ds-raw-transactions");
+        d1.put("name", "Raw Retail Transactions");
+        d1.put("tier", "Bronze / Ingestion");
+        d1.put("storage", "Hadoop HDFS (/crm/data/raw/online_retail.csv)");
+        d1.put("recordCount", 988278L);
+        d1.put("size", "84.2 MB");
+        d1.put("format", "CSV (Comma Separated, Multi-year Invoices)");
+        d1.put("schema", "Invoice, StockCode, Description, Quantity, InvoiceDate, Price, Customer ID, Country");
+        d1.put("description", "Complete raw transaction log from UCI Machine Learning Repository containing 2 full years of global retail sales.");
+        datasets.add(d1);
+
+        // 2. Customer Profiles
+        Map<String, Object> d2 = new LinkedHashMap<>();
+        d2.put("id", "ds-customer-profiles");
+        d2.put("name", "Customer Profiles Dimension");
+        d2.put("tier", "Silver / Dimension");
+        d2.put("storage", "Apache HBase (crm_customer) + HDFS (/crm/data/clean/customers.csv)");
+        d2.put("recordCount", (long) customerCache.size());
+        d2.put("size", "187 KB");
+        d2.put("format", "HBase Column Families: profile (metadata), ml (scoring)");
+        d2.put("schema", "cid [RowKey], profile:country, profile:first_order_date, ml:churn_prob, ml:clv_pred, ml:segment");
+        d2.put("description", "Deduplicated customer dimension indexed by CID with RFM feature vectors and ML predictions.");
+        datasets.add(d2);
+
+        // 3. Orders & Invoices
+        Map<String, Object> d3 = new LinkedHashMap<>();
+        d3.put("id", "ds-orders-facts");
+        d3.put("name", "Settled Invoiced Orders");
+        d3.put("tier", "Silver / Fact");
+        d3.put("storage", "Apache HBase (crm_orders) + HDFS (/crm/data/clean/orders.csv)");
+        d3.put("recordCount", (long) ordersCache.size());
+        d3.put("size", "1.38 MB");
+        d3.put("format", "HBase Column Family: info");
+        d3.put("schema", "cid_timestamp_invoice [RowKey], info:cid, info:ts14, info:invoice, info:amount, info:items");
+        d3.put("description", "Settled order facts with composite row keys ensuring idempotent batch and streaming ingestion.");
+        datasets.add(d3);
+
+        // 4. Returns & Cancellations
+        Map<String, Object> d4 = new LinkedHashMap<>();
+        d4.put("id", "ds-cancellations-friction");
+        d4.put("name", "Returns & Cancellation Friction");
+        d4.put("tier", "Silver / Fact");
+        d4.put("storage", "Apache HBase (crm_interaction) + HDFS (/crm/data/clean/cancellations.csv)");
+        d4.put("recordCount", (long) cancellationsCache.size());
+        d4.put("size", "267 KB");
+        d4.put("format", "HBase Column Family: activity");
+        d4.put("schema", "cid_timestamp_invoice [RowKey], activity:type, activity:amount, activity:cid, activity:ts14, activity:invoice");
+        d4.put("description", "Negative transaction return events and friction telemetry utilized in customer churn modeling.");
+        datasets.add(d4);
+
+        // 5. Products & Merchandise Catalog
+        Map<String, Object> d5 = new LinkedHashMap<>();
+        d5.put("id", "ds-products-catalog");
+        d5.put("name", "Product & Merchandise Catalog");
+        d5.put("tier", "Silver / Dimension");
+        d5.put("storage", "HDFS (/crm/data/clean/products.csv) + In-Memory Fast Cache");
+        d5.put("recordCount", (long) productsCache.size());
+        d5.put("size", "408 KB");
+        d5.put("format", "Structured CSV & Indexed SKU Dictionary");
+        d5.put("schema", "stock_code [PK], description, category, avg_price, units_sold, units_cancelled, total_revenue, order_count, cancel_count, customer_count, cancellation_rate");
+        d5.put("description", "Complete 4,723 SKU merchandise catalog with volume, gross revenue, and return rate diagnostics.");
+        datasets.add(d5);
+
+        // 6. Campaign Strategies & Playbooks
+        Map<String, Object> d6 = new LinkedHashMap<>();
+        d6.put("id", "ds-campaign-playbooks");
+        d6.put("name", "Campaign Strategies & Playbooks");
+        d6.put("tier", "Gold / Configuration");
+        d6.put("storage", "Apache HBase (crm_campaign) + config/campaigns.csv");
+        d6.put("recordCount", (long) campaignsCache.size());
+        d6.put("size", "2 KB");
+        d6.put("format", "HBase Column Family: detail");
+        d6.put("schema", "id [RowKey], detail:id, detail:name, detail:channel, detail:rule");
+        d6.put("description", "Targeted marketing interventions: Win-back discount, Loyalty rewards, Welcome offer, and Seasonal sale.");
+        datasets.add(d6);
+
+        // 7. Live Customer Interactions & Dispatches
+        Map<String, Object> d7 = new LinkedHashMap<>();
+        d7.put("id", "ds-interactions-log");
+        d7.put("name", "Live Interactions & Campaign Dispatches");
+        d7.put("tier", "Gold / Closed-Loop Telemetry");
+        d7.put("storage", "Apache HBase (crm_interaction) + feedback_offers.csv");
+        d7.put("recordCount", (long) (offersCache.size() + interactionsCache.size()));
+        d7.put("size", "164 KB");
+        d7.put("format", "HBase Column Family: activity");
+        d7.put("schema", "cid_timestamp_campaign [RowKey], activity:type, activity:campaign, activity:channel, activity:notes, activity:status");
+        d7.put("description", "Closed-loop feedback log capturing live operator dispatches committed synchronously into HBase.");
+        datasets.add(d7);
+
+        // 8. Spark MLlib Predictive Intelligence
+        Map<String, Object> d8 = new LinkedHashMap<>();
+        d8.put("id", "ds-mllib-evaluations");
+        d8.put("name", "Spark MLlib Predictive Intelligence");
+        d8.put("tier", "Gold / Analytical ML");
+        d8.put("storage", "data/results.csv, data/metrics.txt, data/ml_model_params.json");
+        d8.put("recordCount", (long) customerCache.size());
+        d8.put("size", "345 KB");
+        d8.put("format", "Scored Features & Parameter Weights");
+        d8.put("schema", "cid, country, segment, churn_prob, clv_pred, recency, frequency, monetary, cancellations");
+        d8.put("description", "Trained Spark MLlib models (Logistic Regression Churn ROC-AUC 0.7784, Linear Regression CLV R² 0.2739).");
+        datasets.add(d8);
+
+        lineage.put("datasets", datasets);
+
+        // Total metrics
+        long totalRecords = 988278L + customerCache.size() + ordersCache.size() + cancellationsCache.size() +
+                productsCache.size() + campaignsCache.size() + offersCache.size() + interactionsCache.size() + customerCache.size();
+        lineage.put("totalDatasets", datasets.size());
+        lineage.put("totalRecordsAcrossTiers", totalRecords);
+        lineage.put("totalStorageEstimate", "175.4 MB");
+
+        return lineage;
     }
 }
