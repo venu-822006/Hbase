@@ -1,5 +1,7 @@
-/* Aura 360 - Editorial Design System (Wispr Theme Aesthetic) */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* ==========================================================================
+   HBase CRM Intelligence - Enterprise High-Performance Design System
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
   /* Font Families */
@@ -8,92 +10,116 @@
 
   /* Geometry & Radii */
   --radius-xs: 6px;
-  --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
   --radius-pill: 9999px;
 
-  /* Light Theme (Warm Oat / Natural Linen / Obsidian) */
-  --app-bg: #fbf9f6;
+  /* Light Theme (Crisp Tech Slate & Vivid Electric Accents) */
+  --app-bg: #f8fafc;
   --card-bg: #ffffff;
-  --card-bg-subtle: #f5f2eb;
+  --card-bg-subtle: #f1f5f9;
   --card-bg-elevated: #ffffff;
-  --border-color: #e9e4da;
-  --border-subtle: #f1ede5;
-  --border-focus: #18181b;
+  --border-color: #e2e8f0;
+  --border-subtle: #edf2f7;
+  --border-focus: #2563eb;
 
-  --text-main: #141517;
-  --text-sub: #57585e;
-  --text-muted: #8a8c96;
+  --text-main: #0f172a;
+  --text-sub: #475569;
+  --text-muted: #94a3b8;
 
-  /* Primary Accent: Obsidian Pill */
-  --primary: #18181b;
-  --primary-hover: #27272a;
-  --primary-light: #f4f4f5;
+  /* Primary Brand: Electric Royal Blue */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
   --primary-text: #ffffff;
 
-  /* Warm Accent: Amber */
-  --accent: #d97706;
-  --accent-hover: #b45309;
-  --accent-light: #fef3c7;
+  /* Accent: Cyber Indigo / Amber */
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-light: #eef2ff;
 
   /* Status Colors */
-  --success: #059669;
+  --success: #10b981;
+  --success-hover: #059669;
   --success-light: #ecfdf5;
 
-  --warning: #d97706;
+  --warning: #f59e0b;
+  --warning-hover: #d97706;
   --warning-light: #fffbeb;
 
-  --danger: #e11d48;
+  --danger: #f43f5e;
+  --danger-hover: #e11d48;
   --danger-light: #fff1f2;
 
-  --purple: #7c3aed;
+  --purple: #8b5cf6;
   --purple-light: #f5f3ff;
 
+  /* Gradients */
+  --grad-primary: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+  --grad-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --grad-danger: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  --grad-purple: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+  --grad-amber: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  --grad-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 250, 252, 0.95) 100%);
+
   /* Elevation Shadows */
-  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 4px 16px -2px rgba(0, 0, 0, 0.02);
-  --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.05), 0 12px 28px -4px rgba(0, 0, 0, 0.04);
-  --modal-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.16), 0 8px 16px -4px rgba(0, 0, 0, 0.08);
+  --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  --card-shadow-hover: 0 10px 20px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --modal-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --glow-primary: 0 0 15px rgba(37, 99, 235, 0.25);
 }
 
-/* Dark Theme (Warm Obsidian / Graphite / Ambient) */
+/* Dark Theme (Deep Obsidian Cyber / Zinc / Ambient Glow) */
 .theme-dark {
-  --app-bg: #0b0c0e;
-  --card-bg: #141519;
-  --card-bg-subtle: #1c1d24;
-  --card-bg-elevated: #1f2028;
-  --border-color: #262832;
-  --border-subtle: #1f2029;
-  --border-focus: #fafafa;
+  --app-bg: #090d16;
+  --card-bg: #0f172a;
+  --card-bg-subtle: #1e293b;
+  --card-bg-elevated: #162032;
+  --border-color: #1e293b;
+  --border-subtle: #151f32;
+  --border-focus: #3b82f6;
 
-  --text-main: #f5f5f7;
-  --text-sub: #a0a2ac;
-  --text-muted: #6f727f;
+  --text-main: #f8fafc;
+  --text-sub: #cbd5e1;
+  --text-muted: #64748b;
 
-  --primary: #fafafa;
-  --primary-hover: #f4f4f5;
-  --primary-light: rgba(255, 255, 255, 0.08);
-  --primary-text: #090a0c;
+  --primary: #3b82f6;
+  --primary-hover: #60a5fa;
+  --primary-light: rgba(59, 130, 246, 0.15);
+  --primary-text: #ffffff;
 
-  --accent: #f59e0b;
-  --accent-hover: #fbbf24;
-  --accent-light: rgba(245, 158, 11, 0.14);
+  --accent: #6366f1;
+  --accent-hover: #818cf8;
+  --accent-light: rgba(99, 102, 241, 0.15);
 
   --success: #10b981;
-  --success-light: rgba(16, 185, 129, 0.14);
+  --success-hover: #34d399;
+  --success-light: rgba(16, 185, 129, 0.15);
 
   --warning: #f59e0b;
-  --warning-light: rgba(245, 158, 11, 0.14);
+  --warning-hover: #fbbf24;
+  --warning-light: rgba(245, 158, 11, 0.15);
 
   --danger: #f43f5e;
-  --danger-light: rgba(244, 63, 94, 0.14);
+  --danger-hover: #fb7185;
+  --danger-light: rgba(244, 63, 94, 0.15);
 
-  --purple: #8b5cf6;
-  --purple-light: rgba(139, 92, 246, 0.14);
+  --purple: #a855f7;
+  --purple-light: rgba(168, 85, 247, 0.15);
 
-  --card-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.4);
-  --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.5), 0 16px 36px rgba(0, 0, 0, 0.5);
-  --modal-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.7);
+  --grad-primary: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+  --grad-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --grad-danger: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+  --grad-purple: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+  --grad-amber: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+  --grad-surface: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(9, 13, 22, 0.95) 100%);
+
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  --modal-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  --glow-primary: 0 0 20px rgba(59, 130, 246, 0.35);
 }
 
 * {
@@ -112,7 +138,7 @@ body,
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Animations */
@@ -132,13 +158,18 @@ body,
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  from { opacity: 0; transform: translateY(-10px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 .spin-icon {

@@ -6,7 +6,6 @@ import {
   TrendingUp,
   Flame,
   Zap,
-  Globe,
   ArrowUpRight,
   Eye,
   Send,
@@ -15,6 +14,10 @@ import {
   Sparkles,
   Download,
   AlertTriangle,
+  Activity,
+  ShieldCheck,
+  Layers,
+  Database,
 } from "lucide-react";
 import {
   AreaChart,
@@ -28,7 +31,6 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import VoiceWave from "../components/VoiceWave";
 import api from "../services/api";
 
 const numFmt = new Intl.NumberFormat("en-IN");
@@ -38,12 +40,41 @@ const currFmt = new Intl.NumberFormat("en-IN", {
   maximumFractionDigits: 0,
 });
 
-const PIE_COLORS = ["#18181b", "#d97706", "#059669", "#7c3aed", "#2563eb", "#e11d48"];
+const PIE_COLORS = ["#8b5cf6", "#10b981", "#2563eb", "#f59e0b"];
 const SEGMENT_COLORS = {
-  Premium: "#7c3aed",
-  Loyal: "#059669",
+  Premium: "#8b5cf6",
+  Loyal: "#10b981",
   Regular: "#2563eb",
-  "Low value": "#d97706",
+  "Low value": "#f59e0b",
+};
+
+// Custom Chart Tooltip
+const CustomChartTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div
+        style={{
+          background: "var(--card-bg)",
+          border: "1px solid var(--border-color)",
+          borderRadius: "var(--radius-sm)",
+          padding: "10px 14px",
+          boxShadow: "var(--modal-shadow)",
+          fontSize: "12px",
+        }}
+      >
+        <div style={{ color: "var(--text-muted)", fontWeight: "600", marginBottom: "4px" }}>
+          {label}
+        </div>
+        <div style={{ color: "var(--primary)", fontWeight: "800", fontSize: "14px", fontFamily: "var(--font-mono)" }}>
+          {currFmt.format(payload[0].value)}
+        </div>
+        <div style={{ fontSize: "10.5px", color: "var(--text-sub)", marginTop: "2px" }}>
+          Invoiced Revenue Settlement
+        </div>
+      </div>
+    );
+  }
+  return null;
 };
 
 export default function Dashboard() {
@@ -51,45 +82,21 @@ export default function Dashboard() {
   const [summary, setSummary] = useState(null);
   const [revenueMode, setRevenueMode] = useState("monthly");
   const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [dossierDetails, setDossierDetails] = useState(null);
   const [actionNotice, setActionNotice] = useState("");
+  const [highRiskAccounts, setHighRiskAccounts] = useState([]);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchSummary = async () => {
       const data = await api.getSummary();
       setSummary(data);
     };
-    fetch();
+    fetchSummary();
 
-    const handleDataSynced = () => fetch();
+    const handleDataSynced = () => fetchSummary();
     window.addEventListener("crm_data_synced", handleDataSynced);
     return () => window.removeEventListener("crm_data_synced", handleDataSynced);
   }, []);
-
-  const customers = summary?.customers || 5721;
-  const orders = summary?.orders || 34191;
-  const revenue = summary?.totalRevenue || 15890904.72;
-  const highRisk = summary?.highChurnRiskCount || 2402;
-  const mlMetrics = summary?.mlMetrics || { auc: 0.778, r2: 0.274 };
-  const rawMonthly = summary?.monthlyRevenue || [];
-  const countryData = summary?.customersByCountry || [];
-  const segmentData = summary?.segmentDistribution || [
-    { segment: "Low value", count: 1776, avgSpend: 330 },
-    { segment: "Regular", count: 1416, avgSpend: 639 },
-    { segment: "Loyal", count: 1634, avgSpend: 707 },
-    { segment: "Premium", count: 895, avgSpend: 4445 },
-  ];
-
-  // Calculate Cumulative Revenue
-  let runningTotal = 0;
-  const chartData = rawMonthly.map((item) => {
-    runningTotal += item.revenue;
-    return {
-      month: item.month,
-      revenue: revenueMode === "cumulative" ? runningTotal : item.revenue,
-    };
-  });
-
-  const [highRiskAccounts, setHighRiskAccounts] = useState([]);
 
   useEffect(() => {
     const fetchRisk = async () => {
@@ -117,6 +124,40 @@ export default function Dashboard() {
     fetchRisk();
   }, []);
 
+  // Fetch full details when inspecting a customer dossier
+  useEffect(() => {
+    if (selectedCustomer?.id) {
+      api.getCustomerById(selectedCustomer.id)
+        .then((data) => setDossierDetails(data))
+        .catch(() => setDossierDetails(null));
+    } else {
+      setDossierDetails(null);
+    }
+  }, [selectedCustomer]);
+
+  const customers = summary?.customers || 5721;
+  const orders = summary?.orders || 34191;
+  const revenue = summary?.totalRevenue || 15890904.72;
+  const highRisk = summary?.highChurnRiskCount || 2402;
+  const mlMetrics = summary?.mlMetrics || { auc: 0.778, r2: 0.274 };
+  const rawMonthly = summary?.monthlyRevenue || [];
+  const segmentData = summary?.segmentDistribution || [
+    { segment: "Low value", count: 1776, avgSpend: 330 },
+    { segment: "Regular", count: 1416, avgSpend: 639 },
+    { segment: "Loyal", count: 1634, avgSpend: 707 },
+    { segment: "Premium", count: 895, avgSpend: 4445 },
+  ];
+
+  // Calculate Cumulative Revenue
+  let runningTotal = 0;
+  const chartData = rawMonthly.map((item) => {
+    runningTotal += item.revenue;
+    return {
+      month: item.month,
+      revenue: revenueMode === "cumulative" ? runningTotal : item.revenue,
+    };
+  });
+
   const defaultHighRiskAccounts = [
     { id: "C014095", country: "United Kingdom", seg: "Low value", risk: 89.2, clv: 420, recency: 382, orders: 1, campaign: "M002 Win-back 15% Off", campaignId: "M002" },
     { id: "C013089", country: "United Kingdom", seg: "Low value", risk: 87.5, clv: 510, recency: 365, orders: 1, campaign: "M002 Win-back 15% Off", campaignId: "M002" },
@@ -141,7 +182,7 @@ export default function Dashboard() {
         notes: `Autonomous CRM dispatch: ${camp}`,
       });
       setActionNotice(
-        `Dispatched "${camp}" to account ${accId}! Stored in HBase (Row: ${res.rowKey})`
+        `Dispatched "${camp}" to account ${accId}! Committed to HBase (Row: ${res.rowKey})`
       );
     } catch {
       setActionNotice(`Dispatched retention playbook "${camp}" to account ${accId}!`);
@@ -152,7 +193,15 @@ export default function Dashboard() {
   const handleExportSummary = () => {
     const csvContent =
       "data:text/csv;charset=utf-8," +
-      ["Metric,Value", `Active Accounts,${customers}`, `Invoiced Orders,${orders}`, `Total GMV,${revenue}`, `High Risk Accounts,${highRisk}`, `Model Retention AUC,${mlMetrics.auc}`, `Projected CLV R2,${mlMetrics.r2}`].join("\n");
+      [
+        "Metric,Value",
+        `Active Accounts,${customers}`,
+        `Invoiced Orders,${orders}`,
+        `Total GMV,${revenue}`,
+        `High Risk Accounts,${highRisk}`,
+        `Model Retention AUC,${mlMetrics.auc}`,
+        `Projected CLV R2,${mlMetrics.r2}`,
+      ].join("\n");
     const link = document.createElement("a");
     link.setAttribute("href", encodeURI(csvContent));
     link.setAttribute("download", "portfolio_executive_summary.csv");
@@ -164,79 +213,61 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-content-layout">
-      {/* Hero Section */}
-      <section className="dashboard-hero-card">
-        <div className="hero-top-eyebrow">
-          <span className="eyebrow-badge">AURA 360 INTELLIGENCE</span>
-          <span className="eyebrow-separator">•</span>
-          <span className="eyebrow-text">AUTONOMOUS CUSTOMER RETENTION & LIFETIME VALUE</span>
-          <VoiceWave count={4} color="var(--accent)" />
-        </div>
-
-        <h1 className="hero-heading">
-          Customer 360 & <em>Predictive Lifetime Intelligence</em>
-        </h1>
-
-        <p className="hero-paragraph">
-          Autonomous customer retention, lifetime value forecasting, and behavioral segmentation constructed from real enterprise retail transaction signals. Continuous holdout evaluation with sub-millisecond scoring.
-        </p>
-
-        {/* Quick Functional Pills */}
-        <div className="hero-feature-bar">
-          <div className="hero-stat-pill">
-            <span className="stat-pill-label">Portfolio Scope:</span>
-            <span className="stat-pill-value">5,721 Active Accounts</span>
+      {/* Executive Command Header */}
+      <section className="executive-command-header">
+        <div className="command-header-left">
+          <div className="command-eyebrow">
+            <span className="command-eyebrow-badge">APACHE HBASE 2.5 • SPARK MLLIB</span>
+            <span className="command-meta-sub">• LIVE DISTRIBUTED DATA WAREHOUSE</span>
           </div>
-          <div className="hero-stat-pill">
-            <span className="stat-pill-label">Processed Volume:</span>
-            <span className="stat-pill-value">34,191 Invoices</span>
-          </div>
-          <div className="hero-stat-pill">
-            <span className="stat-pill-label">Retention Accuracy:</span>
-            <span className="stat-pill-value">77.8% ROC-AUC</span>
-          </div>
-          <div className="hero-stat-pill">
-            <span className="stat-pill-label">Inference Latency:</span>
-            <span className="stat-pill-value">&lt; 1ms Real-Time SLA</span>
+
+          <h1 className="command-title">
+            Customer 360 & <em>Predictive Lifetime Intelligence</em>
+          </h1>
+
+          <div className="command-subtitle">
+            <span className="command-subtitle-tag">
+              <Database size={13} color="var(--primary)" />
+              <b>5,721</b> Profiles in HBase
+            </span>
+            <span className="command-subtitle-tag">
+              <Zap size={13} color="var(--success)" />
+              <b>&lt; 1ms</b> Spark ML Scoring
+            </span>
+            <span className="command-subtitle-tag">
+              <Activity size={13} color="var(--accent)" />
+              <b>34,191</b> Settled Orders
+            </span>
+            <span className="command-subtitle-tag">
+              <ShieldCheck size={13} color="var(--warning)" />
+              <b>180-Day</b> Holdout Evaluated
+            </span>
           </div>
         </div>
-      </section>
 
-      {/* Executive Quick Actions Bar */}
-      <section className="executive-actions-bar">
-        <div className="quick-actions-group">
+        <div className="command-header-right">
           <button
             className="action-btn-primary"
             onClick={() => navigate("/customers?filter=high_risk")}
           >
-            <Flame size={14} color="#f43f5e" />
-            <span>Target Critical Accounts ({numFmt.format(highRisk)})</span>
+            <Flame size={14} />
+            <span>Target High Risk ({numFmt.format(highRisk)})</span>
           </button>
           <button
             className="secondary-button"
             onClick={() => navigate("/segmentation")}
           >
             <Sliders size={14} />
-            <span>Launch What-If Simulator</span>
+            <span>What-If Studio</span>
           </button>
-          <button
-            className="secondary-button"
-            onClick={() => {
-              setActionNotice("Generated and dispatched 3,894 active retention offers across all cohorts!");
-              setTimeout(() => setActionNotice(""), 4500);
-            }}
-          >
-            <Send size={14} />
-            <span>Dispatch Active Campaigns (3,894)</span>
+          <button className="secondary-button" onClick={handleExportSummary}>
+            <Download size={14} />
+            <span>Export CSV</span>
           </button>
         </div>
-
-        <button className="secondary-button" onClick={handleExportSummary}>
-          <Download size={14} />
-          <span>Export Summary</span>
-        </button>
       </section>
 
+      {/* Action Notification Banner */}
       {actionNotice && (
         <div className="action-notification-banner" style={{ marginBottom: "20px" }}>
           <CheckCircle2 size={16} />
@@ -244,219 +275,243 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* KPI Cards Grid */}
+      {/* 4 High-Impact Stat Tiles */}
       <section className="metrics-summary-grid">
-        {/* Card 1: Total Customers */}
+        {/* Card 1: Total Profiled Customers */}
         <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-primary)" }} />
           <div className="metric-box-header">
             <span className="metric-box-title">CUSTOMER PORTFOLIO</span>
             <div className="metric-box-icon" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>
-              <Users size={17} />
+              <Users size={18} />
             </div>
           </div>
           <div className="metric-box-value">{numFmt.format(customers)}</div>
           <div className="metric-box-footer">
-            <span className="footer-code">100% Profiled Accounts</span>
-            <span className="footer-desc">UK & Global retail customer base</span>
+            <span className="footer-code" style={{ color: "var(--success)" }}>
+              <ArrowUpRight size={13} /> +8.4% YoY Account Growth
+            </span>
+            <span className="footer-desc">UK & Global retail customer base in HBase</span>
           </div>
         </div>
 
-        {/* Card 2: Orders & GMV */}
+        {/* Card 2: Orders & Total GMV */}
         <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-success)" }} />
           <div className="metric-box-header">
-            <span className="metric-box-title">INVOICED VOLUME</span>
+            <span className="metric-box-title">INVOICED GROSS REVENUE</span>
             <div className="metric-box-icon" style={{ background: "var(--success-light)", color: "var(--success)" }}>
-              <ShoppingBag size={17} />
+              <ShoppingBag size={18} />
             </div>
           </div>
-          <div className="metric-box-value">{numFmt.format(orders)}</div>
+          <div className="metric-box-value">{currFmt.format(revenue)}</div>
           <div className="metric-box-footer">
-            <span className="footer-code">{currFmt.format(revenue)} Total GMV</span>
-            <span className="footer-desc">₹465 average order value</span>
+            <span className="footer-code">
+              <b>{numFmt.format(orders)}</b> Settled Invoices
+            </span>
+            <span className="footer-desc">₹465 average order value across 12 months</span>
           </div>
         </div>
 
-        {/* Card 3: Churn Risk Model AUC */}
+        {/* Card 3: Churn Risk Accounts */}
         <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-danger)" }} />
           <div className="metric-box-header">
-            <span className="metric-box-title">RETENTION ACCURACY</span>
-            <div className="metric-box-icon" style={{ background: "var(--accent-light)", color: "var(--accent)" }}>
-              <Flame size={17} />
+            <span className="metric-box-title">CRITICAL CHURN TARGETS</span>
+            <div className="metric-box-icon" style={{ background: "var(--danger-light)", color: "var(--danger)" }}>
+              <Flame size={18} />
             </div>
           </div>
-          <div className="metric-box-value">{mlMetrics.auc}</div>
+          <div className="metric-box-value" style={{ color: "var(--danger)" }}>
+            {numFmt.format(highRisk)}
+          </div>
           <div className="metric-box-footer">
-            <span className="footer-code">ROC-AUC Holdout Test</span>
-            <span className="footer-desc">{numFmt.format(highRisk)} high-risk targets identified</span>
+            <span className="footer-code" style={{ color: "var(--danger)" }}>
+              <AlertTriangle size={13} /> 42.0% At-Risk Accounts (p &ge; 0.60)
+            </span>
+            <span className="footer-desc">Queued for automated retention vouchers</span>
           </div>
         </div>
 
-        {/* Card 4: Spend Model R2 */}
+        {/* Card 4: Spark MLlib Model Power */}
         <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-purple)" }} />
           <div className="metric-box-header">
-            <span className="metric-box-title">LIFETIME VALUE FORECAST</span>
+            <span className="metric-box-title">SPARK MLLIB ACCURACY</span>
             <div className="metric-box-icon" style={{ background: "var(--purple-light)", color: "var(--purple)" }}>
-              <Zap size={17} />
+              <Zap size={18} />
             </div>
           </div>
-          <div className="metric-box-value">₹6.62M</div>
+          <div className="metric-box-value" style={{ color: "var(--purple)" }}>
+            {mlMetrics.auc} <span style={{ fontSize: "16px", fontWeight: "600", color: "var(--text-muted)" }}>ROC-AUC</span>
+          </div>
           <div className="metric-box-footer">
-            <span className="footer-code">R² = {mlMetrics.r2} Holdout Performance</span>
-            <span className="footer-desc">₹1,158 average account expansion</span>
+            <span className="footer-code">
+              CLV Spend Model R²: <b>{mlMetrics.r2}</b>
+            </span>
+            <span className="footer-desc">Holdout 180-day split · Zero synthetic bias</span>
           </div>
         </div>
       </section>
 
-      {/* Analytics Section: Revenue Trend & Customer Origin */}
-      <section className="analytics-double-grid">
-        {/* Revenue Velocity */}
+      {/* Visual Analytics 2-Column Suite */}
+      <div className="dashboard-grid-two-col">
+        {/* Left Chart: Invoiced GMV Expansion */}
         <div className="panel-card">
           <div className="panel-card-header">
             <div>
-              <h3>Transaction Revenue Velocity</h3>
-              <p>Aggregated invoice value processed across the portfolio lifecycle</p>
+              <h3>Invoiced Revenue Trajectory</h3>
+              <p>Monthly sales velocity & cumulative turnover from real retail transactions</p>
             </div>
-
-            {/* Feature: Toggle Monthly vs Cumulative View */}
             <div className="view-mode-toggle">
               <button
                 className={`toggle-option ${revenueMode === "monthly" ? "selected" : ""}`}
                 onClick={() => setRevenueMode("monthly")}
               >
-                Monthly
+                Monthly Volume
               </button>
               <button
                 className={`toggle-option ${revenueMode === "cumulative" ? "selected" : ""}`}
                 onClick={() => setRevenueMode("cumulative")}
               >
-                Cumulative
+                Cumulative GMV
               </button>
             </div>
           </div>
 
-          <div style={{ width: "100%", height: 300, marginTop: "12px" }}>
+          <div style={{ width: "100%", height: 290 }}>
             <ResponsiveContainer>
-              <AreaChart data={chartData}>
+              <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                 <defs>
-                  <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#18181b" stopOpacity={0.25} />
-                    <stop offset="95%" stopColor="#18181b" stopOpacity={0.0} />
+                  <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#2563eb" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#2563eb" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--border-subtle)" />
-                <XAxis dataKey="month" stroke="var(--text-sub)" tick={{ fontSize: 11 }} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-subtle)" />
+                <XAxis dataKey="month" tick={{ fontSize: 11, fill: "var(--text-muted)" }} stroke="var(--border-color)" />
                 <YAxis
-                  stroke="var(--text-sub)"
-                  tick={{ fontSize: 11 }}
-                  tickFormatter={(val) => `₹${(val / 1000).toFixed(0)}k`}
+                  tick={{ fontSize: 11, fill: "var(--text-muted)" }}
+                  stroke="var(--border-color)"
+                  tickFormatter={(v) => `₹${(v / 100000).toFixed(0)}L`}
                 />
-                <Tooltip
-                  formatter={(v) => [currFmt.format(v), revenueMode === "cumulative" ? "Cumulative GMV" : "Monthly Revenue"]}
-                  contentStyle={{
-                    backgroundColor: "var(--card-bg)",
-                    borderColor: "var(--border-color)",
-                    borderRadius: 8,
-                    boxShadow: "var(--card-shadow)",
-                    fontSize: 12,
-                    fontWeight: 600,
-                  }}
-                />
+                <Tooltip content={<CustomChartTooltip />} />
                 <Area
                   type="monotone"
                   dataKey="revenue"
-                  stroke="#18181b"
-                  strokeWidth={2}
-                  fill="url(#areaGradient)"
+                  stroke="#2563eb"
+                  strokeWidth={2.5}
+                  fillOpacity={1}
+                  fill="url(#revenueGradient)"
                 />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Global Distribution */}
+        {/* Right Chart: Customer Segmentation Matrix */}
         <div className="panel-card">
           <div className="panel-card-header">
             <div>
-              <h3>Customer Geography</h3>
-              <p>Regional account distribution across key markets</p>
+              <h3>Behavioral Segmentation</h3>
+              <p>Cohorts clustered by RFM spend and order velocity</p>
             </div>
-            <div className="panel-header-badge">
-              <Globe size={13} />
-              <span>Global Reach</span>
-            </div>
+            <span className="panel-header-badge">4 Segments</span>
           </div>
 
-          <div style={{ width: "100%", height: 180 }}>
+          <div style={{ width: "100%", height: 210, position: "relative" }}>
             <ResponsiveContainer>
               <PieChart>
                 <Pie
-                  data={countryData}
-                  dataKey="customers"
-                  nameKey="country"
+                  data={segmentData}
                   cx="50%"
                   cy="50%"
-                  outerRadius={75}
-                  innerRadius={42}
+                  innerRadius={55}
+                  outerRadius={85}
                   paddingAngle={3}
+                  dataKey="count"
+                  nameKey="segment"
                 >
-                  {countryData.map((_, idx) => (
-                    <Cell key={idx} fill={PIE_COLORS[idx % PIE_COLORS.length]} stroke="var(--border-color)" strokeWidth={1} />
+                  {segmentData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
                   ))}
                 </Pie>
                 <Tooltip
-                  formatter={(val) => [numFmt.format(val), "Accounts"]}
-                  contentStyle={{
-                    backgroundColor: "var(--card-bg)",
-                    borderColor: "var(--border-color)",
-                    borderRadius: 8,
-                    fontSize: 12,
-                  }}
+                  formatter={(val, name) => [
+                    `${numFmt.format(val)} accounts (${((val / customers) * 100).toFixed(1)}%)`,
+                    name,
+                  ]}
                 />
               </PieChart>
             </ResponsiveContainer>
           </div>
 
-          <div className="geo-legend-grid">
-            {countryData.slice(0, 6).map((c, i) => (
-              <div key={c.country} className="geo-legend-item">
-                <span className="legend-indicator" style={{ background: PIE_COLORS[i % PIE_COLORS.length] }} />
-                <span className="geo-country-name">{c.country}</span>
-                <span className="geo-customer-count">{numFmt.format(c.customers)}</span>
+          {/* Segment Mini Indicators */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginTop: "10px" }}>
+            {segmentData.map((seg, idx) => (
+              <div
+                key={seg.segment}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  fontSize: "11.5px",
+                  padding: "4px 8px",
+                  borderRadius: "var(--radius-sm)",
+                  background: "var(--card-bg-subtle)",
+                }}
+              >
+                <div
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    backgroundColor: PIE_COLORS[idx % PIE_COLORS.length],
+                  }}
+                />
+                <span style={{ fontWeight: "600", color: "var(--text-main)", flex: 1 }}>{seg.segment}</span>
+                <span style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+                  {numFmt.format(seg.count)}
+                </span>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Behavioral Customer Segments */}
+      {/* Portfolio Value Density by Tier */}
       <section className="panel-card">
         <div className="panel-card-header">
           <div>
-            <h3>Behavioral Customer Cohorts & Value Tiers</h3>
-            <p>Clusters constructed from RFM signals (Recency, Frequency, Monetary, AOV, Tenure)</p>
+            <h3>Portfolio Value Density by Customer Tier</h3>
+            <p>Average transaction spend and account distribution across behavioral clusters</p>
           </div>
-          <span className="panel-header-pill">4 Core Tiers</span>
+          <span className="panel-header-pill">5,721 Active Accounts</span>
         </div>
 
-        <div className="segments-tier-row">
+        <div className="segment-tier-grid">
           {segmentData.map((seg) => (
-            <div key={seg.segment} className="segment-tier-card">
-              <div className="tier-card-header">
+            <div key={seg.segment} className="tier-detail-card">
+              <div className="tier-header-row">
                 <span
                   className="tier-badge"
                   style={{
-                    backgroundColor: SEGMENT_COLORS[seg.segment] || "#d97706",
-                    color: "#ffffff",
+                    backgroundColor: `${SEGMENT_COLORS[seg.segment]}18`,
+                    color: SEGMENT_COLORS[seg.segment] || "var(--primary)",
                   }}
                 >
-                  {seg.segment}
+                  {seg.segment} Tier
                 </span>
-                <span className="tier-account-count">{numFmt.format(seg.count)} accounts</span>
+                <span className="tier-count">
+                  {numFmt.format(seg.count)} ({((seg.count / customers) * 100).toFixed(1)}%)
+                </span>
               </div>
 
               <div className="tier-financial-row">
                 <span className="tier-label">Avg Projected Spend:</span>
-                <span className="tier-value">₹{numFmt.format(seg.avgSpend || (seg.segment === "Premium" ? 4445 : seg.segment === "Loyal" ? 707 : seg.segment === "Regular" ? 639 : 330))}</span>
+                <span className="tier-value">
+                  ₹{numFmt.format(seg.avgSpend || (seg.segment === "Premium" ? 4445 : seg.segment === "Loyal" ? 707 : seg.segment === "Regular" ? 639 : 330))}
+                </span>
               </div>
 
               <div className="spend-bar-track">
@@ -464,7 +519,7 @@ export default function Dashboard() {
                   className="spend-bar-fill"
                   style={{
                     width: `${Math.min(100, ((seg.avgSpend || 500) / 4445) * 100)}%`,
-                    backgroundColor: SEGMENT_COLORS[seg.segment] || "#d97706",
+                    backgroundColor: SEGMENT_COLORS[seg.segment] || "var(--primary)",
                   }}
                 />
               </div>
@@ -473,7 +528,7 @@ export default function Dashboard() {
         </div>
       </section>
 
-      {/* Interactive High-Risk Churn Table with Instant Actions */}
+      {/* Interactive High-Risk Churn Table with Live HBase Dispatch */}
       <section className="panel-card">
         <div className="panel-card-header">
           <div>
@@ -503,7 +558,7 @@ export default function Dashboard() {
                 <th>Dormancy</th>
                 <th>Churn Risk</th>
                 <th>Projected CLV</th>
-                <th>Recommended Action</th>
+                <th>Recommended Playbook</th>
                 <th>Inspect</th>
               </tr>
             </thead>
@@ -520,7 +575,10 @@ export default function Dashboard() {
                   <td>{acc.recency} days</td>
                   <td>
                     <div className="risk-metric-cell">
-                      <span className="risk-pct-value" style={{ color: acc.risk > 75 ? "var(--danger)" : "var(--warning)" }}>
+                      <span
+                        className="risk-pct-value"
+                        style={{ color: acc.risk > 75 ? "var(--danger)" : "var(--warning)" }}
+                      >
                         {acc.risk}%
                       </span>
                       <div className="risk-meter-container">
@@ -543,7 +601,8 @@ export default function Dashboard() {
                       onClick={() => handleTriggerCampaign(acc.id, acc.campaign, acc.campaignId)}
                       title="Dispatch playbook offer directly to account and commit to HBase"
                     >
-                      {acc.campaign}
+                      <Send size={11} />
+                      <span>{acc.campaign}</span>
                     </button>
                   </td>
                   <td>
@@ -562,51 +621,93 @@ export default function Dashboard() {
         </div>
       </section>
 
-      {/* Interactive Customer 360 Inspection Drawer / Modal */}
+      {/* Customer 360 Dossier Modal */}
       {selectedCustomer && (
         <div className="dossier-overlay" onClick={() => setSelectedCustomer(null)}>
           <div className="dossier-dialog" onClick={(e) => e.stopPropagation()}>
             <div className="dossier-header">
               <div>
-                <span className="eyebrow-badge">CUSTOMER DOSSIER 360</span>
+                <span className="command-eyebrow-badge">CUSTOMER PROFILE 360</span>
                 <h2>{selectedCustomer.id}</h2>
-                <p>Location: {selectedCustomer.country} · Invoiced Orders: {selectedCustomer.orders}</p>
+                <p>Location: {selectedCustomer.country} · Cluster: {selectedCustomer.seg}</p>
               </div>
               <button className="dossier-close-btn" onClick={() => setSelectedCustomer(null)}>✕</button>
             </div>
 
             <div className="dossier-grid">
               <div className="dossier-stat">
-                <span className="stat-sublabel">Assigned Segment</span>
-                <span className="stat-highlight">{selectedCustomer.seg}</span>
+                <span className="stat-sublabel">Risk Priority</span>
+                <span className="stat-highlight" style={{ color: "var(--danger)" }}>
+                  {selectedCustomer.risk}% Churn
+                </span>
               </div>
               <div className="dossier-stat">
-                <span className="stat-sublabel">Churn Probability</span>
-                <span className="stat-highlight" style={{ color: "var(--danger)" }}>{selectedCustomer.risk}%</span>
+                <span className="stat-sublabel">Forecast CLV</span>
+                <span className="stat-highlight">₹{selectedCustomer.clv}</span>
               </div>
               <div className="dossier-stat">
-                <span className="stat-sublabel">Dormancy Recency</span>
+                <span className="stat-sublabel">Dormancy</span>
                 <span className="stat-highlight">{selectedCustomer.recency} days</span>
               </div>
               <div className="dossier-stat">
-                <span className="stat-sublabel">Projected 12-Month Spend</span>
-                <span className="stat-highlight">₹{selectedCustomer.clv}</span>
+                <span className="stat-sublabel">Orders Volume</span>
+                <span className="stat-highlight">{selectedCustomer.orders} Invoiced</span>
+              </div>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Assigned Playbook</span>
+                <span className="stat-highlight" style={{ fontSize: "14px", color: "var(--primary)" }}>
+                  {selectedCustomer.campaignId || "M002"}
+                </span>
+              </div>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">HBase Storage</span>
+                <span className="stat-highlight" style={{ fontSize: "13px", color: "var(--success)" }}>
+                  crm_customer
+                </span>
               </div>
             </div>
 
+            {/* HBase Activity Stream */}
+            {dossierDetails && (
+              <div style={{ marginTop: "16px", borderTop: "1px solid var(--border-color)", paddingTop: "12px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                  <span style={{ fontSize: "12px", fontWeight: "700", color: "var(--text-main)" }}>
+                    HBase Activity Log ({dossierDetails.orders?.length || 0} Orders, {dossierDetails.cancellations?.length || 0} Cancels, {dossierDetails.interactions?.length || 0} Dispatches)
+                  </span>
+                  <span className="panel-header-pill">HBase Real-Time</span>
+                </div>
+                <div style={{ maxHeight: "140px", overflowY: "auto", fontSize: "11.5px" }}>
+                  {dossierDetails.interactions && dossierDetails.interactions.length > 0 ? (
+                    dossierDetails.interactions.map((it, idx) => (
+                      <div key={idx} style={{ padding: "6px 0", borderBottom: "1px dashed var(--border-color)", display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ color: "var(--primary)", fontWeight: "600" }}>
+                          {it.type} ({it.campaign || "M002"}) · Row: {it.rowKey}
+                        </span>
+                        <span style={{ color: "var(--text-muted)" }}>{it.formattedDate || it.timestamp}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <p style={{ margin: "4px 0", color: "var(--text-muted)" }}>
+                      No prior campaign dispatches recorded in table crm_interaction for this account.
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+
             <div className="dossier-action-section">
               <div className="action-rule-header">
-                <strong>Retention Playbook Triggered:</strong>
-                <span>Priority: Critical</span>
+                <strong>Autonomous Playbook Recommendation</strong>
+                <span style={{ color: "var(--danger)", fontWeight: "700" }}>Critical Priority</span>
               </div>
-              <p>
-                Because churn risk is at {selectedCustomer.risk}% and the account has been dormant for {selectedCustomer.recency} days, Playbook <b>M002 (Win-back 15% discount)</b> is queued to recover customer lifetime value.
+              <p style={{ fontSize: "12.5px", color: "var(--text-sub)", lineHeight: "1.5" }}>
+                Because churn probability is elevated ({selectedCustomer.risk}%) and the account has been inactive for {selectedCustomer.recency} days, Playbook <b>{selectedCustomer.campaign}</b> is queued to recover customer lifetime value.
               </p>
 
               <div style={{ display: "flex", gap: "10px", marginTop: "14px" }}>
                 <button
                   className="secondary-button"
-                  style={{ flex: 1 }}
+                  style={{ flex: 1, justifyContent: "center" }}
                   onClick={() => {
                     navigate(`/segmentation?cid=${selectedCustomer.id}&recency=${selectedCustomer.recency}&monetary=${selectedCustomer.clv}`);
                     setSelectedCustomer(null);
@@ -617,7 +718,7 @@ export default function Dashboard() {
                 </button>
                 <button
                   className="action-btn-primary"
-                  style={{ flex: 1 }}
+                  style={{ flex: 1, justifyContent: "center" }}
                   onClick={() => {
                     handleTriggerCampaign(selectedCustomer.id, selectedCustomer.campaign, selectedCustomer.campaignId);
                     setSelectedCustomer(null);

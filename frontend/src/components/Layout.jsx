@@ -50,7 +50,7 @@ export default function Layout() {
 
         <footer className="app-footer">
           <div className="footer-left">
-            <span><b>Aura 360</b> · Autonomous Customer Retention & Value Optimization</span>
+            <span><b>HBase CRM</b> · Autonomous Big Data Customer Intelligence & Retail Analytics</span>
             <span className="dot-divider">•</span>
             <span>Real UK Retail Transactions · Zero Synthetic Labels · Real-Time Intelligence</span>
           </div>

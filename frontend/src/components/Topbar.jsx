@@ -32,7 +32,7 @@ export default function Topbar({ theme, setTheme, onSyncSuccess, onOpenPalette }
           <div className="brand-logo-icon">
             <Sparkles size={15} />
           </div>
-          <span className="brand-name">AURA 360</span>
+          <span className="brand-name">HBASE CRM</span>
           <span className="brand-separator">/</span>
           <span className="brand-sub">INTELLIGENCE</span>
         </div>
