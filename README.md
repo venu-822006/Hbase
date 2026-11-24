@@ -177,6 +177,8 @@ The project includes an empirical research benchmark suite (`benchmark/run_resea
 | **Spark MLlib Real-Time Inference** | $p50 < 0.1\text{ ms}, p99 < 1.0\text{ ms}$ | $138,889.7\text{ ops/sec}$ | $0.0047\text{ ms} / 0.0456\text{ ms}$ | **PASS** |
 | **MLlib Vectorized Batch Scoring** | $> 50,000\text{ records/sec}$ | $2,771,415.7\text{ ops/sec}$ | Vectorized ($18\text{ ms / 50k}$) | **PASS** |
 
+👉 **Full Academic Research Comparison**: [RESEARCH_PAPER_COMPARISON.md](RESEARCH_PAPER_COMPARISON.md) *(Comparative study vs. YCSB/Cooper et al., Coussement & Van den Poel, Verbeke et al., and Marz & Warren Lambda Architecture)*.
+
 ---
 
 ## 8. Preparation & Viva Defense Guide
