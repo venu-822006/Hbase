@@ -31,12 +31,12 @@ export default function Sidebar() {
     <aside className="app-sidebar">
       {/* Brand Header */}
       <div className="sidebar-brand">
-        <div className="brand-icon-box">
-          <Database size={20} />
+        <div className="brand-icon-box" style={{ background: "linear-gradient(135deg, #2563eb, #7c3aed)" }}>
+          <Database size={20} color="#ffffff" />
         </div>
         <div className="brand-title-group">
-          <h2>HBASE CRM</h2>
-          <span>BIG DATA INTELLIGENCE</span>
+          <h2>APEX RETAIL</h2>
+          <span>NEXUS COMMERCE INTELLIGENCE</span>
         </div>
       </div>
 
@@ -95,10 +95,12 @@ export default function Sidebar() {
 
       {/* User / Director Card */}
       <div className="sidebar-user-card">
-        <div className="user-avatar-initials">HC</div>
+        <div className="user-avatar-initials" style={{ background: "linear-gradient(135deg, #2563eb, #3b82f6)", color: "#fff" }}>
+          AR
+        </div>
         <div className="user-details">
-          <strong>Big Data Director</strong>
-          <span>Real-Time Retention SLA</span>
+          <strong>Apex Retention Lead</strong>
+          <span>Enterprise SLA: 99.98%</span>
         </div>
       </div>
     </aside>

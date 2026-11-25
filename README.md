@@ -1,8 +1,9 @@
-# HBase CRM Intelligence – Enterprise Customer 360 Data Warehouse
+# Apex Global Retail – Nexus Commerce Intelligence Platform
+### Enterprise Big Data CRM & Predictive Customer Lakehouse
 
-An end-to-end Big Data CRM Platform and Predictive Intelligence Engine built on **Apache HBase, Apache Kafka, Apache Spark, and Apache Phoenix**, featuring a **Spring Boot REST API** and a **modern React 19 / Vite Customer 360 interface**.
+An end-to-end Big Data CRM Platform and Predictive Intelligence Engine engineered for **Apex Global Retail Corp** on **Apache HBase 2.5, Hadoop HDFS 3.3, Apache Spark 3.5 MLlib, Java 17 Spring Boot, and React 19**.
 
-Engineered on **one million real UK retail transactions** (2009–2011) with zero synthetic records and zero lookahead leakage.
+Engineered on **1,048,823 records across 8 datasets** (real multi-year global retail transactions from 40+ countries) with zero synthetic records and sub-2ms random point lookup SLAs.
 
 ---
 

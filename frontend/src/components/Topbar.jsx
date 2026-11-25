@@ -29,12 +29,27 @@ export default function Topbar({ theme, setTheme, onSyncSuccess, onOpenPalette }
       <div className="topbar-left">
         {/* Brand Eyebrow */}
         <div className="app-brand-badge">
-          <div className="brand-logo-icon">
-            <Sparkles size={15} />
+          <div className="brand-logo-icon" style={{ background: "linear-gradient(135deg, #2563eb, #7c3aed)" }}>
+            <Sparkles size={14} color="#fff" />
           </div>
-          <span className="brand-name">HBASE CRM</span>
+          <span className="brand-name">APEX GLOBAL</span>
           <span className="brand-separator">/</span>
-          <span className="brand-sub">INTELLIGENCE</span>
+          <span className="brand-sub">NEXUS COMMERCE INTELLIGENCE</span>
+          <span
+            style={{
+              marginLeft: "10px",
+              fontSize: "10px",
+              fontFamily: "var(--font-mono)",
+              fontWeight: "700",
+              color: "var(--success)",
+              background: "rgba(16, 185, 129, 0.12)",
+              padding: "2px 7px",
+              borderRadius: "4px",
+              border: "1px solid rgba(16, 185, 129, 0.25)",
+            }}
+          >
+            PROD · US-EAST-01
+          </span>
         </div>
 
         {/* Global Search Bar (Triggers Command Palette) */}

@@ -126,7 +126,7 @@ export default function ProductsPage() {
       {/* Header */}
       <div className="panel-card-header" style={{ marginBottom: "22px" }}>
         <div>
-          <span className="eyebrow-badge">BIG DATA MERCHANDISE REPOSITORY</span>
+          <span className="eyebrow-badge">APEX COMMERCE · BIG DATA MERCHANDISE REPOSITORY</span>
           <h1 className="hero-heading" style={{ fontSize: "28px", marginTop: "4px" }}>
             Product Catalog & SKU Intelligence
           </h1>

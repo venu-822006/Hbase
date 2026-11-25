@@ -123,7 +123,7 @@ export default function CampaignsPage() {
       {/* Header */}
       <div className="panel-card-header" style={{ marginBottom: "22px" }}>
         <div>
-          <span className="eyebrow-badge">RETENTION & CAMPAIGN PLAYBOOKS</span>
+          <span className="eyebrow-badge">APEX COMMERCE · RETENTION & CAMPAIGN PLAYBOOKS</span>
           <h1 className="hero-heading" style={{ fontSize: "28px", marginTop: "4px" }}>
             Automated Outreach & Retention Engine
           </h1>

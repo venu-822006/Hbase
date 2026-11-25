@@ -217,22 +217,22 @@ export default function Dashboard() {
       <section className="executive-command-header">
         <div className="command-header-left">
           <div className="command-eyebrow">
-            <span className="command-eyebrow-badge">APACHE HBASE 2.5 • SPARK MLLIB</span>
-            <span className="command-meta-sub">• LIVE DISTRIBUTED DATA WAREHOUSE</span>
+            <span className="command-eyebrow-badge">APEX GLOBAL RETAIL · ENTERPRISE LAKEHOUSE</span>
+            <span className="command-meta-sub">• HBASE 2.5 NOSQL & SPARK MLLIB 3.5</span>
           </div>
 
           <h1 className="command-title">
-            Customer 360 & <em>Predictive Lifetime Intelligence</em>
+            Apex Commerce 360 & <em>Predictive Lifetime Intelligence</em>
           </h1>
 
           <div className="command-subtitle">
             <span className="command-subtitle-tag">
               <Database size={13} color="var(--primary)" />
-              <b>5,721</b> Profiles in HBase
+              <b>5,721</b> Global Accounts
             </span>
             <span className="command-subtitle-tag">
               <Zap size={13} color="var(--success)" />
-              <b>&lt; 1ms</b> Spark ML Scoring
+              <b>&lt; 1ms</b> Real-Time Scoring
             </span>
             <span className="command-subtitle-tag">
               <Activity size={13} color="var(--accent)" />
@@ -240,7 +240,7 @@ export default function Dashboard() {
             </span>
             <span className="command-subtitle-tag">
               <ShieldCheck size={13} color="var(--warning)" />
-              <b>180-Day</b> Holdout Evaluated
+              <b>99.98%</b> Enterprise SLA
             </span>
           </div>
         </div>

@@ -143,7 +143,7 @@ export default function WarehousePage() {
       {/* Header */}
       <div className="panel-card-header" style={{ marginBottom: "22px" }}>
         <div>
-          <span className="eyebrow-badge">BIG DATA PLATFORM & STORAGE ARCHITECTURE</span>
+          <span className="eyebrow-badge">APEX LAKEHOUSE · BIG DATA PLATFORM & STORAGE ARCHITECTURE</span>
           <h1 className="hero-heading" style={{ fontSize: "28px", marginTop: "4px" }}>
             Data Warehouse & Storage Lineage
           </h1>

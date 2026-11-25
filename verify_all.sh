@@ -11,7 +11,7 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 echo -e "${BLUE}==============================================================================${NC}"
-echo -e "${BLUE}  HBase CRM Intelligence MVP - System & Pipeline Verification Report        ${NC}"
+echo -e "${BLUE}  Apex Global Retail – Nexus Commerce Intelligence Pipeline Report           ${NC}"
 echo -e "${BLUE}==============================================================================${NC}"
 echo ""
 

@@ -159,7 +159,7 @@ export default function CustomersPage() {
       {/* Module Header */}
       <div className="panel-card-header" style={{ marginBottom: "22px" }}>
         <div>
-          <span className="eyebrow-badge">CUSTOMER INTELLIGENCE 360</span>
+          <span className="eyebrow-badge">APEX COMMERCE · CUSTOMER INTELLIGENCE 360</span>
           <h1 className="hero-heading" style={{ fontSize: "28px", marginTop: "4px" }}>Customer Directory</h1>
           <p className="hero-paragraph" style={{ marginBottom: "0" }}>
             Comprehensive account directory with real-time churn risk probabilities, lifetime spend forecasts, and autonomous engagement playbooks.

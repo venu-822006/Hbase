@@ -151,7 +151,7 @@ export default function SegmentationPage() {
       {/* Header */}
       <div className="panel-card-header" style={{ marginBottom: "22px" }}>
         <div>
-          <span className="eyebrow-badge">PREDICTIVE INTELLIGENCE & SCENARIO STUDIO</span>
+          <span className="eyebrow-badge">APEX AI · PREDICTIVE INTELLIGENCE & SCENARIO STUDIO</span>
           <h1 className="hero-heading" style={{ fontSize: "28px", marginTop: "4px" }}>
             Customer Trajectory & <em>What-If Simulator</em>
           </h1>
