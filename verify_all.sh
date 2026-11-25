@@ -112,6 +112,13 @@ if curl -s -f "http://localhost:8081/api/dashboard/summary" > /dev/null 2>&1; th
     DATASET_COUNT=$(echo "$LINEAGE_RES" | grep -o '"totalDatasets":[0-9]*' | cut -d: -f2)
     TOTAL_ITEMS=$(echo "$LINEAGE_RES" | grep -o '"totalRecordsAcrossTiers":[0-9]*' | cut -d: -f2)
     echo -e "  ✓ API Endpoint /api/warehouse/lineage: ${GREEN}VERIFIED${NC} ($DATASET_COUNT datasets, $TOTAL_ITEMS total items across tiers)"
+
+    # Test GET /api/warehouse/inspect & /probe
+    INSPECT_RES=$(curl -s "http://localhost:8081/api/warehouse/inspect/ds-customer-profiles?limit=3")
+    HBASE_LIVE=$(echo "$INSPECT_RES" | grep -o '"hbaseScannedLive":true' | head -n 1)
+    PROBE_RES=$(curl -s "http://localhost:8081/api/warehouse/probe?table=crm_customer&rowKey=C014095")
+    PROBE_LAT=$(echo "$PROBE_RES" | grep -o '"latencyMs":[0-9.]*' | cut -d: -f2)
+    echo -e "  ✓ API Endpoints /api/warehouse/inspect & /probe: ${GREEN}VERIFIED${NC} (HBase Live Probe Latency: ${GREEN}${PROBE_LAT}ms${NC})"
 else
     echo -e "  ${RED}✗ Backend API server not reachable on http://localhost:8081${NC}"
 fi

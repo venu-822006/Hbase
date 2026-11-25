@@ -365,6 +365,30 @@ const api = {
     }
   },
 
+  inspectWarehouseDataset: async (datasetId, limit = 12) => {
+    try {
+      const res = await axiosInstance.get(`/warehouse/inspect/${encodeURIComponent(datasetId)}`, {
+        params: { limit },
+      });
+      return res.data;
+    } catch (err) {
+      console.warn(`Failed to inspect dataset ${datasetId}:`, err);
+      return null;
+    }
+  },
+
+  probeHBaseRow: async (table, rowKey) => {
+    try {
+      const res = await axiosInstance.get("/warehouse/probe", {
+        params: { table, rowKey },
+      });
+      return res.data;
+    } catch (err) {
+      console.warn("Failed to probe HBase row:", err);
+      return null;
+    }
+  },
+
   predictMlReport: async (params) => {
     try {
       const res = await axiosInstance.post("/ml/report", params);

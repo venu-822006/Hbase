@@ -1,7 +1,10 @@
 package crm.api.service;
 
+import org.apache.hadoop.hbase.Cell;
+import org.apache.hadoop.hbase.CellUtil;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.filter.PrefixFilter;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -659,11 +662,11 @@ public class CrmDataRepository {
         d4.put("id", "ds-cancellations-friction");
         d4.put("name", "Returns & Cancellation Friction");
         d4.put("tier", "Silver / Fact");
-        d4.put("storage", "Apache HBase (crm_interaction) + HDFS (/crm/data/clean/cancellations.csv)");
+        d4.put("storage", "Apache HBase (crm_cancellations) + HDFS (/crm/data/clean/cancellations.csv)");
         d4.put("recordCount", (long) cancellationsCache.size());
         d4.put("size", "267 KB");
-        d4.put("format", "HBase Column Family: activity");
-        d4.put("schema", "cid_timestamp_invoice [RowKey], activity:type, activity:amount, activity:cid, activity:ts14, activity:invoice");
+        d4.put("format", "HBase Column Family: info");
+        d4.put("schema", "cid#timestamp#invoice [RowKey], info:cid, info:ts14, info:invoice, info:amount");
         d4.put("description", "Negative transaction return events and friction telemetry utilized in customer churn modeling.");
         datasets.add(d4);
 
@@ -729,5 +732,346 @@ public class CrmDataRepository {
         lineage.put("totalStorageEstimate", "175.4 MB");
 
         return lineage;
+    }
+
+    /**
+     * Live Warehouse Dataset Inspector: fetches real schema definitions, storage probes,
+     * and authentic sample rows directly from HBase tables or staged HDFS/CSV artifacts.
+     */
+    public Map<String, Object> inspectDataset(String datasetId, int limit) {
+        ensureInitialized();
+        long startNs = System.nanoTime();
+        int safeLimit = Math.max(1, Math.min(limit, 30));
+
+        Map<String, Object> lineage = getWarehouseLineage();
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> allDatasets = (List<Map<String, Object>>) lineage.get("datasets");
+        Map<String, Object> meta = allDatasets.stream()
+                .filter(d -> datasetId.equals(d.get("id")))
+                .findFirst()
+                .orElse(null);
+
+        if (meta == null) {
+            return Map.of("error", "Unknown dataset ID: " + datasetId);
+        }
+
+        List<Map<String, Object>> sampleRows = new ArrayList<>();
+        List<String> headers = new ArrayList<>();
+        String sourceEngine = "Local Cache / CSV";
+        String hbaseTable = null;
+        boolean hbaseScanned = false;
+
+        switch (datasetId) {
+            case "ds-raw-transactions": {
+                sourceEngine = "Raw Multi-Year CSV / HDFS Staging (/crm/data/raw/online_retail.csv)";
+                Path rawPath = resolveDataPath("raw/online_retail.csv");
+                if (Files.exists(rawPath)) {
+                    try (BufferedReader br = Files.newBufferedReader(rawPath, StandardCharsets.UTF_8)) {
+                        String hdr = br.readLine();
+                        if (hdr != null) {
+                            headers.addAll(parseCsvLine(hdr.replace("\uFEFF", "")));
+                        }
+                        String line;
+                        while (sampleRows.size() < safeLimit && (line = br.readLine()) != null) {
+                            if (line.isBlank()) continue;
+                            List<String> vals = parseCsvLine(line);
+                            Map<String, Object> row = new LinkedHashMap<>();
+                            for (int i = 0; i < headers.size() && i < vals.size(); i++) {
+                                row.put(headers.get(i), vals.get(i));
+                            }
+                            sampleRows.add(row);
+                        }
+                    } catch (Exception e) {
+                        log.warn("Error inspecting raw/online_retail.csv: {}", e.getMessage());
+                    }
+                }
+                break;
+            }
+            case "ds-customer-profiles": {
+                hbaseTable = "crm_customer";
+                headers.addAll(Arrays.asList("rowKey (cid)", "profile:country", "profile:first_order_date", "ml:segment", "ml:churn_prob", "ml:clv_pred"));
+                if (isHBaseAvailable()) {
+                    try (Table t = hbaseConnection.getTable(TableName.valueOf("crm_customer"))) {
+                        Scan scan = new Scan().setLimit(safeLimit);
+                        try (ResultScanner scanner = t.getScanner(scan)) {
+                            for (Result r : scanner) {
+                                Map<String, Object> row = new LinkedHashMap<>();
+                                row.put("rowKey (cid)", Bytes.toString(r.getRow()));
+                                row.put("profile:country", valStr(r, "profile", "country"));
+                                row.put("profile:first_order_date", valStr(r, "profile", "first_order_date"));
+                                row.put("ml:segment", valStr(r, "ml", "segment"));
+                                row.put("ml:churn_prob", valStr(r, "ml", "churn_prob"));
+                                row.put("ml:clv_pred", valStr(r, "ml", "clv_pred"));
+                                sampleRows.add(row);
+                            }
+                            hbaseScanned = true;
+                            sourceEngine = "Live Apache HBase RegionServer Scan (crm_customer)";
+                        }
+                    } catch (Exception e) {
+                        log.warn("Fallback inspection for crm_customer: {}", e.getMessage());
+                    }
+                }
+                if (sampleRows.isEmpty()) {
+                    customerCache.values().stream().limit(safeLimit).forEach(c -> {
+                        Map<String, Object> row = new LinkedHashMap<>();
+                        row.put("rowKey (cid)", c.get("cid"));
+                        row.put("profile:country", c.get("country"));
+                        row.put("profile:first_order_date", c.get("firstOrderDate"));
+                        row.put("ml:segment", c.get("segment"));
+                        row.put("ml:churn_prob", c.get("churnProb"));
+                        row.put("ml:clv_pred", c.get("clvPred"));
+                        sampleRows.add(row);
+                    });
+                }
+                break;
+            }
+            case "ds-orders-facts": {
+                hbaseTable = "crm_orders";
+                headers.addAll(Arrays.asList("rowKey", "info:cid", "info:ts14", "info:invoice", "info:amount", "info:items"));
+                if (isHBaseAvailable()) {
+                    try (Table t = hbaseConnection.getTable(TableName.valueOf("crm_orders"))) {
+                        Scan scan = new Scan().setLimit(safeLimit);
+                        try (ResultScanner scanner = t.getScanner(scan)) {
+                            for (Result r : scanner) {
+                                Map<String, Object> row = new LinkedHashMap<>();
+                                row.put("rowKey", Bytes.toString(r.getRow()));
+                                row.put("info:cid", valStr(r, "info", "cid"));
+                                row.put("info:ts14", valStr(r, "info", "ts14"));
+                                row.put("info:invoice", valStr(r, "info", "invoice"));
+                                row.put("info:amount", valStr(r, "info", "amount"));
+                                row.put("info:items", valStr(r, "info", "items"));
+                                sampleRows.add(row);
+                            }
+                            hbaseScanned = true;
+                            sourceEngine = "Live Apache HBase RegionServer Scan (crm_orders)";
+                        }
+                    } catch (Exception ignored) {}
+                }
+                if (sampleRows.isEmpty()) {
+                    ordersCache.stream().limit(safeLimit).forEach(o -> {
+                        Map<String, Object> row = new LinkedHashMap<>();
+                        row.put("rowKey", o.get("cid") + "_" + o.get("ts14") + "_" + o.get("invoice"));
+                        row.put("info:cid", o.get("cid"));
+                        row.put("info:ts14", o.get("ts14"));
+                        row.put("info:invoice", o.get("invoice"));
+                        row.put("info:amount", o.get("amount"));
+                        row.put("info:items", o.get("items"));
+                        sampleRows.add(row);
+                    });
+                }
+                break;
+            }
+            case "ds-cancellations-friction": {
+                hbaseTable = "crm_cancellations";
+                headers.addAll(Arrays.asList("rowKey", "info:cid", "info:ts14", "info:invoice", "info:amount"));
+                if (isHBaseAvailable()) {
+                    try (Table t = hbaseConnection.getTable(TableName.valueOf("crm_cancellations"))) {
+                        Scan scan = new Scan().setLimit(safeLimit);
+                        try (ResultScanner scanner = t.getScanner(scan)) {
+                            for (Result r : scanner) {
+                                Map<String, Object> row = new LinkedHashMap<>();
+                                row.put("rowKey", Bytes.toString(r.getRow()));
+                                row.put("info:cid", valStr(r, "info", "cid"));
+                                row.put("info:ts14", valStr(r, "info", "ts14"));
+                                row.put("info:invoice", valStr(r, "info", "invoice"));
+                                row.put("info:amount", valStr(r, "info", "amount"));
+                                sampleRows.add(row);
+                            }
+                            hbaseScanned = true;
+                            sourceEngine = "Live Apache HBase RegionServer Scan (crm_cancellations)";
+                        }
+                    } catch (Exception ignored) {}
+                }
+                if (sampleRows.isEmpty()) {
+                    cancellationsCache.stream().limit(safeLimit).forEach(c -> {
+                        Map<String, Object> row = new LinkedHashMap<>();
+                        row.put("rowKey", c.get("cid") + "_" + c.get("ts14") + "_" + c.get("invoice"));
+                        row.put("info:cid", c.get("cid"));
+                        row.put("info:ts14", c.get("ts14"));
+                        row.put("info:invoice", c.get("invoice"));
+                        row.put("info:amount", c.get("amount"));
+                        sampleRows.add(row);
+                    });
+                }
+                break;
+            }
+            case "ds-products-catalog": {
+                sourceEngine = "HDFS (/crm/data/clean/products.csv) + In-Memory Catalog Index";
+                headers.addAll(Arrays.asList("stockCode", "description", "category", "avgPrice", "unitsSold", "totalRevenue", "cancellationRate"));
+                productsCache.stream().limit(safeLimit).forEach(p -> {
+                    Map<String, Object> row = new LinkedHashMap<>();
+                    headers.forEach(h -> row.put(h, p.get(h)));
+                    sampleRows.add(row);
+                });
+                break;
+            }
+            case "ds-campaign-playbooks": {
+                hbaseTable = "crm_campaign";
+                headers.addAll(Arrays.asList("rowKey (id)", "detail:name", "detail:channel", "detail:rule"));
+                if (isHBaseAvailable()) {
+                    try (Table t = hbaseConnection.getTable(TableName.valueOf("crm_campaign"))) {
+                        Scan scan = new Scan().setLimit(safeLimit);
+                        try (ResultScanner scanner = t.getScanner(scan)) {
+                            for (Result r : scanner) {
+                                Map<String, Object> row = new LinkedHashMap<>();
+                                row.put("rowKey (id)", Bytes.toString(r.getRow()));
+                                row.put("detail:name", valStr(r, "detail", "name"));
+                                row.put("detail:channel", valStr(r, "detail", "channel"));
+                                row.put("detail:rule", valStr(r, "detail", "rule"));
+                                sampleRows.add(row);
+                            }
+                            hbaseScanned = true;
+                            sourceEngine = "Live Apache HBase RegionServer Scan (crm_campaign)";
+                        }
+                    } catch (Exception ignored) {}
+                }
+                if (sampleRows.isEmpty()) {
+                    campaignsCache.stream().limit(safeLimit).forEach(c -> {
+                        Map<String, Object> row = new LinkedHashMap<>();
+                        row.put("rowKey (id)", c.get("id"));
+                        row.put("detail:name", c.get("name"));
+                        row.put("detail:channel", c.get("channel"));
+                        row.put("detail:rule", c.get("rule"));
+                        sampleRows.add(row);
+                    });
+                }
+                break;
+            }
+            case "ds-interactions-log": {
+                hbaseTable = "crm_interaction";
+                headers.addAll(Arrays.asList("rowKey", "activity:type", "activity:campaign", "activity:channel", "activity:status", "activity:notes"));
+                if (isHBaseAvailable()) {
+                    try (Table t = hbaseConnection.getTable(TableName.valueOf("crm_interaction"))) {
+                        Scan scan = new Scan().setLimit(safeLimit);
+                        try (ResultScanner scanner = t.getScanner(scan)) {
+                            for (Result r : scanner) {
+                                Map<String, Object> row = new LinkedHashMap<>();
+                                row.put("rowKey", Bytes.toString(r.getRow()));
+                                row.put("activity:type", valStr(r, "activity", "type"));
+                                row.put("activity:campaign", valStr(r, "activity", "campaign"));
+                                row.put("activity:channel", valStr(r, "activity", "channel"));
+                                row.put("activity:status", valStr(r, "activity", "status"));
+                                row.put("activity:notes", valStr(r, "activity", "notes"));
+                                sampleRows.add(row);
+                            }
+                            hbaseScanned = true;
+                            sourceEngine = "Live Apache HBase RegionServer Scan (crm_interaction)";
+                        }
+                    } catch (Exception ignored) {}
+                }
+                if (sampleRows.isEmpty()) {
+                    interactionsCache.stream().limit(safeLimit).forEach(it -> {
+                        Map<String, Object> row = new LinkedHashMap<>();
+                        row.put("rowKey", it.get("rowKey"));
+                        row.put("activity:type", it.get("type"));
+                        row.put("activity:campaign", it.get("campaign"));
+                        row.put("activity:channel", it.get("channel"));
+                        row.put("activity:status", it.get("status"));
+                        row.put("activity:notes", it.get("notes"));
+                        sampleRows.add(row);
+                    });
+                }
+                break;
+            }
+            case "ds-mllib-evaluations": {
+                sourceEngine = "Spark MLlib Scored Artifacts (data/results.csv)";
+                headers.addAll(Arrays.asList("cid", "country", "segment", "churnProb", "clvPred", "recency", "frequency", "monetary", "cancellations"));
+                customerCache.values().stream().limit(safeLimit).forEach(c -> {
+                    Map<String, Object> row = new LinkedHashMap<>();
+                    headers.forEach(h -> row.put(h, c.get(h)));
+                    sampleRows.add(row);
+                });
+                break;
+            }
+        }
+
+        double latencyMs = Math.round(((System.nanoTime() - startNs) / 1_000_000.0) * 100.0) / 100.0;
+
+        Map<String, Object> res = new LinkedHashMap<>();
+        res.put("metadata", meta);
+        res.put("sourceEngine", sourceEngine);
+        res.put("hbaseTable", hbaseTable);
+        res.put("hbaseScannedLive", hbaseScanned);
+        res.put("queryLatencyMs", latencyMs);
+        res.put("headers", headers);
+        res.put("sampleRows", sampleRows);
+        return res;
+    }
+
+    /**
+     * Execute a live native HBase RowKey Get or Prefix Scan against the cluster.
+     */
+    public Map<String, Object> probeHBaseRow(String tableName, String rowKeyOrPrefix) {
+        Map<String, Object> out = new LinkedHashMap<>();
+        out.put("table", tableName);
+        out.put("queryKey", rowKeyOrPrefix);
+
+        if (!isHBaseAvailable()) {
+            out.put("status", "OFFLINE");
+            out.put("error", "HBase connection unavailable");
+            return out;
+        }
+
+        long startNs = System.nanoTime();
+        List<Map<String, Object>> cells = new ArrayList<>();
+        Set<String> matchedRowKeys = new LinkedHashSet<>();
+
+        try (Admin admin = hbaseConnection.getAdmin()) {
+            TableName tn = TableName.valueOf(tableName);
+            if (!admin.tableExists(tn)) {
+                out.put("status", "NOT_FOUND");
+                out.put("error", "HBase table '" + tableName + "' does not exist");
+                return out;
+            }
+
+            try (Table table = hbaseConnection.getTable(tn)) {
+                // 1. Exact point Get first
+                Result exact = table.get(new Get(Bytes.toBytes(rowKeyOrPrefix)));
+                if (!exact.isEmpty()) {
+                    collectCells(exact, cells, matchedRowKeys);
+                    out.put("lookupMode", "Exact Point Get (HBase.get)");
+                } else {
+                    // 2. Fallback to Prefix Scan (useful for composite rowkeys starting with C014095)
+                    Scan scan = new Scan();
+                    scan.setFilter(new PrefixFilter(Bytes.toBytes(rowKeyOrPrefix)));
+                    scan.setLimit(15);
+                    try (ResultScanner scanner = table.getScanner(scan)) {
+                        for (Result r : scanner) {
+                            collectCells(r, cells, matchedRowKeys);
+                        }
+                    }
+                    out.put("lookupMode", "Prefix Range Scan (PrefixFilter)");
+                }
+            }
+            double latencyMs = Math.round(((System.nanoTime() - startNs) / 1_000_000.0) * 100.0) / 100.0;
+            out.put("status", cells.isEmpty() ? "NO_MATCH" : "OK");
+            out.put("latencyMs", latencyMs);
+            out.put("matchedRowCount", matchedRowKeys.size());
+            out.put("matchedRowKeys", matchedRowKeys);
+            out.put("cells", cells);
+        } catch (Exception e) {
+            out.put("status", "ERROR");
+            out.put("error", e.getMessage());
+        }
+        return out;
+    }
+
+    private void collectCells(Result r, List<Map<String, Object>> cells, Set<String> matchedRowKeys) {
+        String rk = Bytes.toString(r.getRow());
+        if (rk != null) matchedRowKeys.add(rk);
+        for (Cell cell : r.rawCells()) {
+            Map<String, Object> c = new LinkedHashMap<>();
+            c.put("rowKey", rk);
+            c.put("family", Bytes.toString(CellUtil.cloneFamily(cell)));
+            c.put("qualifier", Bytes.toString(CellUtil.cloneQualifier(cell)));
+            c.put("value", Bytes.toString(CellUtil.cloneValue(cell)));
+            c.put("timestamp", cell.getTimestamp());
+            cells.add(c);
+        }
+    }
+
+    private String valStr(Result r, String cf, String col) {
+        byte[] b = r.getValue(Bytes.toBytes(cf), Bytes.toBytes(col));
+        return b != null ? Bytes.toString(b) : "—";
     }
 }
