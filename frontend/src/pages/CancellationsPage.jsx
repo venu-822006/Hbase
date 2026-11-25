@@ -9,10 +9,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ShieldAlert,
-  DollarSign,
   User,
-  X,
-  ExternalLink,
 } from "lucide-react";
 import api from "../services/api";
 
@@ -25,6 +22,7 @@ const currFmt = new Intl.NumberFormat("en-IN", {
 export default function CancellationsPage() {
   const navigate = useNavigate();
   const [cancels, setCancels] = useState([]);
+  const [stats, setStats] = useState(null);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [pageSize] = useState(25);
@@ -32,6 +30,12 @@ export default function CancellationsPage() {
   const [totalElements, setTotalElements] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedCancel, setSelectedCancel] = useState(null);
+
+  useEffect(() => {
+    api.getCancellationStats().then((res) => {
+      if (res) setStats(res);
+    });
+  }, []);
 
   useEffect(() => {
     const fetchCancels = async () => {
@@ -49,7 +53,7 @@ export default function CancellationsPage() {
       setLoading(false);
     };
 
-    const timer = setTimeout(fetchCancels, 150);
+    const timer = setTimeout(fetchCancels, 120);
     return () => clearTimeout(timer);
   }, [page, pageSize, search]);
 
@@ -64,8 +68,7 @@ export default function CancellationsPage() {
         `"${c.reason || "Customer return / cancellation"}"`,
       ].join(",")
     );
-    const csvContent =
-      "data:text/csv;charset=utf-8," + [headers.join(","), ...rows].join("\n");
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows].join("\n");
     const link = document.createElement("a");
     link.setAttribute("href", encodeURI(csvContent));
     link.setAttribute("download", `apex_returns_page_${page + 1}.csv`);
@@ -80,89 +83,87 @@ export default function CancellationsPage() {
         <div>
           <span className="eyebrow-badge">APEX COMMERCE · FRICTION TELEMETRY</span>
           <h1 className="hero-heading" style={{ fontSize: "28px", marginTop: "4px" }}>
-            Returns & Cancellation Analytics
+            Returns &amp; <em>Cancellation Analytics</em>
           </h1>
-          <p className="hero-paragraph" style={{ marginBottom: "0" }}>
-            7,517 customer return signals and cancellation events analyzed to model early churn risk and negative friction patterns.
+          <p className="hero-paragraph" style={{ marginBottom: 0 }}>
+            {(stats?.totalCancellations || 7517).toLocaleString()} customer return signals and cancellation events analyzed to model early churn risk indicators.
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-          <button className="secondary-button" onClick={handleExport}>
-            <Download size={14} />
-            <span>Export View CSV</span>
-          </button>
-        </div>
+        <button className="secondary-button" onClick={handleExport}>
+          <Download size={14} />
+          <span>Export View CSV</span>
+        </button>
       </div>
 
       {/* KPI Cards */}
-      <div className="kpi-grid" style={{ marginBottom: "20px" }}>
-        <div className="kpi-card accent-rose">
-          <div className="kpi-header">
-            <span className="kpi-title">CANCELLED TRANSACTIONS</span>
-            <div className="kpi-icon-box">
-              <RotateCcw size={16} color="var(--danger)" />
+      <section className="metrics-summary-grid">
+        <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-danger)" }} />
+          <div className="metric-box-header">
+            <span className="metric-box-title">CANCELLED TRANSACTIONS</span>
+            <div className="metric-box-icon" style={{ background: "var(--danger-light)", color: "var(--danger)" }}>
+              <RotateCcw size={18} />
             </div>
           </div>
-          <div className="kpi-value-row">
-            <span className="kpi-number" style={{ color: "var(--danger)" }}>7,517</span>
+          <div className="metric-box-value" style={{ color: "var(--danger)" }}>
+            {(stats?.totalCancellations || 7517).toLocaleString()}
           </div>
-          <div className="kpi-footer">
-            <span className="kpi-trend negative">Returns Ingested</span>
-            <span className="kpi-caption">in HBase crm_cancellations</span>
+          <div className="metric-box-footer">
+            <span className="footer-code">Indexed in crm_cancellations</span>
+            <span className="footer-desc">All credit notes &amp; order reversals</span>
           </div>
         </div>
 
-        <div className="kpi-card accent-violet">
-          <div className="kpi-header">
-            <span className="kpi-title">RETURNS / ORDER RATIO</span>
-            <div className="kpi-icon-box">
-              <TrendingDown size={16} color="var(--purple)" />
+        <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-amber)" }} />
+          <div className="metric-box-header">
+            <span className="metric-box-title">TOTAL REFUNDED EXPOSURE</span>
+            <div className="metric-box-icon" style={{ background: "var(--warning-light)", color: "var(--warning)" }}>
+              <TrendingDown size={18} />
             </div>
           </div>
-          <div className="kpi-value-row">
-            <span className="kpi-number">18.0%</span>
+          <div className="metric-box-value">
+            {currFmt.format(stats?.totalRefunded || 893753.3)}
           </div>
-          <div className="kpi-footer">
-            <span className="kpi-trend neutral">7.5K vs 34.2K</span>
-            <span className="kpi-caption">Settled order baseline</span>
+          <div className="metric-box-footer">
+            <span className="footer-code">{stats?.returnRatePercentage || 18.02}% Event Ratio</span>
+            <span className="footer-desc">Returns vs 34,191 completed invoices</span>
           </div>
         </div>
 
-        <div className="kpi-card accent-emerald">
-          <div className="kpi-header">
-            <span className="kpi-title">CHURN CORRELATION LIFT</span>
-            <div className="kpi-icon-box">
-              <ShieldAlert size={16} color="var(--warning)" />
+        <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-purple)" }} />
+          <div className="metric-box-header">
+            <span className="metric-box-title">CHURN CORRELATION LIFT</span>
+            <div className="metric-box-icon" style={{ background: "var(--purple-light)", color: "var(--purple)" }}>
+              <ShieldAlert size={18} />
             </div>
           </div>
-          <div className="kpi-value-row">
-            <span className="kpi-number" style={{ color: "var(--warning)" }}>+34%</span>
-          </div>
-          <div className="kpi-footer">
-            <span className="kpi-trend positive">Predictive Feature</span>
-            <span className="kpi-caption">Spark MLlib feature weight</span>
+          <div className="metric-box-value" style={{ color: "var(--warning)" }}>+34%</div>
+          <div className="metric-box-footer">
+            <span className="footer-code">ML Feature Weight</span>
+            <span className="footer-desc">Repeated returns accelerate dormancy risk</span>
           </div>
         </div>
 
-        <div className="kpi-card accent-primary">
-          <div className="kpi-header">
-            <span className="kpi-title">AUTOMATED INTERVENTION</span>
-            <div className="kpi-icon-box">
-              <AlertOctagon size={16} color="var(--primary)" />
+        <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-primary)" }} />
+          <div className="metric-box-header">
+            <span className="metric-box-title">RECOVERY PLAYBOOK</span>
+            <div className="metric-box-icon" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>
+              <AlertOctagon size={18} />
             </div>
           </div>
-          <div className="kpi-value-row">
-            <span className="kpi-number">Playbook M002</span>
-          </div>
-          <div className="kpi-footer">
-            <span className="kpi-trend positive">Win-Back Active</span>
-            <span className="kpi-caption">Targeted discount rules</span>
+          <div className="metric-box-value">M002 Win-Back</div>
+          <div className="metric-box-footer">
+            <span className="footer-code" style={{ color: "var(--success)" }}>Automated Trigger</span>
+            <span className="footer-desc">Proactive outreach on friction spikes</span>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Filter Toolbar */}
+      {/* Search Toolbar */}
       <div className="panel-card" style={{ padding: "16px 20px", marginBottom: "20px" }}>
         <div className="global-search-container" style={{ maxWidth: "420px", margin: 0 }}>
           <Search size={14} className="search-icon" />
@@ -174,13 +175,13 @@ export default function CancellationsPage() {
               setSearch(e.target.value);
               setPage(0);
             }}
-            style={{ background: "transparent", border: "none", outline: "none", width: "100%", fontSize: "12.5px" }}
+            style={{ background: "transparent", border: "none", outline: "none", width: "100%", fontSize: "12.5px", color: "var(--text-main)" }}
           />
         </div>
       </div>
 
       {/* Cancellations Table */}
-      <div className="panel-card" style={{ padding: "0", overflow: "hidden" }}>
+      <div className="panel-card" style={{ padding: 0, overflow: "hidden" }}>
         <div
           style={{
             padding: "16px 20px",
@@ -192,18 +193,17 @@ export default function CancellationsPage() {
         >
           <div>
             <h3 style={{ fontSize: "15px", fontWeight: "700", color: "var(--text-main)", margin: 0 }}>
-              Recorded Cancellation & Return Events
+              Recorded Cancellation &amp; Return Events
             </h3>
             <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-              Showing {cancels.length > 0 ? page * pageSize + 1 : 0} -{" "}
+              Showing {cancels.length > 0 ? page * pageSize + 1 : 0} –{" "}
               {Math.min((page + 1) * pageSize, totalElements)} of {totalElements.toLocaleString()} records
             </span>
           </div>
 
-          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <div className="pagination-controls">
             <button
-              className="secondary-button"
-              style={{ padding: "5px 9px", fontSize: "11.5px" }}
+              className="pagination-btn"
               disabled={page === 0 || loading}
               onClick={() => setPage((p) => Math.max(p - 1, 0))}
             >
@@ -211,11 +211,10 @@ export default function CancellationsPage() {
               <span>Prev</span>
             </button>
             <span style={{ fontSize: "12px", color: "var(--text-muted)", fontWeight: "600", padding: "0 4px" }}>
-              Page {page + 1} / {totalPages}
+              Page {page + 1} / {Math.max(1, totalPages)}
             </span>
             <button
-              className="secondary-button"
-              style={{ padding: "5px 9px", fontSize: "11.5px" }}
+              className="pagination-btn"
               disabled={page >= totalPages - 1 || loading}
               onClick={() => setPage((p) => p + 1)}
             >
@@ -227,103 +226,58 @@ export default function CancellationsPage() {
 
         {loading ? (
           <div style={{ padding: "60px 20px", textAlign: "center", color: "var(--text-muted)" }}>
-            <div className="meta-dot online" style={{ display: "inline-block", marginRight: "8px" }} />
-            Retrieving cancellation records from HBase repository...
+            Retrieving cancellation signals from HBase repository...
           </div>
         ) : cancels.length === 0 ? (
           <div style={{ padding: "60px 20px", textAlign: "center", color: "var(--text-muted)" }}>
             No cancellation signals matched the search query.
           </div>
         ) : (
-          <div className="data-table-container">
-            <table className="data-table">
+          <div className="table-responsive-container" style={{ border: "none", borderRadius: 0 }}>
+            <table className="enterprise-data-table">
               <thead>
                 <tr>
-                  <th style={{ width: "130px" }}>Invoice No</th>
-                  <th style={{ width: "140px" }}>Customer ID</th>
+                  <th>Invoice No</th>
+                  <th>Customer ID</th>
                   <th>Cancellation Date</th>
-                  <th style={{ width: "150px", textAlign: "right" }}>Refund Amount</th>
-                  <th>Friction Description</th>
-                  <th style={{ width: "110px", textAlign: "center" }}>Signal Status</th>
-                  <th style={{ width: "80px", textAlign: "center" }}>Action</th>
+                  <th style={{ textAlign: "right" }}>Refund Amount</th>
+                  <th>Friction Classification</th>
+                  <th>Signal Status</th>
+                  <th>Inspect</th>
                 </tr>
               </thead>
               <tbody>
                 {cancels.map((c) => (
                   <tr
-                    key={c.invoice}
+                    key={`${c.invoice}-${c.customer_id}-${c.ts14}`}
                     style={{ cursor: "pointer" }}
                     onClick={() => setSelectedCancel(c)}
                   >
                     <td>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-mono)",
-                          fontSize: "12px",
-                          fontWeight: "700",
-                          color: "var(--danger)",
-                          background: "var(--bg-elevated)",
-                          padding: "3px 7px",
-                          borderRadius: "4px",
-                          border: "1px solid var(--border-color)",
-                        }}
-                      >
+                      <span className="code-identifier" style={{ color: "var(--danger)", backgroundColor: "var(--danger-light)" }}>
                         #{c.invoice}
                       </span>
                     </td>
                     <td>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-mono)",
-                          fontSize: "12px",
-                          fontWeight: "600",
-                          color: "var(--text-main)",
-                        }}
-                      >
-                        {c.customer_id}
-                      </span>
+                      <span className="code-identifier">{c.customer_id}</span>
                     </td>
-                    <td style={{ color: "var(--text-muted)", fontSize: "12.5px" }}>
-                      {c.date}
+                    <td style={{ color: "var(--text-sub)" }}>{c.date}</td>
+                    <td style={{ textAlign: "right", color: "var(--danger)" }}>
+                      <span className="currency-num">-{currFmt.format(Math.abs(c.amount || 0))}</span>
                     </td>
-                    <td
-                      style={{
-                        textAlign: "right",
-                        fontFamily: "var(--font-mono)",
-                        fontWeight: "700",
-                        color: "var(--danger)",
-                      }}
-                    >
-                      -{currFmt.format(c.amount)}
+                    <td>{c.reason || "Customer return / cancellation"}</td>
+                    <td>
+                      <span className="badge-tag danger">FRICTION LOGGED</span>
                     </td>
-                    <td style={{ color: "var(--text-main)", fontSize: "12.5px" }}>
-                      {c.reason || "Customer return / cancellation"}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      <span
-                        style={{
-                          fontSize: "10.5px",
-                          fontWeight: "700",
-                          padding: "2px 8px",
-                          borderRadius: "12px",
-                          backgroundColor: "rgba(244, 63, 94, 0.12)",
-                          color: "var(--danger)",
-                          border: "1px solid rgba(244, 63, 94, 0.25)",
-                        }}
-                      >
-                        LOGGED
-                      </span>
-                    </td>
-                    <td style={{ textAlign: "center" }}>
+                    <td>
                       <button
-                        className="secondary-button"
-                        style={{ padding: "4px 8px", fontSize: "11px" }}
+                        className="dispatch-action-tag"
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedCancel(c);
                         }}
                       >
-                        View
+                        Inspect
                       </button>
                     </td>
                   </tr>
@@ -333,154 +287,70 @@ export default function CancellationsPage() {
           </div>
         )}
 
-        {/* Bottom Pagination */}
-        <div
-          style={{
-            padding: "14px 20px",
-            borderTop: "1px solid var(--border-color)",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <div className="pagination-bar">
           <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-            Page {page + 1} of {totalPages} ({totalElements.toLocaleString()} records)
+            Page {page + 1} of {Math.max(1, totalPages)} ({totalElements.toLocaleString()} records)
           </span>
-
-          <div style={{ display: "flex", gap: "8px" }}>
-            <button
-              className="secondary-button"
-              disabled={page === 0 || loading}
-              onClick={() => setPage(0)}
-              style={{ padding: "4px 8px", fontSize: "11px" }}
-            >
-              First
-            </button>
-            <button
-              className="secondary-button"
-              disabled={page === 0 || loading}
-              onClick={() => setPage((p) => Math.max(p - 1, 0))}
-              style={{ padding: "4px 8px", fontSize: "11px" }}
-            >
-              Prev
-            </button>
-            <button
-              className="secondary-button"
-              disabled={page >= totalPages - 1 || loading}
-              onClick={() => setPage((p) => p + 1)}
-              style={{ padding: "4px 8px", fontSize: "11px" }}
-            >
-              Next
-            </button>
-            <button
-              className="secondary-button"
-              disabled={page >= totalPages - 1 || loading}
-              onClick={() => setPage(totalPages - 1)}
-              style={{ padding: "4px 8px", fontSize: "11px" }}
-            >
-              Last
-            </button>
+          <div className="pagination-controls">
+            <button className="pagination-btn" disabled={page === 0 || loading} onClick={() => setPage(0)}>First</button>
+            <button className="pagination-btn" disabled={page === 0 || loading} onClick={() => setPage((p) => Math.max(p - 1, 0))}>Prev</button>
+            <button className="pagination-btn" disabled={page >= totalPages - 1 || loading} onClick={() => setPage((p) => p + 1)}>Next</button>
+            <button className="pagination-btn" disabled={page >= totalPages - 1 || loading} onClick={() => setPage(totalPages - 1)}>Last</button>
           </div>
         </div>
       </div>
 
       {/* Cancellation Detail Modal */}
       {selectedCancel && (
-        <div className="modal-backdrop" onClick={() => setSelectedCancel(null)}>
-          <div
-            className="modal-content"
-            style={{ maxWidth: "520px" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="modal-header">
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <div className="brand-icon-box" style={{ background: "rgba(244, 63, 94, 0.15)" }}>
-                  <RotateCcw size={18} color="var(--danger)" />
-                </div>
-                <div>
-                  <h3 style={{ margin: 0, fontSize: "16px", color: "var(--text-main)" }}>
-                    Cancellation #{selectedCancel.invoice}
-                  </h3>
-                  <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-                    Negative Return Friction Signal
-                  </span>
-                </div>
+        <div className="dossier-overlay" onClick={() => setSelectedCancel(null)}>
+          <div className="dossier-dialog" style={{ maxWidth: "540px" }} onClick={(e) => e.stopPropagation()}>
+            <div className="dossier-header">
+              <div>
+                <span className="eyebrow-badge">RETURN FRICTION SIGNAL</span>
+                <h2>#{selectedCancel.invoice}</h2>
+                <p>Account: {selectedCancel.customer_id} · Logged: {selectedCancel.date}</p>
               </div>
-              <button
-                className="modal-close-btn"
-                onClick={() => setSelectedCancel(null)}
-              >
-                <X size={16} />
-              </button>
+              <button className="dossier-close-btn" onClick={() => setSelectedCancel(null)}>✕</button>
             </div>
 
-            <div className="modal-body" style={{ padding: "20px" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "16px" }}>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Refund / Cancel Value</span>
-                  <span className="stat-value" style={{ color: "var(--danger)" }}>
-                    -{currFmt.format(selectedCancel.amount)}
-                  </span>
-                </div>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Customer Account</span>
-                  <span className="stat-value" style={{ color: "var(--primary)" }}>
-                    {selectedCancel.customer_id}
-                  </span>
-                </div>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Signal Date</span>
-                  <span className="stat-value" style={{ fontSize: "13px" }}>
-                    {selectedCancel.date}
-                  </span>
-                </div>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Churn Weight Impact</span>
-                  <span className="stat-value" style={{ color: "var(--warning)" }}>
-                    +34% Churn Lift
-                  </span>
-                </div>
+            <div className="dossier-grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Refund / Reversal Value</span>
+                <span className="stat-highlight" style={{ color: "var(--danger)" }}>
+                  -{currFmt.format(Math.abs(selectedCancel.amount || 0))}
+                </span>
               </div>
-
-              <div
-                style={{
-                  padding: "12px 16px",
-                  background: "var(--bg-elevated)",
-                  borderRadius: "8px",
-                  border: "1px solid var(--border-color)",
-                  marginBottom: "16px",
-                }}
-              >
-                <div style={{ fontSize: "11px", fontWeight: "700", color: "var(--text-muted)", textTransform: "uppercase" }}>
-                  HBase Physical Row Key
-                </div>
-                <div style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: "var(--primary)", marginTop: "4px" }}>
-                  {selectedCancel.customer_id}_{selectedCancel.date?.replace(/[- :]/g, "")?.slice(0, 14)}_{selectedCancel.invoice}
-                </div>
-                <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-                  Table: <code>crm_cancellations</code> · Column Family: <code>info</code>
-                </div>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">ML Churn Signal</span>
+                <span className="stat-highlight" style={{ color: "var(--warning)" }}>+34% Risk Lift</span>
               </div>
             </div>
 
-            <div className="modal-footer" style={{ justifyContent: "space-between" }}>
-              <button
-                className="secondary-button"
-                onClick={() => {
-                  const cid = selectedCancel.customer_id;
-                  setSelectedCancel(null);
-                  navigate(`/customers?search=${cid}`);
-                }}
-              >
-                <User size={13} />
-                <span>View Customer Dossier</span>
-              </button>
-              <button
-                className="primary-button"
-                onClick={() => setSelectedCancel(null)}
-              >
-                Done
-              </button>
+            <div className="dossier-action-section">
+              <div className="action-rule-header">
+                <strong>HBase Composite RowKey Mapping</strong>
+                <span className="badge-tag danger">crm_cancellations · info</span>
+              </div>
+              <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: "var(--primary)", margin: "6px 0 12px" }}>
+                {selectedCancel.customer_id}_{selectedCancel.ts14 || selectedCancel.date?.replace(/[- :]/g, "").slice(0, 14)}_{selectedCancel.invoice}
+              </p>
+
+              <div style={{ display: "flex", gap: "10px", justifyContent: "space-between" }}>
+                <button
+                  className="secondary-button"
+                  onClick={() => {
+                    const cid = selectedCancel.customer_id;
+                    setSelectedCancel(null);
+                    navigate(`/customers?search=${cid}`);
+                  }}
+                >
+                  <User size={13} />
+                  <span>Open Customer Dossier</span>
+                </button>
+                <button className="primary-button" onClick={() => setSelectedCancel(null)}>
+                  Done
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -117,7 +117,7 @@ const api = {
         return list.map((c) => ({
           ...c,
           campaign_id: c.campaign_id || c.id,
-          targetCount: c.targetCount || (c.id === "M002" ? 2402 : c.id === "M004" ? 1492 : 1855),
+          targetCount: c.targetCount !== undefined ? c.targetCount : (c.id === "M002" ? 2402 : c.id === "M004" ? 1492 : 1855),
           status: "ACTIVE",
         }));
       }
@@ -361,6 +361,64 @@ const api = {
       return res.data;
     } catch (err) {
       console.warn("Failed to fetch warehouse lineage:", err);
+      return null;
+    }
+  },
+
+  predictMlReport: async (params) => {
+    try {
+      const res = await axiosInstance.post("/ml/report", params);
+      return res.data;
+    } catch (err) {
+      console.warn("Failed to fetch detailed ML report:", err);
+      return api.predictMl(params);
+    }
+  },
+
+  getThresholdEval: async (threshold = 0.6) => {
+    try {
+      const res = await axiosInstance.get("/ml/threshold-eval", { params: { threshold } });
+      return res.data;
+    } catch (err) {
+      console.warn("Failed to fetch threshold eval:", err);
+      return null;
+    }
+  },
+
+  simulateVoucher: async (config) => {
+    try {
+      const res = await axiosInstance.post("/campaigns/simulate-voucher", config);
+      return res.data;
+    } catch (err) {
+      console.warn("Failed to simulate voucher implementation:", err);
+      throw err;
+    }
+  },
+
+  dispatchVoucherBatch: async (payload) => {
+    try {
+      const res = await axiosInstance.post("/campaigns/dispatch-batch", payload);
+      return res.data;
+    } catch (err) {
+      console.warn("Failed to dispatch voucher batch:", err);
+      throw err;
+    }
+  },
+
+  getOrderStats: async () => {
+    try {
+      const res = await axiosInstance.get("/orders/stats");
+      return res.data;
+    } catch {
+      return null;
+    }
+  },
+
+  getCancellationStats: async () => {
+    try {
+      const res = await axiosInstance.get("/cancellations/stats");
+      return res.data;
+    } catch {
       return null;
     }
   },

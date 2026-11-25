@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Search, Moon, Sun, RefreshCw, CheckCircle2, Sparkles, Command } from "lucide-react";
-import VoiceWave from "./VoiceWave";
+import { Search, Moon, Sun, RefreshCw, CheckCircle2, Command } from "lucide-react";
 import api from "../services/api";
 
 export default function Topbar({ theme, setTheme, onSyncSuccess, onOpenPalette }) {
@@ -9,10 +8,10 @@ export default function Topbar({ theme, setTheme, onSyncSuccess, onOpenPalette }
 
   const handleSync = async () => {
     setSyncing(true);
-    setSyncMsg("Synchronizing intelligence lake and re-indexing profiles...");
+    setSyncMsg("Synchronizing HBase lakehouse...");
     try {
       await api.triggerPipeline("sync");
-      setSyncMsg("Customer lake synchronized successfully!");
+      setSyncMsg("HBase repository synchronized!");
       if (onSyncSuccess) onSyncSuccess();
     } catch {
       setSyncMsg("Intelligence store synchronized.");
@@ -27,31 +26,6 @@ export default function Topbar({ theme, setTheme, onSyncSuccess, onOpenPalette }
   return (
     <header className="app-topbar">
       <div className="topbar-left">
-        {/* Brand Eyebrow */}
-        <div className="app-brand-badge">
-          <div className="brand-logo-icon" style={{ background: "linear-gradient(135deg, #2563eb, #7c3aed)" }}>
-            <Sparkles size={14} color="#fff" />
-          </div>
-          <span className="brand-name">APEX GLOBAL</span>
-          <span className="brand-separator">/</span>
-          <span className="brand-sub">NEXUS COMMERCE INTELLIGENCE</span>
-          <span
-            style={{
-              marginLeft: "10px",
-              fontSize: "10px",
-              fontFamily: "var(--font-mono)",
-              fontWeight: "700",
-              color: "var(--success)",
-              background: "rgba(16, 185, 129, 0.12)",
-              padding: "2px 7px",
-              borderRadius: "4px",
-              border: "1px solid rgba(16, 185, 129, 0.25)",
-            }}
-          >
-            PROD · US-EAST-01
-          </span>
-        </div>
-
         {/* Global Search Bar (Triggers Command Palette) */}
         <div
           className="global-search-container clickable"
@@ -60,25 +34,24 @@ export default function Topbar({ theme, setTheme, onSyncSuccess, onOpenPalette }
         >
           <Search size={14} className="search-icon" />
           <span className="search-placeholder">
-            Search accounts (C014095), risk tiers, segments, actions...
+            Search accounts (C014095), products, risk tiers, reports...
           </span>
           <kbd className="shortcut-tag">⌘K</kbd>
         </div>
       </div>
 
       <div className="topbar-right">
-        {/* Real-time Stream Indicator */}
-        <div className="status-indicator-pill" title="Live Continuous Customer Scoring Stream">
+        {/* Live HBase Cluster Pill */}
+        <div className="status-indicator-pill" title="Apache HBase & HDFS Cluster Connected">
           <span className="pulse-dot" />
-          <span className="status-label">STREAM LIVE</span>
-          <VoiceWave count={4} color="var(--success)" />
+          <span className="status-label">HBASE LIVE · :16010</span>
         </div>
 
         {/* Command Palette Button */}
         <button
           className="palette-trigger-btn"
           onClick={onOpenPalette}
-          title="Quick command palette (⌘K)"
+          title="Quick navigation (⌘K)"
         >
           <Command size={14} />
           <span>Quick Find</span>
@@ -103,15 +76,15 @@ export default function Topbar({ theme, setTheme, onSyncSuccess, onOpenPalette }
           )}
         </button>
 
-        {/* Quick Sync Action */}
+        {/* Sync Store Action */}
         <button
           className="action-btn-primary"
           onClick={handleSync}
           disabled={syncing}
-          title="Refresh intelligence store and re-index customer metrics"
+          title="Reload repository data and re-sync live HBase interactions"
         >
           <RefreshCw size={13} className={syncing ? "spin-icon" : ""} />
-          <span>{syncing ? "Syncing..." : "Sync Store"}</span>
+          <span>{syncing ? "Syncing..." : "Sync Cluster"}</span>
         </button>
 
         {syncMsg && (

@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/customers")
 public class CustomerController {
@@ -24,9 +22,11 @@ public class CustomerController {
             @RequestParam(defaultValue = "20") int size,
             @RequestParam(required = false) String search,
             @RequestParam(required = false) String segment,
-            @RequestParam(required = false) String country) {
+            @RequestParam(required = false) String country,
+            @RequestParam(required = false) String risk,
+            @RequestParam(defaultValue = "risk") String sortBy) {
 
-        return ResponseEntity.ok(customerService.getCustomers(page, size, search, segment, country));
+        return ResponseEntity.ok(customerService.getCustomers(page, size, search, segment, country, risk, sortBy));
     }
 
     @GetMapping("/{id}")

@@ -2,19 +2,13 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ShoppingBag,
-  ArrowUpRight,
   Search,
   Download,
   ChevronLeft,
   ChevronRight,
   DollarSign,
   TrendingUp,
-  Package,
   Layers,
-  CheckCircle2,
-  ExternalLink,
-  X,
-  Calendar,
   User,
 } from "lucide-react";
 import api from "../services/api";
@@ -25,17 +19,31 @@ const currFmt = new Intl.NumberFormat("en-IN", {
   maximumFractionDigits: 2,
 });
 
+const compactCurr = new Intl.NumberFormat("en-IN", {
+  style: "currency",
+  currency: "INR",
+  notation: "compact",
+  maximumFractionDigits: 2,
+});
+
 export default function OrdersPage() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
+  const [stats, setStats] = useState(null);
   const [search, setSearch] = useState("");
-  const [amountFilter, setAmountFilter] = useState("ALL"); // "ALL" | "MID" | "HIGH"
+  const [amountFilter, setAmountFilter] = useState("ALL");
   const [page, setPage] = useState(0);
   const [pageSize] = useState(25);
   const [totalPages, setTotalPages] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState(null);
+
+  useEffect(() => {
+    api.getOrderStats().then((res) => {
+      if (res) setStats(res);
+    });
+  }, []);
 
   useEffect(() => {
     let minAmount = null;
@@ -64,24 +72,16 @@ export default function OrdersPage() {
       setLoading(false);
     };
 
-    const timer = setTimeout(fetchOrders, 150);
+    const timer = setTimeout(fetchOrders, 120);
     return () => clearTimeout(timer);
   }, [page, pageSize, search, amountFilter]);
 
   const handleExport = () => {
     const headers = ["invoice", "customer_id", "date", "items", "amount", "status"];
     const rows = orders.map((o) =>
-      [
-        `"${o.invoice}"`,
-        `"${o.customer_id}"`,
-        `"${o.date}"`,
-        o.items,
-        o.amount,
-        `"SETTLED"`,
-      ].join(",")
+      [`"${o.invoice}"`, `"${o.customer_id}"`, `"${o.date}"`, o.items, o.amount, `"SETTLED"`].join(",")
     );
-    const csvContent =
-      "data:text/csv;charset=utf-8," + [headers.join(","), ...rows].join("\n");
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows].join("\n");
     const link = document.createElement("a");
     link.setAttribute("href", encodeURI(csvContent));
     link.setAttribute("download", `apex_orders_page_${page + 1}.csv`);
@@ -96,89 +96,83 @@ export default function OrdersPage() {
         <div>
           <span className="eyebrow-badge">APEX COMMERCE · TRANSACTION REVENUE STREAM</span>
           <h1 className="hero-heading" style={{ fontSize: "28px", marginTop: "4px" }}>
-            Invoiced Orders & GMV Settlement
+            Invoiced Orders &amp; <em>GMV Settlement</em>
           </h1>
-          <p className="hero-paragraph" style={{ marginBottom: "0" }}>
-            34,191 verified retail invoices totaling ₹15.89M in Gross Merchandise Value settled across 5,721 global customer accounts.
+          <p className="hero-paragraph" style={{ marginBottom: 0 }}>
+            {(stats?.totalOrders || 34191).toLocaleString()} verified retail invoices totaling {compactCurr.format(stats?.totalVolume || 15890904.72)} settled across global wholesale &amp; retail accounts.
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-          <button className="secondary-button" onClick={handleExport}>
-            <Download size={14} />
-            <span>Export View CSV</span>
-          </button>
-        </div>
+        <button className="secondary-button" onClick={handleExport}>
+          <Download size={14} />
+          <span>Export View CSV</span>
+        </button>
       </div>
 
-      {/* KPI Stat Cards */}
-      <div className="kpi-grid" style={{ marginBottom: "20px" }}>
-        <div className="kpi-card accent-primary">
-          <div className="kpi-header">
-            <span className="kpi-title">TOTAL SETTLED INVOICES</span>
-            <div className="kpi-icon-box">
-              <ShoppingBag size={16} color="var(--primary)" />
+      {/* KPI Stat Tiles */}
+      <section className="metrics-summary-grid">
+        <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-primary)" }} />
+          <div className="metric-box-header">
+            <span className="metric-box-title">TOTAL SETTLED INVOICES</span>
+            <div className="metric-box-icon" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>
+              <ShoppingBag size={18} />
             </div>
           </div>
-          <div className="kpi-value-row">
-            <span className="kpi-number">34,191</span>
-          </div>
-          <div className="kpi-footer">
-            <span className="kpi-trend positive">100% Ingested</span>
-            <span className="kpi-caption">in HBase crm_orders</span>
+          <div className="metric-box-value">{(stats?.totalOrders || 34191).toLocaleString()}</div>
+          <div className="metric-box-footer">
+            <span className="footer-code" style={{ color: "var(--success)" }}>100% Ingested</span>
+            <span className="footer-desc">Indexed in HBase crm_orders</span>
           </div>
         </div>
 
-        <div className="kpi-card accent-emerald">
-          <div className="kpi-header">
-            <span className="kpi-title">TOTAL GROSS MERCHANDISE VALUE</span>
-            <div className="kpi-icon-box">
-              <DollarSign size={16} color="var(--success)" />
+        <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-success)" }} />
+          <div className="metric-box-header">
+            <span className="metric-box-title">GROSS MERCHANDISE VALUE</span>
+            <div className="metric-box-icon" style={{ background: "var(--success-light)", color: "var(--success)" }}>
+              <DollarSign size={18} />
             </div>
           </div>
-          <div className="kpi-value-row">
-            <span className="kpi-number">₹15.89M</span>
-          </div>
-          <div className="kpi-footer">
-            <span className="kpi-trend positive">Verified GMV</span>
-            <span className="kpi-caption">Multi-year retail ledger</span>
+          <div className="metric-box-value">{compactCurr.format(stats?.totalVolume || 15890904.72)}</div>
+          <div className="metric-box-footer">
+            <span className="footer-code">{currFmt.format(stats?.totalVolume || 15890904.72)}</span>
+            <span className="footer-desc">Verified settled invoice volume</span>
           </div>
         </div>
 
-        <div className="kpi-card accent-violet">
-          <div className="kpi-header">
-            <span className="kpi-title">AVERAGE ORDER VALUE (AOV)</span>
-            <div className="kpi-icon-box">
-              <TrendingUp size={16} color="var(--purple)" />
+        <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-purple)" }} />
+          <div className="metric-box-header">
+            <span className="metric-box-title">AVERAGE ORDER VALUE (AOV)</span>
+            <div className="metric-box-icon" style={{ background: "var(--purple-light)", color: "var(--purple)" }}>
+              <TrendingUp size={18} />
             </div>
           </div>
-          <div className="kpi-value-row">
-            <span className="kpi-number">₹464.77</span>
-          </div>
-          <div className="kpi-footer">
-            <span className="kpi-trend neutral">Per Invoice</span>
-            <span className="kpi-caption">Avg basket contribution</span>
+          <div className="metric-box-value">₹{(stats?.avgOrderValue || 464.77).toFixed(2)}</div>
+          <div className="metric-box-footer">
+            <span className="footer-code">Per Settled Invoice</span>
+            <span className="footer-desc">Portfolio basket benchmark</span>
           </div>
         </div>
 
-        <div className="kpi-card accent-rose">
-          <div className="kpi-header">
-            <span className="kpi-title">HIGH-VALUE TRANSACTIONS</span>
-            <div className="kpi-icon-box">
-              <Layers size={16} color="var(--danger)" />
+        <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-amber)" }} />
+          <div className="metric-box-header">
+            <span className="metric-box-title">TOTAL UNITS FULFILLED</span>
+            <div className="metric-box-icon" style={{ background: "var(--warning-light)", color: "var(--warning)" }}>
+              <Layers size={18} />
             </div>
           </div>
-          <div className="kpi-value-row">
-            <span className="kpi-number">1,280</span>
-          </div>
-          <div className="kpi-footer">
-            <span className="kpi-trend positive">&gt; ₹2,000 GMV</span>
-            <span className="kpi-caption">Enterprise wholesale buyers</span>
+          <div className="metric-box-value">{((stats?.totalItems || 9829204) / 1000000).toFixed(2)}M</div>
+          <div className="metric-box-footer">
+            <span className="footer-code">{(stats?.totalItems || 9829204).toLocaleString()} units</span>
+            <span className="footer-desc">Verified positive line items</span>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Filter and Search Bar */}
+      {/* Filter Toolbar */}
       <div className="panel-card" style={{ padding: "16px 20px", marginBottom: "20px" }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center", justifyContent: "space-between" }}>
           <div className="global-search-container" style={{ maxWidth: "380px", margin: 0 }}>
@@ -191,14 +185,14 @@ export default function OrdersPage() {
                 setSearch(e.target.value);
                 setPage(0);
               }}
-              style={{ background: "transparent", border: "none", outline: "none", width: "100%", fontSize: "12.5px" }}
+              style={{ background: "transparent", border: "none", outline: "none", width: "100%", fontSize: "12.5px", color: "var(--text-main)" }}
             />
           </div>
 
           <div className="view-mode-toggle">
             {[
-              { id: "ALL", label: "All Orders (34.2K)" },
-              { id: "MID", label: "Mid-Tier (₹500 - ₹2,000)" },
+              { id: "ALL", label: "All Orders" },
+              { id: "MID", label: "Mid-Tier (₹500 – ₹2,000)" },
               { id: "HIGH", label: "Enterprise VIP (> ₹2,000)" },
             ].map((t) => (
               <button
@@ -217,7 +211,7 @@ export default function OrdersPage() {
       </div>
 
       {/* Orders Table */}
-      <div className="panel-card" style={{ padding: "0", overflow: "hidden" }}>
+      <div className="panel-card" style={{ padding: 0, overflow: "hidden" }}>
         <div
           style={{
             padding: "16px 20px",
@@ -232,15 +226,14 @@ export default function OrdersPage() {
               Settled Customer Orders
             </h3>
             <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-              Showing {orders.length > 0 ? page * pageSize + 1 : 0} -{" "}
+              Showing {orders.length > 0 ? page * pageSize + 1 : 0} –{" "}
               {Math.min((page + 1) * pageSize, totalElements)} of {totalElements.toLocaleString()} invoices
             </span>
           </div>
 
-          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <div className="pagination-controls">
             <button
-              className="secondary-button"
-              style={{ padding: "5px 9px", fontSize: "11.5px" }}
+              className="pagination-btn"
               disabled={page === 0 || loading}
               onClick={() => setPage((p) => Math.max(p - 1, 0))}
             >
@@ -248,11 +241,10 @@ export default function OrdersPage() {
               <span>Prev</span>
             </button>
             <span style={{ fontSize: "12px", color: "var(--text-muted)", fontWeight: "600", padding: "0 4px" }}>
-              Page {page + 1} / {totalPages}
+              Page {page + 1} / {Math.max(1, totalPages)}
             </span>
             <button
-              className="secondary-button"
-              style={{ padding: "5px 9px", fontSize: "11.5px" }}
+              className="pagination-btn"
               disabled={page >= totalPages - 1 || loading}
               onClick={() => setPage((p) => p + 1)}
             >
@@ -264,7 +256,6 @@ export default function OrdersPage() {
 
         {loading ? (
           <div style={{ padding: "60px 20px", textAlign: "center", color: "var(--text-muted)" }}>
-            <div className="meta-dot online" style={{ display: "inline-block", marginRight: "8px" }} />
             Retrieving settled invoices from HBase repository...
           </div>
         ) : orders.length === 0 ? (
@@ -272,95 +263,51 @@ export default function OrdersPage() {
             No invoice records matched the filter criteria.
           </div>
         ) : (
-          <div className="data-table-container">
-            <table className="data-table">
+          <div className="table-responsive-container" style={{ border: "none", borderRadius: 0 }}>
+            <table className="enterprise-data-table">
               <thead>
                 <tr>
-                  <th style={{ width: "130px" }}>Invoice No</th>
-                  <th style={{ width: "140px" }}>Customer ID</th>
+                  <th>Invoice No</th>
+                  <th>Customer ID</th>
                   <th>Settlement Date</th>
-                  <th style={{ width: "140px", textAlign: "right" }}>Items Count</th>
-                  <th style={{ width: "160px", textAlign: "right" }}>Invoice Amount</th>
-                  <th style={{ width: "120px", textAlign: "center" }}>HBase State</th>
-                  <th style={{ width: "80px", textAlign: "center" }}>Action</th>
+                  <th style={{ textAlign: "right" }}>Items Count</th>
+                  <th style={{ textAlign: "right" }}>Invoice Amount</th>
+                  <th>Settlement State</th>
+                  <th>Inspect</th>
                 </tr>
               </thead>
               <tbody>
                 {orders.map((o) => (
                   <tr
-                    key={o.invoice}
+                    key={`${o.invoice}-${o.customer_id}`}
                     style={{ cursor: "pointer" }}
                     onClick={() => setSelectedOrder(o)}
                   >
                     <td>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-mono)",
-                          fontSize: "12px",
-                          fontWeight: "700",
-                          color: "var(--primary)",
-                          background: "var(--bg-elevated)",
-                          padding: "3px 7px",
-                          borderRadius: "4px",
-                          border: "1px solid var(--border-color)",
-                        }}
-                      >
-                        #{o.invoice}
-                      </span>
+                      <span className="code-identifier">#{o.invoice}</span>
                     </td>
                     <td>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-mono)",
-                          fontSize: "12px",
-                          fontWeight: "600",
-                          color: "var(--text-main)",
-                        }}
-                      >
-                        {o.customer_id}
-                      </span>
+                      <span className="code-identifier">{o.customer_id}</span>
                     </td>
-                    <td style={{ color: "var(--text-muted)", fontSize: "12.5px" }}>
-                      {o.date}
+                    <td style={{ color: "var(--text-sub)" }}>{o.date}</td>
+                    <td style={{ textAlign: "right" }}>
+                      <span className="currency-num">{o.items} units</span>
                     </td>
-                    <td style={{ textAlign: "right", fontFamily: "var(--font-mono)", fontWeight: "600" }}>
-                      {o.items} units
+                    <td style={{ textAlign: "right", color: "var(--success)" }}>
+                      <span className="currency-num">{currFmt.format(o.amount)}</span>
                     </td>
-                    <td
-                      style={{
-                        textAlign: "right",
-                        fontFamily: "var(--font-mono)",
-                        fontWeight: "700",
-                        color: "var(--success)",
-                      }}
-                    >
-                      {currFmt.format(o.amount)}
+                    <td>
+                      <span className="badge-tag success">SETTLED</span>
                     </td>
-                    <td style={{ textAlign: "center" }}>
-                      <span
-                        style={{
-                          fontSize: "10.5px",
-                          fontWeight: "700",
-                          padding: "2px 8px",
-                          borderRadius: "12px",
-                          backgroundColor: "rgba(16, 185, 129, 0.12)",
-                          color: "var(--success)",
-                          border: "1px solid rgba(16, 185, 129, 0.25)",
-                        }}
-                      >
-                        SETTLED
-                      </span>
-                    </td>
-                    <td style={{ textAlign: "center" }}>
+                    <td>
                       <button
-                        className="secondary-button"
-                        style={{ padding: "4px 8px", fontSize: "11px" }}
+                        className="dispatch-action-tag"
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedOrder(o);
                         }}
                       >
-                        View
+                        Inspect
                       </button>
                     </td>
                   </tr>
@@ -370,154 +317,70 @@ export default function OrdersPage() {
           </div>
         )}
 
-        {/* Bottom Pagination */}
-        <div
-          style={{
-            padding: "14px 20px",
-            borderTop: "1px solid var(--border-color)",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <div className="pagination-bar">
           <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-            Page {page + 1} of {totalPages} ({totalElements.toLocaleString()} invoices)
+            Page {page + 1} of {Math.max(1, totalPages)} ({totalElements.toLocaleString()} invoices)
           </span>
-
-          <div style={{ display: "flex", gap: "8px" }}>
-            <button
-              className="secondary-button"
-              disabled={page === 0 || loading}
-              onClick={() => setPage(0)}
-              style={{ padding: "4px 8px", fontSize: "11px" }}
-            >
-              First
-            </button>
-            <button
-              className="secondary-button"
-              disabled={page === 0 || loading}
-              onClick={() => setPage((p) => Math.max(p - 1, 0))}
-              style={{ padding: "4px 8px", fontSize: "11px" }}
-            >
-              Prev
-            </button>
-            <button
-              className="secondary-button"
-              disabled={page >= totalPages - 1 || loading}
-              onClick={() => setPage((p) => p + 1)}
-              style={{ padding: "4px 8px", fontSize: "11px" }}
-            >
-              Next
-            </button>
-            <button
-              className="secondary-button"
-              disabled={page >= totalPages - 1 || loading}
-              onClick={() => setPage(totalPages - 1)}
-              style={{ padding: "4px 8px", fontSize: "11px" }}
-            >
-              Last
-            </button>
+          <div className="pagination-controls">
+            <button className="pagination-btn" disabled={page === 0 || loading} onClick={() => setPage(0)}>First</button>
+            <button className="pagination-btn" disabled={page === 0 || loading} onClick={() => setPage((p) => Math.max(p - 1, 0))}>Prev</button>
+            <button className="pagination-btn" disabled={page >= totalPages - 1 || loading} onClick={() => setPage((p) => p + 1)}>Next</button>
+            <button className="pagination-btn" disabled={page >= totalPages - 1 || loading} onClick={() => setPage(totalPages - 1)}>Last</button>
           </div>
         </div>
       </div>
 
       {/* Order Detail Modal */}
       {selectedOrder && (
-        <div className="modal-backdrop" onClick={() => setSelectedOrder(null)}>
-          <div
-            className="modal-content"
-            style={{ maxWidth: "520px" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="modal-header">
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <div className="brand-icon-box" style={{ background: "rgba(37, 99, 235, 0.15)" }}>
-                  <ShoppingBag size={18} color="var(--primary)" />
-                </div>
-                <div>
-                  <h3 style={{ margin: 0, fontSize: "16px", color: "var(--text-main)" }}>
-                    Invoice #{selectedOrder.invoice}
-                  </h3>
-                  <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-                    Settled Transaction Record
-                  </span>
-                </div>
+        <div className="dossier-overlay" onClick={() => setSelectedOrder(null)}>
+          <div className="dossier-dialog" style={{ maxWidth: "540px" }} onClick={(e) => e.stopPropagation()}>
+            <div className="dossier-header">
+              <div>
+                <span className="eyebrow-badge">INVOICE SETTLEMENT RECORD</span>
+                <h2>#{selectedOrder.invoice}</h2>
+                <p>Account: {selectedOrder.customer_id} · Settlement Date: {selectedOrder.date}</p>
               </div>
-              <button
-                className="modal-close-btn"
-                onClick={() => setSelectedOrder(null)}
-              >
-                <X size={16} />
-              </button>
+              <button className="dossier-close-btn" onClick={() => setSelectedOrder(null)}>✕</button>
             </div>
 
-            <div className="modal-body" style={{ padding: "20px" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "16px" }}>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Invoiced Amount</span>
-                  <span className="stat-value" style={{ color: "var(--success)" }}>
-                    {currFmt.format(selectedOrder.amount)}
-                  </span>
-                </div>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Purchased Units</span>
-                  <span className="stat-value">
-                    {selectedOrder.items} units
-                  </span>
-                </div>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Customer Account</span>
-                  <span className="stat-value" style={{ color: "var(--primary)" }}>
-                    {selectedOrder.customer_id}
-                  </span>
-                </div>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Settlement Date</span>
-                  <span className="stat-value" style={{ fontSize: "13px" }}>
-                    {selectedOrder.date}
-                  </span>
-                </div>
+            <div className="dossier-grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Invoiced Amount</span>
+                <span className="stat-highlight" style={{ color: "var(--success)" }}>
+                  {currFmt.format(selectedOrder.amount)}
+                </span>
               </div>
-
-              <div
-                style={{
-                  padding: "12px 16px",
-                  background: "var(--bg-elevated)",
-                  borderRadius: "8px",
-                  border: "1px solid var(--border-color)",
-                  marginBottom: "16px",
-                }}
-              >
-                <div style={{ fontSize: "11px", fontWeight: "700", color: "var(--text-muted)", textTransform: "uppercase" }}>
-                  HBase Physical Row Key
-                </div>
-                <div style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: "var(--primary)", marginTop: "4px" }}>
-                  {selectedOrder.customer_id}_{selectedOrder.date?.replace(/[- :]/g, "")?.slice(0, 14)}_{selectedOrder.invoice}
-                </div>
-                <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-                  Table: <code>crm_orders</code> · Column Family: <code>info</code>
-                </div>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Purchased Quantity</span>
+                <span className="stat-highlight">{selectedOrder.items} units</span>
               </div>
             </div>
 
-            <div className="modal-footer" style={{ justifyContent: "space-between" }}>
-              <button
-                className="secondary-button"
-                onClick={() => {
-                  const cid = selectedOrder.customer_id;
-                  setSelectedOrder(null);
-                  navigate(`/customers?search=${cid}`);
-                }}
-              >
-                <User size={13} />
-                <span>View Customer Dossier</span>
-              </button>
-              <button
-                className="primary-button"
-                onClick={() => setSelectedOrder(null)}
-              >
-                Done
-              </button>
+            <div className="dossier-action-section">
+              <div className="action-rule-header">
+                <strong>HBase Composite RowKey Mapping</strong>
+                <span className="badge-tag info">crm_orders · info</span>
+              </div>
+              <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: "var(--primary)", margin: "6px 0 12px" }}>
+                {selectedOrder.customer_id}_{selectedOrder.ts14 || selectedOrder.date?.replace(/[- :]/g, "").slice(0, 14)}_{selectedOrder.invoice}
+              </p>
+
+              <div style={{ display: "flex", gap: "10px", justifyContent: "space-between" }}>
+                <button
+                  className="secondary-button"
+                  onClick={() => {
+                    const cid = selectedOrder.customer_id;
+                    setSelectedOrder(null);
+                    navigate(`/customers?search=${cid}`);
+                  }}
+                >
+                  <User size={13} />
+                  <span>Open Customer Dossier</span>
+                </button>
+                <button className="primary-button" onClick={() => setSelectedOrder(null)}>
+                  Done
+                </button>
+              </div>
             </div>
           </div>
         </div>

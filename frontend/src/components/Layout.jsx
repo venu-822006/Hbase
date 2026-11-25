@@ -50,13 +50,13 @@ export default function Layout() {
 
         <footer className="app-footer">
           <div className="footer-left">
-            <span><b>HBase CRM</b> · Autonomous Big Data Customer Intelligence & Retail Analytics</span>
+            <span><b>Apex Global Retail</b> · Nexus Commerce Intelligence & Big Data CRM</span>
             <span className="dot-divider">•</span>
-            <span>Real UK Retail Transactions · Zero Synthetic Labels · Real-Time Intelligence</span>
+            <span>Apache HBase 2.5 · Hadoop HDFS · Spark MLlib</span>
           </div>
           <div className="footer-right">
-            <span className="footer-status-tag">5,721 Active Accounts Profiled</span>
-            <span className="footer-status-tag">Inference Latency &lt; 1ms</span>
+            <span className="footer-status-tag">5,721 Accounts Profiled</span>
+            <span className="footer-status-tag">4,723 SKUs · 1.05M Events</span>
           </div>
         </footer>
       </div>

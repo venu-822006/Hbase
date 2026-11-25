@@ -2,22 +2,17 @@ import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   Search,
-  Filter,
   ArrowUpDown,
   Eye,
   Download,
-  ShieldAlert,
-  Sparkles,
   Send,
   CheckSquare,
   Square,
   Users2,
-  X,
-  TrendingDown,
-  TrendingUp,
   Sliders,
   CheckCircle2,
-  AlertTriangle,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import api from "../services/api";
 
@@ -39,7 +34,12 @@ export default function CustomersPage() {
     if (f === "vip") return "ALL";
     return "ALL";
   });
-  const [sortBy, setSortBy] = useState("risk"); // "risk" | "spend" | "recency"
+  const [sortBy, setSortBy] = useState("risk"); // "risk" | "spend" | "recency" | "clv"
+  const [page, setPage] = useState(0);
+  const [pageSize] = useState(25);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalElements, setTotalElements] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [dossierDetails, setDossierDetails] = useState(null);
   const [toast, setToast] = useState("");
@@ -79,46 +79,50 @@ export default function CustomersPage() {
   const [showCompareModal, setShowCompareModal] = useState(false);
 
   useEffect(() => {
-    const fetch = async () => {
-      const res = await api.getCustomers({ search, segment: segmentFilter });
-      setCustomers(res.content || []);
+    const fetchCustomers = async () => {
+      setLoading(true);
+      const res = await api.getCustomers({
+        page,
+        size: pageSize,
+        search,
+        segment: segmentFilter === "ALL" ? "" : segmentFilter,
+        risk: riskFilter === "ALL" ? "" : riskFilter,
+        sortBy,
+      });
+      setCustomers(res?.content || []);
+      setTotalPages(res?.totalPages || 1);
+      setTotalElements(res?.totalElements || (res?.content?.length || 0));
+      setLoading(false);
     };
-    fetch();
-  }, [search, segmentFilter]);
+    const timer = setTimeout(fetchCustomers, 120);
+    return () => clearTimeout(timer);
+  }, [page, pageSize, search, segmentFilter, riskFilter, sortBy]);
 
   // Handle URL params on mount
   useEffect(() => {
     const f = searchParams.get("filter");
     if (f === "vip") {
       setSegmentFilter("Loyal");
+      setPage(0);
+    } else if (f === "high_risk") {
+      setRiskFilter("HIGH");
+      setPage(0);
     }
   }, [searchParams]);
 
-  // Apply Risk filtering and sorting
-  let displayed = customers.filter((c) => {
-    if (riskFilter === "HIGH") return c.churn_prob >= 0.6;
-    if (riskFilter === "MEDIUM") return c.churn_prob >= 0.3 && c.churn_prob < 0.6;
-    if (riskFilter === "SAFE") return c.churn_prob < 0.3;
-    return true;
-  });
+  const displayed = customers;
 
-  displayed.sort((a, b) => {
-    if (sortBy === "risk") return b.churn_prob - a.churn_prob;
-    if (sortBy === "spend") return (b.monetary || 0) - (a.monetary || 0);
-    if (sortBy === "recency") return (a.recency || 0) - (b.recency || 0);
-    return 0;
-  });
-
-  const toggleSelectCompare = (cid) => {
-    if (selectedForCompare.includes(cid)) {
-      setSelectedForCompare(selectedForCompare.filter((id) => id !== cid));
+  const toggleSelectCompare = (custObj) => {
+    const exists = selectedForCompare.some((c) => c.customer_id === custObj.customer_id);
+    if (exists) {
+      setSelectedForCompare(selectedForCompare.filter((c) => c.customer_id !== custObj.customer_id));
     } else {
       if (selectedForCompare.length >= 3) {
         setToast("Maximum 3 accounts can be compared side-by-side.");
         setTimeout(() => setToast(""), 3000);
         return;
       }
-      setSelectedForCompare([...selectedForCompare, cid]);
+      setSelectedForCompare([...selectedForCompare, custObj]);
     }
   };
 
@@ -143,9 +147,7 @@ export default function CustomersPage() {
     setTimeout(() => setToast(""), 3500);
   };
 
-  const comparedCustomersData = selectedForCompare
-    .map((id) => customers.find((c) => c.customer_id === id))
-    .filter(Boolean);
+  const comparedCustomersData = selectedForCompare;
 
   const calculateHealthScore = (c) => {
     const base = (1 - (c.churn_prob || 0)) * 70;
@@ -201,8 +203,8 @@ export default function CustomersPage() {
               type="text"
               placeholder="Search account ID or country..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              style={{ background: "transparent", border: "none", outline: "none", width: "100%", fontSize: "12.5px" }}
+              onChange={(e) => { setSearch(e.target.value); setPage(0); }}
+              style={{ background: "transparent", border: "none", outline: "none", width: "100%", fontSize: "12.5px", color: "var(--text-main)" }}
             />
           </div>
 
@@ -212,7 +214,7 @@ export default function CustomersPage() {
               <button
                 key={seg}
                 className={`toggle-option ${segmentFilter === seg ? "selected" : ""}`}
-                onClick={() => setSegmentFilter(seg)}
+                onClick={() => { setSegmentFilter(seg); setPage(0); }}
               >
                 {seg === "ALL" ? "All Segments" : seg}
               </button>
@@ -230,7 +232,7 @@ export default function CustomersPage() {
               <button
                 key={id}
                 className={`toggle-option ${riskFilter === id ? "selected" : ""}`}
-                onClick={() => setRiskFilter(id)}
+                onClick={() => { setRiskFilter(id); setPage(0); }}
               >
                 {label}
               </button>
@@ -242,7 +244,7 @@ export default function CustomersPage() {
             <ArrowUpDown size={13} color="var(--text-muted)" />
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+              onChange={(e) => { setSortBy(e.target.value); setPage(0); }}
               style={{
                 padding: "6px 12px",
                 borderRadius: "var(--radius-pill)",
@@ -255,6 +257,7 @@ export default function CustomersPage() {
             >
               <option value="risk">Sort by Churn Risk</option>
               <option value="spend">Sort by Total GMV</option>
+              <option value="clv">Sort by Projected CLV</option>
               <option value="recency">Sort by Dormancy</option>
             </select>
           </div>
@@ -264,12 +267,25 @@ export default function CustomersPage() {
       {/* Directory Data Table */}
       <div className="panel-card" style={{ padding: "0", overflow: "hidden" }}>
         <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--border-color)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span style={{ fontSize: "13px", fontWeight: "600", color: "var(--text-main)" }}>
-            Showing {displayed.length} matched customer accounts
-          </span>
-          <span style={{ fontSize: "11.5px", color: "var(--text-muted)" }}>
-            Select checkboxes to compare up to 3 accounts side-by-side
-          </span>
+          <div>
+            <span style={{ fontSize: "13px", fontWeight: "700", color: "var(--text-main)", display: "block" }}>
+              Showing {displayed.length > 0 ? page * pageSize + 1 : 0} – {Math.min((page + 1) * pageSize, totalElements)} of {totalElements.toLocaleString()} matched accounts
+            </span>
+            <span style={{ fontSize: "11.5px", color: "var(--text-muted)" }}>
+              Select checkboxes to compare up to 3 accounts side-by-side
+            </span>
+          </div>
+          <div className="pagination-controls">
+            <button className="pagination-btn" disabled={page === 0 || loading} onClick={() => setPage((p) => Math.max(p - 1, 0))}>
+              <ChevronLeft size={13} /><span>Prev</span>
+            </button>
+            <span style={{ fontSize: "12px", color: "var(--text-muted)", fontWeight: 600, padding: "0 4px" }}>
+              Page {page + 1} / {Math.max(1, totalPages)}
+            </span>
+            <button className="pagination-btn" disabled={page >= totalPages - 1 || loading} onClick={() => setPage((p) => p + 1)}>
+              <span>Next</span><ChevronRight size={13} />
+            </button>
+          </div>
         </div>
 
         <div className="table-responsive-container" style={{ border: "none", borderRadius: "0" }}>
@@ -289,8 +305,8 @@ export default function CustomersPage() {
               </tr>
             </thead>
             <tbody>
-              {displayed.slice(0, 50).map((c) => {
-                const isSelected = selectedForCompare.includes(c.customer_id);
+              {displayed.map((c) => {
+                const isSelected = selectedForCompare.some((sel) => sel.customer_id === c.customer_id);
                 const health = calculateHealthScore(c);
                 const riskPct = Math.round((c.churn_prob || 0) * 100);
 
@@ -298,7 +314,7 @@ export default function CustomersPage() {
                   <tr key={c.customer_id} style={{ backgroundColor: isSelected ? "var(--card-bg-subtle)" : undefined }}>
                     <td style={{ textAlign: "center" }}>
                       <button
-                        onClick={() => toggleSelectCompare(c.customer_id)}
+                        onClick={() => toggleSelectCompare(c)}
                         style={{ color: isSelected ? "var(--accent)" : "var(--text-muted)" }}
                       >
                         {isSelected ? <CheckSquare size={16} /> : <Square size={16} />}
@@ -362,6 +378,18 @@ export default function CustomersPage() {
               })}
             </tbody>
           </table>
+        </div>
+
+        <div className="pagination-bar">
+          <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
+            Page {page + 1} of {Math.max(1, totalPages)} ({totalElements.toLocaleString()} accounts)
+          </span>
+          <div className="pagination-controls">
+            <button className="pagination-btn" disabled={page === 0 || loading} onClick={() => setPage(0)}>First</button>
+            <button className="pagination-btn" disabled={page === 0 || loading} onClick={() => setPage((p) => Math.max(p - 1, 0))}>Prev</button>
+            <button className="pagination-btn" disabled={page >= totalPages - 1 || loading} onClick={() => setPage((p) => p + 1)}>Next</button>
+            <button className="pagination-btn" disabled={page >= totalPages - 1 || loading} onClick={() => setPage(totalPages - 1)}>Last</button>
+          </div>
         </div>
       </div>
 

@@ -55,6 +55,28 @@ public class MlController {
         return ResponseEntity.ok(mlService.predict(recency, frequency, monetary, cancellations));
     }
 
+    @PostMapping("/report")
+    public ResponseEntity<?> detailedReport(@RequestBody(required = false) Map<String, Object> body) {
+        double recency = 45.0;
+        double frequency = 5.0;
+        double monetary = 2400.0;
+        double cancellations = 0.0;
+
+        if (body != null) {
+            if (body.get("recency") != null) recency = ((Number) body.get("recency")).doubleValue();
+            if (body.get("frequency") != null) frequency = ((Number) body.get("frequency")).doubleValue();
+            if (body.get("monetary") != null) monetary = ((Number) body.get("monetary")).doubleValue();
+            if (body.get("cancellations") != null) cancellations = ((Number) body.get("cancellations")).doubleValue();
+        }
+
+        return ResponseEntity.ok(mlService.predictDetailedReport(recency, frequency, monetary, cancellations));
+    }
+
+    @GetMapping("/threshold-eval")
+    public ResponseEntity<?> thresholdEval(@RequestParam(defaultValue = "0.6") double threshold) {
+        return ResponseEntity.ok(mlService.evaluateThreshold(threshold));
+    }
+
     @PostMapping("/retrain")
     public ResponseEntity<?> retrain() {
         Map<String, Object> result = mlService.retrain();

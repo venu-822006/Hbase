@@ -27,9 +27,22 @@ public class CampaignController {
     public ResponseEntity<?> getOffers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
-            @RequestParam(required = false) String campaign) {
+            @RequestParam(required = false) String campaign,
+            @RequestParam(required = false) String search) {
 
-        return ResponseEntity.ok(campaignService.getOffers(page, size, campaign));
+        return ResponseEntity.ok(campaignService.getOffers(page, size, campaign, search));
+    }
+
+    @PostMapping("/simulate-voucher")
+    public ResponseEntity<?> simulateVoucher(@RequestBody(required = false) Map<String, Object> config) {
+        return ResponseEntity.ok(campaignService.simulateVoucherImplementation(
+                config != null ? config : Map.of()
+        ));
+    }
+
+    @PostMapping("/dispatch-batch")
+    public ResponseEntity<?> dispatchBatch(@RequestBody Map<String, Object> payload) {
+        return ResponseEntity.ok(campaignService.dispatchVoucherBatch(payload));
     }
 
     @PostMapping("/generate")

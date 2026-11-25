@@ -121,7 +121,7 @@ export default function CommandPalette({ isOpen, onClose, theme, setTheme, onSyn
       id: "act-theme",
       category: "Quick Actions",
       title: theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode",
-      sub: `Toggle platform appearance (${theme === "light" ? "Obsidian" : "Linen Warm"})`,
+      sub: `Toggle platform appearance (${theme === "light" ? "Obsidian Dark" : "Slate Light"})`,
       icon: theme === "light" ? Moon : Sun,
       action: () => setTheme(theme === "light" ? "dark" : "light"),
     },

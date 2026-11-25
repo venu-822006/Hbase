@@ -3,16 +3,11 @@ import {
   Package,
   Search,
   Download,
-  Filter,
   TrendingUp,
-  RotateCcw,
   Tag,
   DollarSign,
   ChevronLeft,
   ChevronRight,
-  Info,
-  X,
-  ExternalLink,
 } from "lucide-react";
 import api from "../services/api";
 
@@ -37,25 +32,21 @@ export default function ProductsPage() {
   const [sortBy, setSortBy] = useState("revenue");
   const [sortDir, setSortDir] = useState("desc");
   const [page, setPage] = useState(0);
-  const [pageSize] = useState(20);
+  const [pageSize] = useState(25);
   const [totalPages, setTotalPages] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // Load summary once
   useEffect(() => {
-    const fetchSummary = async () => {
-      const res = await api.getProductSummary();
+    api.getProductSummary().then((res) => {
       if (res) {
         setSummary(res);
         if (res.categories) setCategories(res.categories);
       }
-    };
-    fetchSummary();
+    });
   }, []);
 
-  // Fetch paginated products on filter changes
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -75,7 +66,7 @@ export default function ProductsPage() {
       setLoading(false);
     };
 
-    const timer = setTimeout(fetchProducts, 150);
+    const timer = setTimeout(fetchProducts, 120);
     return () => clearTimeout(timer);
   }, [page, pageSize, search, selectedCategory, sortBy, sortDir]);
 
@@ -106,11 +97,10 @@ export default function ProductsPage() {
         p.cancellationRate,
       ].join(",")
     );
-    const csvContent =
-      "data:text/csv;charset=utf-8," + [headers.join(","), ...rows].join("\n");
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows].join("\n");
     const link = document.createElement("a");
     link.setAttribute("href", encodeURI(csvContent));
-    link.setAttribute("download", `products_catalog_page_${page + 1}.csv`);
+    link.setAttribute("download", `apex_products_page_${page + 1}.csv`);
     document.body.appendChild(link);
     link.click();
   };
@@ -126,125 +116,122 @@ export default function ProductsPage() {
       {/* Header */}
       <div className="panel-card-header" style={{ marginBottom: "22px" }}>
         <div>
-          <span className="eyebrow-badge">APEX COMMERCE · BIG DATA MERCHANDISE REPOSITORY</span>
+          <span className="eyebrow-badge">APEX COMMERCE · MERCHANDISE REPOSITORY</span>
           <h1 className="hero-heading" style={{ fontSize: "28px", marginTop: "4px" }}>
-            Product Catalog & SKU Intelligence
+            Product Catalog &amp; <em>SKU Intelligence</em>
           </h1>
-          <p className="hero-paragraph" style={{ marginBottom: "0" }}>
-            4,723 distinct retail SKUs extracted from 988K raw transaction lines with live revenue, order volume, and cancellation telemetry.
+          <p className="hero-paragraph" style={{ marginBottom: 0 }}>
+            4,723 distinct retail SKUs extracted from 988,278 raw transaction lines with live revenue, order volume, and return telemetry.
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-          <button className="secondary-button" onClick={handleExport}>
-            <Download size={14} />
-            <span>Export View CSV</span>
-          </button>
-        </div>
+        <button className="secondary-button" onClick={handleExport}>
+          <Download size={14} />
+          <span>Export View CSV</span>
+        </button>
       </div>
 
-      {/* KPI Stat Cards */}
-      <div className="kpi-grid" style={{ marginBottom: "20px" }}>
-        <div className="kpi-card accent-primary">
-          <div className="kpi-header">
-            <span className="kpi-title">CATALOG MERCHANDISE SKUS</span>
-            <div className="kpi-icon-box">
-              <Package size={16} color="var(--primary)" />
+      {/* KPI Stat Tiles */}
+      <section className="metrics-summary-grid">
+        <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-primary)" }} />
+          <div className="metric-box-header">
+            <span className="metric-box-title">CATALOG MERCHANDISE SKUS</span>
+            <div className="metric-box-icon" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>
+              <Package size={18} />
             </div>
           </div>
-          <div className="kpi-value-row">
-            <span className="kpi-number">
-              {summary ? summary.totalSkus?.toLocaleString() : "4,723"}
-            </span>
+          <div className="metric-box-value">
+            {summary ? summary.totalSkus?.toLocaleString() : "4,723"}
           </div>
-          <div className="kpi-footer">
-            <span className="kpi-trend positive">100% SKU Coverage</span>
-            <span className="kpi-caption">across 7 categories</span>
+          <div className="metric-box-footer">
+            <span className="footer-code" style={{ color: "var(--success)" }}>100% SKU Coverage</span>
+            <span className="footer-desc">Indexed across 7 merchandise categories</span>
           </div>
         </div>
 
-        <div className="kpi-card accent-emerald">
-          <div className="kpi-header">
-            <span className="kpi-title">TOTAL GROSS MERCHANDISE VALUE</span>
-            <div className="kpi-icon-box">
-              <DollarSign size={16} color="var(--success)" />
+        <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-success)" }} />
+          <div className="metric-box-header">
+            <span className="metric-box-title">TOTAL CATALOG REVENUE</span>
+            <div className="metric-box-icon" style={{ background: "var(--success-light)", color: "var(--success)" }}>
+              <DollarSign size={18} />
             </div>
           </div>
-          <div className="kpi-value-row">
-            <span className="kpi-number">
-              {summary ? currFmt.format(summary.totalRevenue) : "₹19.43M"}
-            </span>
+          <div className="metric-box-value">
+            {summary ? `₹${numFmt.format(summary.totalRevenue)}` : "₹19.4M"}
           </div>
-          <div className="kpi-footer">
-            <span className="kpi-trend positive">963K sales events</span>
-            <span className="kpi-caption">settled in HBase</span>
+          <div className="metric-box-footer">
+            <span className="footer-code">963K positive sales lines</span>
+            <span className="footer-desc">Aggregated from multi-year order logs</span>
           </div>
         </div>
 
-        <div className="kpi-card accent-violet">
-          <div className="kpi-header">
-            <span className="kpi-title">TOTAL UNITS INVOICED</span>
-            <div className="kpi-icon-box">
-              <TrendingUp size={16} color="var(--purple)" />
+        <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-purple)" }} />
+          <div className="metric-box-header">
+            <span className="metric-box-title">TOTAL UNITS INVOICED</span>
+            <div className="metric-box-icon" style={{ background: "var(--purple-light)", color: "var(--purple)" }}>
+              <TrendingUp size={18} />
             </div>
           </div>
-          <div className="kpi-value-row">
-            <span className="kpi-number">
-              {summary ? numFmt.format(summary.totalUnitsSold) : "10.7M"}
-            </span>
+          <div className="metric-box-value">
+            {summary ? numFmt.format(summary.totalUnitsSold) : "10.7M"}
           </div>
-          <div className="kpi-footer">
-            <span className="kpi-trend neutral">
-              {summary ? numFmt.format(summary.totalUnitsCancelled) : "895K"} returns
+          <div className="metric-box-footer">
+            <span className="footer-code" style={{ color: "var(--warning)" }}>
+              {summary ? numFmt.format(summary.totalUnitsCancelled) : "895K"} returned units
             </span>
-            <span className="kpi-caption">friction tracked</span>
+            <span className="footer-desc">Return rate computed per SKU</span>
           </div>
         </div>
 
-        <div className="kpi-card accent-rose">
-          <div className="kpi-header">
-            <span className="kpi-title">AVERAGE UNIT PRICE</span>
-            <div className="kpi-icon-box">
-              <Tag size={16} color="var(--danger)" />
+        <div className="metric-box">
+          <div className="metric-accent-line" style={{ background: "var(--grad-amber)" }} />
+          <div className="metric-box-header">
+            <span className="metric-box-title">AVERAGE UNIT PRICE</span>
+            <div className="metric-box-icon" style={{ background: "var(--warning-light)", color: "var(--warning)" }}>
+              <Tag size={18} />
             </div>
           </div>
-          <div className="kpi-value-row">
-            <span className="kpi-number">
-              {summary ? `₹${summary.avgPrice}` : "₹8.65"}
-            </span>
+          <div className="metric-box-value">
+            {summary ? `₹${summary.avgPrice}` : "₹8.65"}
           </div>
-          <div className="kpi-footer">
-            <span className="kpi-trend neutral">Top Driver</span>
-            <span className="kpi-caption">{summary?.topCategory || "General Merch"}</span>
+          <div className="metric-box-footer">
+            <span className="footer-code">Top Category: {summary?.topCategory || "General Merch"}</span>
+            <span className="footer-desc">Weighted SKU catalog baseline</span>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Category Filter Chips */}
+      {/* Category Filter Bar */}
       <div className="panel-card" style={{ padding: "14px 20px", marginBottom: "16px" }}>
         <div style={{ display: "flex", gap: "8px", overflowX: "auto", alignItems: "center" }}>
-          <span style={{ fontSize: "11px", fontWeight: "700", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px", marginRight: "6px" }}>
+          <span style={{ fontSize: "11px", fontWeight: "700", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginRight: "6px", whiteSpace: "nowrap" }}>
             Category:
           </span>
-          <button
-            className={`toggle-option ${selectedCategory === "all" ? "selected" : ""}`}
-            onClick={() => { setSelectedCategory("all"); setPage(0); }}
-          >
-            All Products ({summary?.totalSkus?.toLocaleString() || "4,723"})
-          </button>
-          {categories.map((c) => (
+          <div className="view-mode-toggle" style={{ overflowX: "auto" }}>
             <button
-              key={c.category}
-              className={`toggle-option ${selectedCategory === c.category ? "selected" : ""}`}
-              onClick={() => { setSelectedCategory(c.category); setPage(0); }}
+              className={`toggle-option ${selectedCategory === "all" ? "selected" : ""}`}
+              onClick={() => { setSelectedCategory("all"); setPage(0); }}
             >
-              {c.category} ({c.productCount})
+              All ({summary?.totalSkus?.toLocaleString() || "4,723"})
             </button>
-          ))}
+            {categories.map((c) => (
+              <button
+                key={c.category}
+                className={`toggle-option ${selectedCategory === c.category ? "selected" : ""}`}
+                onClick={() => { setSelectedCategory(c.category); setPage(0); }}
+                style={{ whiteSpace: "nowrap" }}
+              >
+                {c.category} ({c.productCount})
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Filter and Search Bar */}
+      {/* Search & Sort Controls */}
       <div className="panel-card" style={{ padding: "16px 20px", marginBottom: "20px" }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center", justifyContent: "space-between" }}>
           <div className="global-search-container" style={{ maxWidth: "380px", margin: 0 }}>
@@ -254,7 +241,7 @@ export default function ProductsPage() {
               placeholder="Search by StockCode (e.g. 22423) or description..."
               value={search}
               onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-              style={{ background: "transparent", border: "none", outline: "none", width: "100%", fontSize: "12.5px" }}
+              style={{ background: "transparent", border: "none", outline: "none", width: "100%", fontSize: "12.5px", color: "var(--text-main)" }}
             />
           </div>
 
@@ -266,12 +253,12 @@ export default function ProductsPage() {
               value={sortBy}
               onChange={(e) => { setSortBy(e.target.value); setPage(0); }}
               style={{
-                background: "var(--bg-elevated)",
+                background: "var(--card-bg-subtle)",
                 border: "1px solid var(--border-color)",
-                borderRadius: "6px",
+                borderRadius: "var(--radius-pill)",
                 color: "var(--text-main)",
                 fontSize: "12px",
-                padding: "6px 10px",
+                padding: "6px 14px",
                 cursor: "pointer",
               }}
             >
@@ -285,9 +272,8 @@ export default function ProductsPage() {
 
             <button
               className="secondary-button"
-              style={{ padding: "6px 10px", fontSize: "12px" }}
+              style={{ padding: "6px 12px", fontSize: "11.5px" }}
               onClick={() => setSortDir(sortDir === "desc" ? "asc" : "desc")}
-              title="Toggle Sort Direction"
             >
               {sortDir.toUpperCase()}
             </button>
@@ -296,7 +282,7 @@ export default function ProductsPage() {
       </div>
 
       {/* Products Table */}
-      <div className="panel-card" style={{ padding: "0", overflow: "hidden" }}>
+      <div className="panel-card" style={{ padding: 0, overflow: "hidden" }}>
         <div
           style={{
             padding: "16px 20px",
@@ -311,15 +297,14 @@ export default function ProductsPage() {
               Merchandise Catalog Records
             </h3>
             <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-              Showing {products.length > 0 ? page * pageSize + 1 : 0} -{" "}
+              Showing {products.length > 0 ? page * pageSize + 1 : 0} –{" "}
               {Math.min((page + 1) * pageSize, totalElements)} of {totalElements.toLocaleString()} SKUs
             </span>
           </div>
 
-          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <div className="pagination-controls">
             <button
-              className="secondary-button"
-              style={{ padding: "5px 9px", fontSize: "11.5px" }}
+              className="pagination-btn"
               disabled={page === 0 || loading}
               onClick={() => setPage((p) => Math.max(p - 1, 0))}
             >
@@ -327,11 +312,10 @@ export default function ProductsPage() {
               <span>Prev</span>
             </button>
             <span style={{ fontSize: "12px", color: "var(--text-muted)", fontWeight: "600", padding: "0 4px" }}>
-              Page {page + 1} / {totalPages}
+              Page {page + 1} / {Math.max(1, totalPages)}
             </span>
             <button
-              className="secondary-button"
-              style={{ padding: "5px 9px", fontSize: "11.5px" }}
+              className="pagination-btn"
               disabled={page >= totalPages - 1 || loading}
               onClick={() => setPage((p) => p + 1)}
             >
@@ -343,27 +327,26 @@ export default function ProductsPage() {
 
         {loading ? (
           <div style={{ padding: "60px 20px", textAlign: "center", color: "var(--text-muted)" }}>
-            <div className="meta-dot online" style={{ display: "inline-block", marginRight: "8px" }} />
-            Loading catalog records from data repository...
+            Loading catalog records...
           </div>
         ) : products.length === 0 ? (
           <div style={{ padding: "60px 20px", textAlign: "center", color: "var(--text-muted)" }}>
             No products matched the search criteria.
           </div>
         ) : (
-          <div className="data-table-container">
-            <table className="data-table">
+          <div className="table-responsive-container" style={{ border: "none", borderRadius: 0 }}>
+            <table className="enterprise-data-table">
               <thead>
                 <tr>
-                  <th style={{ width: "110px" }}>StockCode</th>
+                  <th>StockCode</th>
                   <th>Product Description</th>
-                  <th style={{ width: "160px" }}>Category</th>
-                  <th style={{ width: "100px", textAlign: "right" }}>Avg Price</th>
-                  <th style={{ width: "110px", textAlign: "right" }}>Units Sold</th>
-                  <th style={{ width: "130px", textAlign: "right" }}>Total Revenue</th>
-                  <th style={{ width: "90px", textAlign: "right" }}>Orders</th>
-                  <th style={{ width: "130px", textAlign: "right" }}>Return Risk</th>
-                  <th style={{ width: "70px", textAlign: "center" }}>Action</th>
+                  <th>Category</th>
+                  <th style={{ textAlign: "right" }}>Avg Price</th>
+                  <th style={{ textAlign: "right" }}>Units Sold</th>
+                  <th style={{ textAlign: "right" }}>Total Revenue</th>
+                  <th style={{ textAlign: "right" }}>Orders</th>
+                  <th>Return Risk</th>
+                  <th>Inspect</th>
                 </tr>
               </thead>
               <tbody>
@@ -376,91 +359,51 @@ export default function ProductsPage() {
                       onClick={() => setSelectedProduct(p)}
                     >
                       <td>
-                        <span
-                          style={{
-                            fontFamily: "var(--font-mono)",
-                            fontSize: "12px",
-                            fontWeight: "700",
-                            color: "var(--primary)",
-                            background: "var(--bg-elevated)",
-                            padding: "3px 7px",
-                            borderRadius: "4px",
-                            border: "1px solid var(--border-color)",
-                          }}
-                        >
-                          {p.stockCode}
-                        </span>
+                        <span className="code-identifier">{p.stockCode}</span>
+                      </td>
+                      <td style={{ maxWidth: "320px", overflow: "hidden", textOverflow: "ellipsis" }}>
+                        <strong style={{ color: "var(--text-main)" }}>{p.description}</strong>
                       </td>
                       <td>
-                        <div style={{ fontWeight: "600", color: "var(--text-main)" }}>
-                          {p.description}
-                        </div>
-                      </td>
-                      <td>
-                        <span className="badge-tag info">
-                          {p.category}
-                        </span>
-                      </td>
-                      <td style={{ textAlign: "right", fontFamily: "var(--font-mono)" }}>
-                        ₹{p.avgPrice?.toFixed(2)}
-                      </td>
-                      <td style={{ textAlign: "right", fontFamily: "var(--font-mono)", fontWeight: "600" }}>
-                        {p.unitsSold?.toLocaleString()}
-                      </td>
-                      <td
-                        style={{
-                          textAlign: "right",
-                          fontFamily: "var(--font-mono)",
-                          fontWeight: "700",
-                          color: "var(--success)",
-                        }}
-                      >
-                        {currFmt.format(p.totalRevenue)}
-                      </td>
-                      <td style={{ textAlign: "right", fontFamily: "var(--font-mono)" }}>
-                        {p.orderCount?.toLocaleString()}
+                        <span className="badge-tag info">{p.category}</span>
                       </td>
                       <td style={{ textAlign: "right" }}>
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "6px" }}>
-                          <span
-                            style={{
-                              fontSize: "11px",
-                              fontFamily: "var(--font-mono)",
-                              fontWeight: "700",
-                              color: getRiskColor(p.cancellationRate),
-                            }}
-                          >
+                        <span className="currency-num">₹{p.avgPrice?.toFixed(2)}</span>
+                      </td>
+                      <td style={{ textAlign: "right" }}>
+                        <span className="currency-num">{p.unitsSold?.toLocaleString()}</span>
+                      </td>
+                      <td style={{ textAlign: "right", color: "var(--success)" }}>
+                        <span className="currency-num">{currFmt.format(p.totalRevenue)}</span>
+                      </td>
+                      <td style={{ textAlign: "right" }}>
+                        <span className="currency-num">{p.orderCount?.toLocaleString()}</span>
+                      </td>
+                      <td>
+                        <div className="risk-metric-cell">
+                          <span className="risk-pct-value" style={{ color: getRiskColor(p.cancellationRate) }}>
                             {retPct}%
                           </span>
-                          <div
-                            style={{
-                              width: "36px",
-                              height: "5px",
-                              borderRadius: "3px",
-                              background: "var(--bg-elevated)",
-                              overflow: "hidden",
-                            }}
-                          >
+                          <div className="risk-meter-container">
                             <div
+                              className="risk-meter-bar"
                               style={{
-                                width: `${Math.min(retPct * 3, 100)}%`,
-                                height: "100%",
-                                background: getRiskColor(p.cancellationRate),
+                                width: `${Math.min(retPct * 2.5, 100)}%`,
+                                backgroundColor: getRiskColor(p.cancellationRate),
                               }}
                             />
                           </div>
                         </div>
                       </td>
-                      <td style={{ textAlign: "center" }}>
+                      <td>
                         <button
-                          className="secondary-button"
-                          style={{ padding: "4px 8px", fontSize: "11px" }}
+                          className="dispatch-action-tag"
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedProduct(p);
                           }}
                         >
-                          View
+                          View SKU
                         </button>
                       </td>
                     </tr>
@@ -471,51 +414,21 @@ export default function ProductsPage() {
           </div>
         )}
 
-        {/* Bottom Pagination */}
-        <div
-          style={{
-            padding: "14px 20px",
-            borderTop: "1px solid var(--border-color)",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <div className="pagination-bar">
           <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-            Page {page + 1} of {totalPages} ({totalElements.toLocaleString()} total SKUs)
+            Page {page + 1} of {Math.max(1, totalPages)} ({totalElements.toLocaleString()} total SKUs)
           </span>
-
-          <div style={{ display: "flex", gap: "8px" }}>
-            <button
-              className="secondary-button"
-              disabled={page === 0 || loading}
-              onClick={() => setPage(0)}
-              style={{ padding: "4px 8px", fontSize: "11px" }}
-            >
+          <div className="pagination-controls">
+            <button className="pagination-btn" disabled={page === 0 || loading} onClick={() => setPage(0)}>
               First
             </button>
-            <button
-              className="secondary-button"
-              disabled={page === 0 || loading}
-              onClick={() => setPage((p) => Math.max(p - 1, 0))}
-              style={{ padding: "4px 8px", fontSize: "11px" }}
-            >
+            <button className="pagination-btn" disabled={page === 0 || loading} onClick={() => setPage((p) => Math.max(p - 1, 0))}>
               Prev
             </button>
-            <button
-              className="secondary-button"
-              disabled={page >= totalPages - 1 || loading}
-              onClick={() => setPage((p) => p + 1)}
-              style={{ padding: "4px 8px", fontSize: "11px" }}
-            >
+            <button className="pagination-btn" disabled={page >= totalPages - 1 || loading} onClick={() => setPage((p) => p + 1)}>
               Next
             </button>
-            <button
-              className="secondary-button"
-              disabled={page >= totalPages - 1 || loading}
-              onClick={() => setPage(totalPages - 1)}
-              style={{ padding: "4px 8px", fontSize: "11px" }}
-            >
+            <button className="pagination-btn" disabled={page >= totalPages - 1 || loading} onClick={() => setPage(totalPages - 1)}>
               Last
             </button>
           </div>
@@ -524,130 +437,63 @@ export default function ProductsPage() {
 
       {/* Product Detail Modal */}
       {selectedProduct && (
-        <div className="modal-backdrop" onClick={() => setSelectedProduct(null)}>
-          <div
-            className="modal-content"
-            style={{ maxWidth: "560px" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="modal-header">
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <div className="brand-icon-box" style={{ background: "rgba(37, 99, 235, 0.15)" }}>
-                  <Package size={18} color="var(--primary)" />
-                </div>
-                <div>
-                  <h3 style={{ margin: 0, fontSize: "16px", color: "var(--text-main)" }}>
-                    SKU {selectedProduct.stockCode}
-                  </h3>
-                  <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-                    {selectedProduct.category}
-                  </span>
-                </div>
+        <div className="dossier-overlay" onClick={() => setSelectedProduct(null)}>
+          <div className="dossier-dialog" style={{ maxWidth: "580px" }} onClick={(e) => e.stopPropagation()}>
+            <div className="dossier-header">
+              <div>
+                <span className="eyebrow-badge">SKU DIAGNOSTIC DOSSIER</span>
+                <h2>{selectedProduct.stockCode}</h2>
+                <p>{selectedProduct.description} · {selectedProduct.category}</p>
               </div>
-              <button
-                className="modal-close-btn"
-                onClick={() => setSelectedProduct(null)}
-              >
-                <X size={16} />
-              </button>
+              <button className="dossier-close-btn" onClick={() => setSelectedProduct(null)}>✕</button>
             </div>
 
-            <div className="modal-body" style={{ padding: "20px" }}>
-              <div
-                style={{
-                  padding: "14px 16px",
-                  background: "var(--bg-elevated)",
-                  borderRadius: "8px",
-                  border: "1px solid var(--border-color)",
-                  marginBottom: "16px",
-                }}
-              >
-                <span style={{ fontSize: "11px", fontWeight: "700", color: "var(--text-muted)", textTransform: "uppercase" }}>
-                  Product Title
+            <div className="dossier-grid">
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Gross Revenue</span>
+                <span className="stat-highlight" style={{ color: "var(--success)" }}>
+                  {currFmt.format(selectedProduct.totalRevenue)}
                 </span>
-                <div style={{ fontSize: "15px", fontWeight: "700", color: "var(--text-main)", marginTop: "4px" }}>
-                  {selectedProduct.description}
-                </div>
               </div>
-
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "16px" }}>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Gross Merchandise Value</span>
-                  <span className="stat-value" style={{ color: "var(--success)" }}>
-                    {currFmt.format(selectedProduct.totalRevenue)}
-                  </span>
-                </div>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Average Unit Price</span>
-                  <span className="stat-value">
-                    ₹{selectedProduct.avgPrice?.toFixed(2)}
-                  </span>
-                </div>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Total Units Sold</span>
-                  <span className="stat-value">
-                    {selectedProduct.unitsSold?.toLocaleString()}
-                  </span>
-                </div>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Units Returned / Cancelled</span>
-                  <span className="stat-value" style={{ color: "var(--danger)" }}>
-                    {selectedProduct.unitsCancelled?.toLocaleString()}
-                  </span>
-                </div>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Total Distinct Orders</span>
-                  <span className="stat-value">
-                    {selectedProduct.orderCount?.toLocaleString()}
-                  </span>
-                </div>
-                <div className="dossier-stat-item">
-                  <span className="stat-label">Purchasing Accounts</span>
-                  <span className="stat-value">
-                    {selectedProduct.customerCount?.toLocaleString()} Customers
-                  </span>
-                </div>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Avg Unit Price</span>
+                <span className="stat-highlight">₹{selectedProduct.avgPrice?.toFixed(2)}</span>
               </div>
-
-              <div
-                style={{
-                  padding: "12px 16px",
-                  background: "rgba(37, 99, 235, 0.08)",
-                  borderRadius: "8px",
-                  border: "1px solid rgba(37, 99, 235, 0.2)",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <div>
-                  <div style={{ fontSize: "12px", fontWeight: "700", color: "var(--text-main)" }}>
-                    Cancellation / Return Rate
-                  </div>
-                  <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>
-                    {selectedProduct.cancelCount} returns across {selectedProduct.orderCount} settled invoices
-                  </div>
-                </div>
-                <span
-                  style={{
-                    fontSize: "16px",
-                    fontFamily: "var(--font-mono)",
-                    fontWeight: "800",
-                    color: getRiskColor(selectedProduct.cancellationRate),
-                  }}
-                >
-                  {Math.round((selectedProduct.cancellationRate || 0) * 1000) / 10}%
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Units Sold</span>
+                <span className="stat-highlight">{selectedProduct.unitsSold?.toLocaleString()}</span>
+              </div>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Units Returned</span>
+                <span className="stat-highlight" style={{ color: "var(--danger)" }}>
+                  {selectedProduct.unitsCancelled?.toLocaleString()}
                 </span>
+              </div>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Settled Orders</span>
+                <span className="stat-highlight">{selectedProduct.orderCount?.toLocaleString()}</span>
+              </div>
+              <div className="dossier-stat">
+                <span className="stat-sublabel">Unique Buyers</span>
+                <span className="stat-highlight">{selectedProduct.customerCount?.toLocaleString()}</span>
               </div>
             </div>
 
-            <div className="modal-footer" style={{ justifyContent: "flex-end" }}>
-              <button
-                className="secondary-button"
-                onClick={() => setSelectedProduct(null)}
-              >
-                Close
-              </button>
+            <div className="dossier-action-section">
+              <div className="action-rule-header">
+                <strong>Return &amp; Quality Risk Evaluation</strong>
+                <span style={{ color: getRiskColor(selectedProduct.cancellationRate), fontWeight: "700" }}>
+                  {Math.round((selectedProduct.cancellationRate || 0) * 1000) / 10}% Cancellation Rate
+                </span>
+              </div>
+              <p style={{ fontSize: "12.5px", color: "var(--text-sub)" }}>
+                Recorded {selectedProduct.cancelCount} cancelled invoices vs {selectedProduct.orderCount} completed orders across {selectedProduct.customerCount} purchasing accounts.
+              </p>
+              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "14px" }}>
+                <button className="primary-button" onClick={() => setSelectedProduct(null)}>
+                  Close Dossier
+                </button>
+              </div>
             </div>
           </div>
         </div>
